@@ -4,6 +4,8 @@ import express from 'express';
 import pg from 'pg';
 import { ClientError, errorMiddleware } from './lib/index.js';
 
+const googleKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
+
 const db = new pg.Pool({
   connectionString: process.env.DATABASE_URL,
   ssl: {

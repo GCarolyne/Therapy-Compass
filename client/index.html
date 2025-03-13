@@ -8,6 +8,9 @@
   </head>
   <body>
     <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
+    <script type="module" src="/src/main.tsx">
+      google.maps.importLibrary("maps");
+      google.maps.importLibrary("marker");
+    </script>
   </body>
 </html>

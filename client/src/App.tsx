@@ -1,35 +1,29 @@
-import { useEffect, useState } from 'react';
-import reactLogo from './assets/react.svg';
-import viteLogo from '/vite.svg';
+import {
+  APIProvider,
+  Map,
+  MapCameraChangedEvent,
+} from '@vis.gl/react-google-maps';
 import './App.css';
-
+const googleKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
 export default function App() {
-  const [serverData, setServerData] = useState('');
-
-  useEffect(() => {
-    async function readServerData() {
-      const resp = await fetch('/api/hello');
-      const data = await resp.json();
-
-      console.log('Data from server:', data);
-
-      setServerData(data.message);
-    }
-
-    readServerData();
-  }, []);
-
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank" rel="noreferrer">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank" rel="noreferrer">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>{serverData}</h1>
+      <APIProvider
+        apiKey={googleKey}
+        onLoad={() => console.log('maps api has loaded')}>
+        <Map
+          defaultZoom={13}
+          defaultCenter={{ lat: -33.860664, lng: 151.208138 }}
+          onCameraChanged={(ev: MapCameraChangedEvent) =>
+            console.log(
+              'camera changed:',
+              ev.detail.center,
+              'zoom:',
+              ev.detail.zoom
+            )
+          }
+        />
+      </APIProvider>
     </>
   );
 }

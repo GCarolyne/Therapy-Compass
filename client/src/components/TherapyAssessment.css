@@ -1,0 +1,71 @@
+.therapy-assessment-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 5px;
+}
+
+select {
+  margin-top: 8px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background-color: white;
+  width: 100%;
+  font-size: 16px;
+}
+
+select[multiple] {
+  height: auto;
+  min-height: 120px;
+}
+
+option {
+  padding: 8px;
+}
+
+option:hover {
+  background-color: #f0f0f0;
+}
+
+/* Add a submit button styling (even though it's not in your HTML yet) */
+button[type='submit'] {
+  background-color: #4caf50;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-top: 10px;
+  transition: background-color 0.3s;
+}
+
+button[type='submit']:hover {
+  background-color: #45a049;
+}
+
+/* Responsive adjustments */
+@media (width <= 768px) {
+  .therapy-assessment-container {
+    padding: 15px;
+    max-width: 100%;
+  }
+}

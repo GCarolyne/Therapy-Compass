@@ -46,7 +46,7 @@ type TherapyA = {
   therapyGoals: string;
   therapyPreferences: string;
   primaryCopingStrategies: string;
-  acceptedTherapyType: string;
+  acceptedTherapyType?: string;
 };
 
 //* Test mock up user for therapy type assessment.
@@ -104,7 +104,7 @@ for (const [key, value] of Object.entries(user5)) {
   progressTest += `${key}: ${value},`;
 }
 
-//* My Therapy Assessment object for AI response
+//* My Therapy Assessment object for AI response, create assessment for therapy type css front end and then back end
 
 const TherapyRecommendation = z.object({
   Therapy: z.string(),
@@ -113,7 +113,7 @@ const TherapyRecommendation = z.object({
 
 //* My Therapy Assessment awaiting AI response
 
-app.post('/api/090', async (req, res, next) => {
+app.post('/api/', async (req, res, next) => {
   try {
     const therapyAssessmentResult = await openai.beta.chat.completions.parse({
       model: 'gpt-4o-mini',
@@ -121,7 +121,7 @@ app.post('/api/090', async (req, res, next) => {
         {
           role: 'developer',
           content:
-            'Extract users data to give back two responses one being what type of therapy they need to attend based on the assessment and a short but descriptive motivating reason why.',
+            'Extract users data to give back two responses one being what type of therapy they need to attend based on the assessment and a 2 sentence accurate reasoning of why they were recommended this therapy.',
         },
         {
           role: 'user',
@@ -144,7 +144,7 @@ const TherapyProgress = z.object({
   Score: z.number(),
 });
 
-app.post('/api/', async (req, res, next) => {
+app.post('/api/90', async (req, res, next) => {
   try {
     const progressResult = await openai.beta.chat.completions.parse({
       model: 'gpt-4o-mini',

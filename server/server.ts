@@ -167,8 +167,6 @@ app.post('/api/', async (req, res, next) => {
   }
 });
 
-//* Google maps implementations
-
 //* Querying a database for results, incomplete.
 
 app.get('/api/therapyType', async (req, res, next) => {

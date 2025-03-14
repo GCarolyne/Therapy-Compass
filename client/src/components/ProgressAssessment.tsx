@@ -302,11 +302,11 @@ export function ProgressAssessment() {
               <option value="" disabled>
                 Choose One
               </option>
-              <option value="9">Before 9:00 PM</option>
-              <option value="9-10">9:00 PM - 10:30 PM</option>
-              <option value="10-12">10:30 PM - 12:00 AM</option>
-              <option value="12-1:30">12:00 AM - 1:30 AM</option>
-              <option value="1:30">After 1:30 AM</option>
+              <option value={1}>Before 9:00 PM</option>
+              <option value={2}>9:00 PM - 10:30 PM</option>
+              <option value={3}>10:30 PM - 12:00 AM</option>
+              <option value={4}>12:00 AM - 1:30 AM</option>
+              <option value={5}>After 1:30 AM</option>
             </select>
           </label>
           <label>
@@ -315,11 +315,11 @@ export function ProgressAssessment() {
               <option value="" disabled>
                 Choose One
               </option>
-              <option value="9">Before 9:00 PM</option>
-              <option value="9:00 PM - 10:30 PM">9:00 PM - 10:30 PM</option>
-              <option value="10:30 PM - 12:00 AM">10:30 PM - 12:00 AM</option>
-              <option value="12:00 AM - 1:30 AM">12:00 AM - 1:30 AM</option>
-              <option value="After 1:30 AM ">After 1:30 AM</option>
+              <option value={1}>Before 9:00 PM</option>
+              <option value={2}>9:00 PM - 10:30 PM</option>
+              <option value={3}>10:30 PM - 12:00 AM</option>
+              <option value={4}>12:00 AM - 1:30 AM</option>
+              <option value={5}>After 1:30 AM</option>
             </select>
           </label>
           <label>
@@ -328,13 +328,70 @@ export function ProgressAssessment() {
               <option value="" disabled>
                 Choose One
               </option>
-              <option value=""></option>
-              <option value=""></option>
-              <option value=""></option>
-              <option value=""></option>
-              <option value=""></option>
+              <option value={1}>Less than 5 hours</option>
+              <option value={2}>5-6 hours</option>
+              <option value={3}>6-7 hours</option>
+              <option value={4}>7-8 hours</option>
+              <option value={5}>More than 8 hours</option>
             </select>
           </label>
+          <label>
+            How many hours did you sleep last night?
+            <select name="totalSleep">
+              <option value="" disabled>
+                Choose One
+              </option>
+              <option value={1}>Less than 5 hours</option>
+              <option value={2}>5-6 hours</option>
+              <option value={3}>6-7 hours</option>
+              <option value={4}>7-8 hours</option>
+              <option value={5}>More than 8 hours</option>
+            </select>
+          </label>
+          <label>
+            What was the quality of your sleep last night??
+            <select name="sleepQuality">
+              <option value="" disabled>
+                Choose One
+              </option>
+              <option value="Very poor">"Very poor"</option>
+              <option value="Poor">"Poor"</option>
+              <option value="Average">"Average"</option>
+              <option value="Good">"Good"</option>
+              <option value="Excellent"> "Excellent"</option>
+            </select>
+          </label>
+          <label>
+            How would you rate your dreams activity from last night?
+            <select name="dreamActivity">
+              <option value="" disabled>
+                Choose One
+              </option>
+              <option value="No dreams recalled">"No dreams recalled"</option>
+              <option value="Pleasant dreams">"Pleasant dreams"</option>
+              <option value="Neutral dreams">"Neutral dreams"</option>
+              <option value="Vivid dreams">"Vivid dreams"</option>
+              <option value="Nightmares"> "Nightmares"</option>
+            </select>
+          </label>
+          <label>
+            How did you feel this morning?
+            <select name="morningMood">
+              <option value="" disabled>
+                Choose One
+              </option>
+              <option value="Refreshed and energetic">
+                "Refreshed and energetic"
+              </option>
+              <option value="Content and calm">Content and calm</option>
+              <option value="Neutral">"Neutral"</option>
+              <option value="Irritable and fatigued">
+                "Irritable and fatigued"
+              </option>
+              <option value="numb">"numb"</option>
+            </select>
+          </label>
+          <button>Submit</button>
         </form>
       </div>
     </>

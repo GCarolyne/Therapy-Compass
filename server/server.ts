@@ -168,8 +168,40 @@ const TherapyProgress = z.object({
   Score: z.number(),
 });
 
-app.post('/api/90', async (req, res, next) => {
+app.post('/api/progressassessment', async (req, res, next) => {
   try {
+    const formData = req.body;
+    const sql = `
+    insert into "progressAssessment" ("anxietyLevel","depressionLevel","irritabilityLevel","panicAttacks","panicAttacksIntensity","typeStress","intensityStress","copingStrategy","copingStrategyManageStress","typeOfPhysicalActivity","durationOfActivity","intesityOfActivity","enjoymentLevel","moodBeforeActivity","moodAfterActivity","bedtime","wakeTime","totalSleep","sleepQuality","dreamActivity","morningMood")
+    values ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20,$21)
+    returning *`;
+
+    const params = [
+      formData.anxietyLevel,
+      formData.depressionLevel,
+      formData.irritabilityLevel,
+      formData.panicAttacks,
+      formData.panicAttacksIntensity,
+      formData.typeStress,
+      formData.intensityStress,
+      formData.copingStrategy,
+      formData.copingStrategyManageStress,
+      formData.typeOfPhysicalActivity,
+      formData.durationOfActivity,
+      formData.intesityOfActivity,
+      formData.enjoymentLevel,
+      formData.moodBeforeActivity,
+      formData.moodAfterActivity,
+      formData.bedtime,
+      formData.wakeTime,
+      formData.totalSleep,
+      formData.sleepQuality,
+      formData.dreamActivity,
+      formData.morningMood,
+    ];
+
+    const dbResult = await db.query(sql, params);
+
     const progressResult = await openai.beta.chat.completions.parse({
       model: 'gpt-4o-mini',
       messages: [
@@ -180,7 +212,7 @@ app.post('/api/90', async (req, res, next) => {
         },
         {
           role: 'user',
-          content: JSON.stringify(progressTest),
+          content: JSON.stringify(dbResult),
         },
       ],
     });

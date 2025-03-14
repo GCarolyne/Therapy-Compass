@@ -1,12 +1,28 @@
 import { FormEvent } from 'react';
 
-export default function TherapyAssessment() {
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+export function TherapyAssessment() {
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
 
     const data = Object.fromEntries(formData);
     console.log(data);
+    try {
+      const response = await fetch('/api/therapyassessment', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+      if (response.ok) {
+        alert('Assessment submitted successfully!');
+      } else {
+        alert('Error submitting assessment');
+      }
+    } catch (error) {
+      console.error('error', error);
+    }
   }
   return (
     <>
@@ -70,8 +86,38 @@ export default function TherapyAssessment() {
             </select>
           </label>
           <label>
+            Are any of these symptoms mood related?
+            <select name="severityOfDistress">
+              <option value="" disabled>
+                Choose One
+              </option>
+              <option value={1}>1</option>
+              <option value={2}>2</option>
+              <option value={3}>3</option>
+              <option value={4}>4</option>
+              <option value={5}>5</option>
+            </select>
+          </label>
+          <label>
+            Are any of these symptoms mood related?
+            <select name="anxietyRelated">
+              <option value="" disabled>
+                Choose One
+              </option>
+              <option value="Excessive worry or fear">
+                Excessive worry or fear
+              </option>
+              <option value="Physical tension or restlessness">
+                Physical tension or restlessness
+              </option>
+              <option value="Panic attacks">Panic attacks</option>
+              <option value="Avoidance behaviors">Avoidance behaviors</option>
+              <option value="Social anxiety">Social anxiety</option>
+            </select>
+          </label>
+          <label>
             Are any of these symptoms trauma related?
-            <select name="moodRelated">
+            <select name="traumaRelated">
               <option value="" disabled>
                 Choose One
               </option>
@@ -111,7 +157,7 @@ export default function TherapyAssessment() {
           </label>
           <label>
             Which one do you mostly identify with?
-            <select name="behavioralOptions">
+            <select name="behavioral">
               <option value="" disabled>
                 Choose One
               </option>
@@ -193,7 +239,7 @@ export default function TherapyAssessment() {
               <option value="Problem-solving">Problem-solving</option>
             </select>
           </label>
-          <button type="submit">Submit</button>
+          <button>Submit</button>
         </form>
       </div>
     </>

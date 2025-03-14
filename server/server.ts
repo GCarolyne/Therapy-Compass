@@ -7,6 +7,7 @@ import axios from 'axios';
 import OpenAI from 'openai';
 import { zodResponseFormat } from 'openai/helpers/zod';
 import { z } from 'zod';
+import { getRandomValues } from 'crypto';
 
 const openai = new OpenAI({
   apiKey: process.env.OPEN_API_KEY,
@@ -113,8 +114,31 @@ const TherapyRecommendation = z.object({
 
 //* My Therapy Assessment awaiting AI response
 
-app.post('/api/', async (req, res, next) => {
+app.post('/api/therapyassessment', async (req, res, next) => {
   try {
+    const formData = req.body;
+    const sql = `
+    insert into "therapyAssessment" ("currentConcerns","lengthOfSymptoms","severityOfDistress","moodRelated","anxietyRelated","traumaRelated","thinkingPatterns","behavioral","therapyGoals","therapyPreferences","primaryCopingStrategies","acceptedTherapyType")
+    values ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12)
+    returning *`;
+
+    const params = [
+      formData.currentConcerns,
+      formData.lengthOfSymptoms,
+      formData.severityOfDistress,
+      formData.moodRelated,
+      formData.anxietyRelated,
+      formData.traumaRelated,
+      formData.thinkingPatterns,
+      formData.behavioral,
+      formData.therapyGoals,
+      formData.therapyPreferences,
+      formData.acceptedTherapyType,
+      formData.primaryCopingStrategies,
+    ];
+
+    const dbResult = await db.query(sql, params);
+
     const therapyAssessmentResult = await openai.beta.chat.completions.parse({
       model: 'gpt-4o-mini',
       messages: [
@@ -125,7 +149,7 @@ app.post('/api/', async (req, res, next) => {
         },
         {
           role: 'user',
-          content: JSON.stringify(user3),
+          content: JSON.stringify(dbResult),
         },
       ],
     });

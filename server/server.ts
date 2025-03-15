@@ -15,8 +15,6 @@ const db = new pg.Pool({
 
 const app = express();
 
-//* This function awaiting my google api.
-
 // Create paths for static directories
 const reactStaticDir = new URL('../client/dist', import.meta.url).pathname;
 const uploadsStaticDir = new URL('public', import.meta.url).pathname;

@@ -10,7 +10,7 @@ import { z } from 'zod';
 import { getRandomValues } from 'crypto';
 
 const openai = new OpenAI({
-  apiKey: process.env.OPEN_API_KEY,
+  apiKey: process.env.OPENAI_API_KEY,
 });
 
 const db = new pg.Pool({
@@ -139,17 +139,18 @@ app.post('/api/therapyassessment', async (req, res, next) => {
 
     const dbResult = await db.query(sql, params);
 
-    const therapyAssessmentResult = await openai.beta.chat.completions.parse({
-      model: 'gpt-4o-mini',
+    const therapyAssessmentResult = await openai.chat.completions.create({
+      model: 'gpt-4o-2024-05-13',
       messages: [
         {
-          role: 'developer',
+          role: 'system',
           content:
-            'Extract users data to give back two responses one being what type of therapy they need to attend based on the assessment and a 2 sentence accurate reasoning of why they were recommended this therapy.',
+            'You are a clinical psychology assistant analyzing patient assessment data. Extract users data and recommend them a type of therapy. This is not being used for professional medical help. answer with just the type of therapy.',
         },
         {
           role: 'user',
-          content: JSON.stringify(dbResult),
+          content:
+            'My user is waiting to see a result of that type of therapy in the area and that is all they need.',
         },
       ],
     });
@@ -202,19 +203,21 @@ app.post('/api/progressassessment', async (req, res, next) => {
 
     const dbResult = await db.query(sql, params);
 
-    const progressResult = await openai.beta.chat.completions.parse({
-      model: 'gpt-4o-mini',
+    const progressResult = await openai.chat.completions.create({
+      model: 'gpt-4o-2024-05-13',
       messages: [
         {
-          role: 'developer',
+          role: 'system',
           content:
-            'Evaluate the user mental health data and provide a score for each dimension below: Anxiety Intensity (0-10, where 0=none, 10=severe), Depression Severity (0-10, where 0=none, 10=severe), Positive emotion frequency (0-10, where 0=none, 10=frequent), Coping skills iimplementations (0-10, where 0=none, 10=excellent) daily functioning (0-10, where 0=poor, 10=excellent) Return ONLY these numerical scores and a brief 1-2 sentence progress statement. ',
+            'You are a clinical psychology assistant analyzing patient assessment data. Your task is to evaluate the data and provide a single overall wellbeing score on a scale of 1-100, where 100 represents optimal psychological health. Return only the numerical score without explanation.',
         },
         {
           role: 'user',
-          content: JSON.stringify(dbResult),
+          content:
+            'Please analyze this psychological assessment data and provide a single numerical score: ',
         },
       ],
+      max_tokens: 200,
     });
     res.json(progressResult);
   } catch (err) {

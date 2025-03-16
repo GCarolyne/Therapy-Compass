@@ -34,11 +34,11 @@ export function ProgressAssessment() {
               <option value="" disabled>
                 Choose One
               </option>
-              <option value="no anxiety">No anxiety</option>
-              <option value="Mild anxiety ">Mild anxiety </option>
-              <option value="Moderate anxiety ">Moderate anxiety</option>
-              <option value="High anxiety">High anxiety</option>
-              <option value="Severe anxiety">Severe anxiety</option>
+              <option value="0 no anxiety">No anxiety</option>
+              <option value="1 Mild anxiety ">Mild anxiety </option>
+              <option value="2 Moderate anxiety ">Moderate anxiety</option>
+              <option value="3 High anxiety">High anxiety</option>
+              <option value="4 Severe anxiety">Severe anxiety</option>
             </select>
           </label>
           <label>
@@ -47,20 +47,20 @@ export function ProgressAssessment() {
               <option value="" disabled>
                 Choose One
               </option>
-              <option value=" I felt positive and enjoyed activities normally">
+              <option value="0 I felt positive and enjoyed activities normally">
                 I felt positive and enjoyed activities normally.
               </option>
-              <option value="Occasionally felt down but still enjoyed most activities">
+              <option value="1 Occasionally felt down but still enjoyed most activities">
                 Occasionally felt down but still enjoyed most activities.
               </option>
-              <option value=" Often felt sad and had reduced interest in activities">
+              <option value="2 Often felt sad and had reduced interest in activities">
                 Often felt sad and had reduced interest in activities.
               </option>
-              <option value="Frequently felt down and found little enjoyment in most activities">
+              <option value="3 Frequently felt down and found little enjoyment in most activities">
                 Frequently felt down and found little enjoyment in most
                 activities.
               </option>
-              <option value=" Persistent feelings of sadness and almost no enjoyment in activities">
+              <option value="4 Persistent feelings of sadness and almost no enjoyment in activities">
                 Persistent feelings of sadness and almost no enjoyment in
                 activities.
               </option>
@@ -72,26 +72,26 @@ export function ProgressAssessment() {
               <option value="" disabled>
                 Choose One
               </option>
-              <option value="I felt patient and even-tempered">
+              <option value="0 I felt patient and even-tempered">
                 I felt patient and even-tempered.
               </option>
-              <option value="Minor irritation in specific situations">
+              <option value="1 Minor irritation in specific situations">
                 Minor irritation in specific situations.
               </option>
-              <option value="Noticeably more short-tempered than usual">
+              <option value="2 Noticeably more short-tempered than usual">
                 Noticeably more short-tempered than usual.
               </option>
-              <option value="Frequently felt on edge and easily angered">
+              <option value="3 Frequently felt on edge and easily angered">
                 Frequently felt on edge and easily angered.
               </option>
-              <option value="Constant feelings of frustration and anger">
+              <option value="4 Constant feelings of frustration and anger">
                 Constant feelings of frustration and anger.
               </option>
             </select>
           </label>
           <label>
             Have you experienced any panic attacks in the past week?
-            <select name="panicAttacks">
+            <select name="4 panicAttacks">
               <option value="" disabled>
                 Choose One
               </option>
@@ -153,19 +153,19 @@ export function ProgressAssessment() {
               <option value="" disabled>
                 Choose One
               </option>
-              <option value="Mindfulness or meditation">
+              <option value="0 Mindfulness or meditation">
                 Mindfulness or meditation
               </option>
-              <option value="Physical activity or exercise">
+              <option value="1 Physical activity or exercise">
                 Physical activity or exercise
               </option>
-              <option value="Social support (talking with friends/family)">
+              <option value="2 Social support (talking with friends/family)">
                 Social support (talking with friends/family)
               </option>
-              <option value="Creative outlets (art, music, writing, etc.)">
+              <option value="3 Creative outlets (art, music, writing, etc.)">
                 Creative outlets (art, music, writing, etc.)
               </option>
-              <option value="Unhealthy(substance abuse,aggression,etc.)">
+              <option value="4 Unhealthy(substance abuse,aggression,etc.)">
                 Unhealthy(substance abuse,isolation,etc.)
               </option>
             </select>
@@ -176,20 +176,20 @@ export function ProgressAssessment() {
               <option value="" disabled>
                 Choose One
               </option>
-              <option value="Very effective - Successfully reduced stress to manageable levels">
+              <option value="0 Very effective - Successfully reduced stress to manageable levels">
                 Very effective - Successfully reduced stress to manageable
                 levels
               </option>
-              <option value="Somewhat effective - Provided notable relief">
+              <option value="1 Somewhat effective - Provided notable relief">
                 Somewhat effective - Provided notable relief
               </option>
-              <option value="Neutral - Neither helped nor made things worse">
+              <option value="2 Neutral - Neither helped nor made things worse">
                 Neutral - Neither helped nor made things worse
               </option>
-              <option value="Somewhat ineffective - Provided minimal relief">
+              <option value="3 Somewhat ineffective - Provided minimal relief">
                 Somewhat ineffective - Provided minimal relief
               </option>
-              <option value="Not effective - Did not reduce stress or made it worse">
+              <option value="4 Not effective - Did not reduce stress or made it worse">
                 Not effective - Did not reduce stress or made it worse
               </option>
             </select>
@@ -260,11 +260,13 @@ export function ProgressAssessment() {
               <option value="" disabled>
                 Choose One
               </option>
-              <option value="Did not enjoy at all">Did not enjoy at all</option>
-              <option value="Enjoyed slightly">Enjoyed slightly</option>
-              <option value="Moderately enjoyed">Moderately enjoyed</option>
-              <option value="Greatly enjoyed">Greatly enjoyed</option>
-              <option value="Extremely enjoyed and looked forward to activities">
+              <option value="5 Did not enjoy at all">
+                Did not enjoy at all
+              </option>
+              <option value="4 Enjoyed slightly">Enjoyed slightly</option>
+              <option value="3 Moderately enjoyed">Moderately enjoyed</option>
+              <option value="2 Greatly enjoyed">Greatly enjoyed</option>
+              <option value="1 Extremely enjoyed and looked forward to activities">
                 Extremely enjoyed and looked forward to activities
               </option>
             </select>

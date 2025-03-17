@@ -5,13 +5,16 @@ export function SignUp() {
     <>
       <div className="body-row">
         <div className="column-two">
-          <label>
-            UserName
-            <input type="text"></input>
-          </label>
-          <label>
-            <input type="text"></input>
-          </label>
+          <div className="form-group">
+            <label className="form-label">
+              Username:
+              <input type="text"></input>
+            </label>
+            <label className="form-label">
+              Password:
+              <input type="text"></input>
+            </label>
+          </div>
         </div>
       </div>
     </>

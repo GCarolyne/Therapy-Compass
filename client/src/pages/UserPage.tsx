@@ -1,5 +1,6 @@
 import './UserPage.css';
 export function UserPage() {
+  //state of current assessments
   return (
     <>
       <div className="body-row">

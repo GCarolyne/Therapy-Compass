@@ -11,16 +11,7 @@
   align-items: center;
 }
 
-.column-two {
-  width: 100%;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  background-color: #d5bdaf;
-}
-
+.row,
 .body-row {
   border: none;
   width: 100%;
@@ -53,6 +44,16 @@ button {
 
 button:hover {
   background-color: #3a5a80;
+}
+
+.column-two {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  background-color: #d5bdaf;
 }
 
 .people-image {

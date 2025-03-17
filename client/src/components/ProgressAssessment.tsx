@@ -1,6 +1,10 @@
 import { FormEvent } from 'react';
 
+// const ProgressContext = createContext('');
+
 export function ProgressAssessment() {
+  // const [progressData, setProgressData] = useState(null);
+
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
@@ -13,8 +17,10 @@ export function ProgressAssessment() {
         headers: {
           'Content-Type': 'application/json',
         },
+
         body: JSON.stringify(data),
       });
+
       if (response.ok) {
         alert('Progress Report submitted successfully!');
       } else {

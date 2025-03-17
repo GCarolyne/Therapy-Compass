@@ -1,12 +1,19 @@
 import './App.css';
-import { ProgressAssessment } from './components/ProgressAssessment.tsx';
-import { TherapyAssessment } from './components/TherapyAssessment.tsx';
+// import React from 'react';
+// import { Route, Routes } from 'react-router-dom';
+// import { ProgressAssessment } from './components/ProgressAssessment.tsx';
+// import { TherapyAssessment } from './components/TherapyAssessment.tsx';
+import { HomePage } from './pages/HomePage.tsx';
 
 export default function App() {
   return (
     <>
-      <TherapyAssessment />
-      <ProgressAssessment />
+      <HomePage />
+      {/* <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/" element={<TherapyAssessment />} />
+        <Route path="progress" element={<ProgressAssessment />} />
+      </Routes> */}
     </>
   );
 }

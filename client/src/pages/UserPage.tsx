@@ -9,14 +9,15 @@ export function UserPage() {
       </div>
       <div className="row">
         <div className="column-one">
-          <button>Sign In</button>
-          <button>Sign Up</button>
-          <button>Locate</button>
+          <button className="signIn">Sign In</button>
+          <button className="signUp">Sign Up</button>
+          <button className="locate">Locate</button>
         </div>
       </div>
       <div className="body-row">
         <div className="column-two">
           <p>Welcome, User name</p>
+          <div className="placeholder-chart"></div>
         </div>
       </div>
     </div>

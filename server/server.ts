@@ -154,8 +154,9 @@ app.post('/api/therapyassessment', async (req, res, next) => {
         },
       ],
     });
-
-    res.json(therapyAssessmentResult);
+    const therapyTypeResponse =
+      therapyAssessmentResult.choices[0].message.content;
+    res.json(therapyTypeResponse);
   } catch (err) {
     console.error(err);
     next(err);
@@ -219,7 +220,8 @@ app.post('/api/progressassessment', async (req, res, next) => {
       ],
       max_tokens: 200,
     });
-    res.json(progressResult);
+    const progressScore = progressResult.choices[0].message.content;
+    res.json(progressScore);
   } catch (err) {
     console.error(err);
     next(err);

@@ -152,7 +152,7 @@ app.post('/api/therapyassessment', async (req, res, next) => {
         {
           role: 'user',
           content:
-            'My user is waiting to see a result of that type of therapy in the area and that is all they need.',
+            'My user is waiting to see a result of that type of therapy that is all they need.',
         },
       ],
     });

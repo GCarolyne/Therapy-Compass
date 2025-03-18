@@ -91,15 +91,15 @@ export function ProgressAssessment() {
           </label>
           <label>
             Have you experienced any panic attacks in the past week?
-            <select name="4 panicAttacks">
+            <select name="panicAttacks">
               <option value="" disabled>
                 Choose One
               </option>
-              <option value={1}>No panic attacks</option>
-              <option value={2}>One mild panic attack</option>
-              <option value={3}>2-3 panic attacks</option>
-              <option value={4}>4-5 panic attacks</option>
-              <option value={5}>More than 5 panic attacks</option>
+              <option value="1">No panic attacks</option>
+              <option value="2">One mild panic attack</option>
+              <option value="3">2-3 panic attacks</option>
+              <option value="4">4-5 panic attacks</option>
+              <option value="5">More than 5 panic attacks</option>
             </select>
           </label>
           <label>
@@ -108,11 +108,11 @@ export function ProgressAssessment() {
               <option value="" disabled>
                 Choose One
               </option>
-              <option value={1}>Not applicable</option>
-              <option value={2}>Mild</option>
-              <option value={3}>Moderate</option>
-              <option value={4}>Severe</option>
-              <option value={5}>Extreme</option>
+              <option value="1">Not applicable</option>
+              <option value="2">Mild</option>
+              <option value="3">Moderate</option>
+              <option value="4">Severe</option>
+              <option value="5">Extreme</option>
             </select>
           </label>
           <label>
@@ -121,11 +121,11 @@ export function ProgressAssessment() {
               <option value="" disabled>
                 Choose One
               </option>
-              <option value={1}>Work or academic stress</option>
-              <option value={2}>Relationship or social stress</option>
-              <option value={3}>Financial stress</option>
-              <option value={4}>Health-related stress</option>
-              <option value={5}>Environmental factors</option>
+              <option value="1">Work or academic stress</option>
+              <option value="2">Relationship or social stress</option>
+              <option value="3">Financial stress</option>
+              <option value="4">Health-related stress</option>
+              <option value="5">Environmental factors</option>
             </select>
           </label>
           <label>
@@ -134,15 +134,15 @@ export function ProgressAssessment() {
               <option value="" disabled>
                 Choose One
               </option>
-              <option value={1}>Felt relaxed most of the time</option>
-              <option value={2}>Noticeable but easily managed</option>
-              <option value={3}>
+              <option value="1">Felt relaxed most of the time</option>
+              <option value="2">Noticeable but easily managed</option>
+              <option value="3">
                 Definitely felt pressure but still functioning well
               </option>
-              <option value={4}>
+              <option value="4">
                 Difficult to manage and affecting multiple areas of life
               </option>
-              <option value={5}>
+              <option value="5">
                 Overwhelming and significantly impairing daily functioning
               </option>
             </select>
@@ -304,11 +304,11 @@ export function ProgressAssessment() {
               <option value="" disabled>
                 Choose One
               </option>
-              <option value={1}>Before 9:00 PM</option>
-              <option value={2}>9:00 PM - 10:30 PM</option>
-              <option value={3}>10:30 PM - 12:00 AM</option>
-              <option value={4}>12:00 AM - 1:30 AM</option>
-              <option value={5}>After 1:30 AM</option>
+              <option value="1">Before 9:00 PM</option>
+              <option value="2">9:00 PM - 10:30 PM</option>
+              <option value="3">10:30 PM - 12:00 AM</option>
+              <option value="4">12:00 AM - 1:30 AM</option>
+              <option value="5">After 1:30 AM</option>
             </select>
           </label>
           <label>
@@ -317,11 +317,11 @@ export function ProgressAssessment() {
               <option value="" disabled>
                 Choose One
               </option>
-              <option value={1}>Before 9:00 PM</option>
-              <option value={2}>9:00 PM - 10:30 PM</option>
-              <option value={3}>10:30 PM - 12:00 AM</option>
-              <option value={4}>12:00 AM - 1:30 AM</option>
-              <option value={5}>After 1:30 AM</option>
+              <option value="1">Before 6:00 AM</option>
+              <option value="2">6:00 AM - 7:30 AM</option>
+              <option value="3">7:30 AM - 9:00 AM</option>
+              <option value="4">9:00 AM - 10:30 AM</option>
+              <option value="5">After 10:30 AM</option>
             </select>
           </label>
           <label>
@@ -330,37 +330,37 @@ export function ProgressAssessment() {
               <option value="" disabled>
                 Choose One
               </option>
-              <option value={1}>Less than 5 hours</option>
-              <option value={2}>5-6 hours</option>
-              <option value={3}>6-7 hours</option>
-              <option value={4}>7-8 hours</option>
-              <option value={5}>More than 8 hours</option>
+              <option value="1">Less than 5 hours</option>
+              <option value="2">5-6 hours</option>
+              <option value="3">6-7 hours</option>
+              <option value="4">7-8 hours</option>
+              <option value="5">More than 8 hours</option>
             </select>
           </label>
           <label>
             How many hours did you sleep last night?
-            <select name="totalSleep">
+            <select name="lastNightSleep">
               <option value="" disabled>
                 Choose One
               </option>
-              <option value={1}>Less than 5 hours</option>
-              <option value={2}>5-6 hours</option>
-              <option value={3}>6-7 hours</option>
-              <option value={4}>7-8 hours</option>
-              <option value={5}>More than 8 hours</option>
+              <option value="1">Less than 5 hours</option>
+              <option value="2">5-6 hours</option>
+              <option value="3">6-7 hours</option>
+              <option value="4">7-8 hours</option>
+              <option value="5">More than 8 hours</option>
             </select>
           </label>
           <label>
-            What was the quality of your sleep last night??
+            What was the quality of your sleep last night?
             <select name="sleepQuality">
               <option value="" disabled>
                 Choose One
               </option>
-              <option value="Very poor">"Very poor"</option>
-              <option value="Poor">"Poor"</option>
-              <option value="Average">"Average"</option>
-              <option value="Good">"Good"</option>
-              <option value="Excellent"> "Excellent"</option>
+              <option value="Very poor">Very poor</option>
+              <option value="Poor">Poor</option>
+              <option value="Average">Average</option>
+              <option value="Good">Good</option>
+              <option value="Excellent">Excellent</option>
             </select>
           </label>
           <label>
@@ -369,11 +369,11 @@ export function ProgressAssessment() {
               <option value="" disabled>
                 Choose One
               </option>
-              <option value="No dreams recalled">"No dreams recalled"</option>
-              <option value="Pleasant dreams">"Pleasant dreams"</option>
-              <option value="Neutral dreams">"Neutral dreams"</option>
-              <option value="Vivid dreams">"Vivid dreams"</option>
-              <option value="Nightmares"> "Nightmares"</option>
+              <option value="No dreams recalled">No dreams recalled</option>
+              <option value="Pleasant dreams">Pleasant dreams</option>
+              <option value="Neutral dreams">Neutral dreams</option>
+              <option value="Vivid dreams">Vivid dreams</option>
+              <option value="Nightmares">Nightmares</option>
             </select>
           </label>
           <label>
@@ -383,14 +383,14 @@ export function ProgressAssessment() {
                 Choose One
               </option>
               <option value="Refreshed and energetic">
-                "Refreshed and energetic"
+                Refreshed and energetic
               </option>
               <option value="Content and calm">Content and calm</option>
-              <option value="Neutral">"Neutral"</option>
+              <option value="Neutral">Neutral</option>
               <option value="Irritable and fatigued">
-                "Irritable and fatigued"
+                Irritable and fatigued
               </option>
-              <option value="numb">"numb"</option>
+              <option value="numb">Numb</option>
             </select>
           </label>
           <button>Submit</button>

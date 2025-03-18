@@ -12,7 +12,7 @@ import { useCallback, useState } from 'react';
 const googleKey = 'AIzaSyARuBpdKXTThVYYvqqQrnFn1xx9q - IanPY';
 
 export function GoogleMap() {
-  // const placesLibrary = useMapsLibrary('places');
+  const { marker, refCallback } = useAdvancedMarkerRef();
   const [isOpen, setIsOpen] = useState(false);
 
   function useAdvancedMarkerRef() {
@@ -24,7 +24,6 @@ export function GoogleMap() {
     }, []);
     return { marker, refCallback };
   }
-  const markerRef = useAdvancedMarkerRef();
 
   const handleMarkerClick = () => {
     setIsOpen(true);
@@ -41,19 +40,17 @@ export function GoogleMap() {
           disableDefaultUI={true}
           mapId="DEMO_MAP_ID">
           <AdvancedMarker
+            ref={refCallback}
             onClick={handleMarkerClick}
             position={{ lat: 33.795, lng: -117.82 }}
-            anchorPoint={AdvancedMarkerAnchorPoint.TOP_LEFT}>
-            <Pin>
-              {isOpen && (
-                <InfoWindow
-                  anchor={markerRef}
-                  onCloseClick={() => setIsOpen(false)}>
-                  Info
-                </InfoWindow>
-              )}
-            </Pin>
-          </AdvancedMarker>
+            anchorPoint={AdvancedMarkerAnchorPoint.TOP_LEFT}></AdvancedMarker>
+          <Pin>
+            {isOpen && (
+              <InfoWindow anchor={marker} onCloseClick={() => setIsOpen(false)}>
+                Info
+              </InfoWindow>
+            )}
+          </Pin>
         </Map>
       </APIProvider>
     </>

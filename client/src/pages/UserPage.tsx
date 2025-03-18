@@ -11,6 +11,10 @@ export function UserPage() {
     modal.current?.showModal();
     setIsOpen(true);
   }
+  function closeModal() {
+    modal.current?.close();
+    setIsOpen(false);
+  }
 
   return (
     <>
@@ -26,7 +30,7 @@ export function UserPage() {
             onClose={() => {
               if (isOpen) setIsOpen(false);
             }}>
-            <ProgressAssessment />
+            <ProgressAssessment onClose={closeModal} />
           </Modal>
         </div>
       </div>

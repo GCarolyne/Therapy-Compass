@@ -12,7 +12,7 @@ export function Header() {
             alt="Therapy Logo"
           />
           <div className="nav-links">
-            <Link to="/Signin">
+            <Link to="/userpage">
               <button>Sign In</button>
             </Link>
             <Link to="/Signup">

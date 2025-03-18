@@ -1,15 +1,25 @@
 import { useRef, useState } from 'react';
 import './UserPage.css';
-import { Modal } from '../components/Modal';
+
 import { ProgressAssessment } from '../components/ProgressAssessment';
+import { Modal } from '../components/Modal';
 
 export function UserPage() {
   const [isOpen, setIsOpen] = useState(true);
+  // const [progress, setProgress] = useState();
   const modal = useRef<HTMLDialogElement>(null);
+
+  // function handleSuccess(response: SetStateAction<undefined>) {
+  //   // setProgress(response);
+  // }
 
   function openModal() {
     modal.current?.showModal();
     setIsOpen(true);
+  }
+  function closeModal() {
+    modal.current?.close();
+    setIsOpen(false);
   }
 
   return (
@@ -21,13 +31,18 @@ export function UserPage() {
           <button type="submit" onClick={openModal}>
             Assign report
           </button>
-          <Modal
-            isOpen={isOpen}
-            onClose={() => {
-              if (isOpen) setIsOpen(false);
-            }}>
-            <ProgressAssessment />
-          </Modal>
+          {isOpen && (
+            <Modal
+              isOpen={isOpen}
+              onClose={() => {
+                if (isOpen) setIsOpen(false);
+              }}>
+              <ProgressAssessment
+                onClose={closeModal}
+                onSubmitSuccess={console.log}
+              />
+            </Modal>
+          )}
         </div>
       </div>
     </>

@@ -1,10 +1,12 @@
 import { FormEvent } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 type Props = {
   onClose: () => void;
 };
 
 export function ProgressAssessment({ onClose }: Props) {
+  const navigate = useNavigate();
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
@@ -27,6 +29,10 @@ export function ProgressAssessment({ onClose }: Props) {
     } catch (error) {
       console.error('error', error);
     }
+  }
+  function handleScoreSubmit() {
+    alert(`Thank you, we added your new score to your progress chart!`);
+    navigate('/api/userpage');
   }
 
   return (
@@ -693,7 +699,10 @@ export function ProgressAssessment({ onClose }: Props) {
           </div>
 
           <div className="button-container">
-            <button onClick={onClose} className="submit-button">
+            <button
+              onClick={onClose}
+              onSubmit={handleScoreSubmit}
+              className="submit-button">
               Submit
             </button>
           </div>

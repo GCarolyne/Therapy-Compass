@@ -166,7 +166,7 @@ app.post('/api/therapyassessment', async (req, res, next) => {
 
 //* Client progress tracking assessment object and async function.
 
-const TherapyProgress = z.object({
+export const TherapyProgress = z.object({
   ProgressStatement: z.string(),
   Score: z.number(),
 });

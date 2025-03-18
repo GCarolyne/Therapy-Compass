@@ -13,6 +13,8 @@ const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
 
+const googleKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
+
 const db = new pg.Pool({
   connectionString: process.env.DATABASE_URL,
   ssl: {
@@ -150,7 +152,7 @@ app.post('/api/therapyassessment', async (req, res, next) => {
         {
           role: 'user',
           content:
-            'My user is waiting to see a result of that type of therapy in the area and that is all they need.',
+            'My user is waiting to see a result of that type of therapy that is all they need.',
         },
       ],
     });

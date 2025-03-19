@@ -52,7 +52,9 @@ export function ProgressAssessment({ onClose, onSubmitSuccess }: Props) {
         alert(`Thank you, we added your new score to your progress chart!`);
         const json = await response.json();
         onSubmitSuccess(json);
-        navigate('/userpage');
+        setTimeout(() => {
+          navigate('/userpage');
+        }, 1000);
         onClose();
       } else {
         alert('Error submitting progress report');

@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import './SignIn.css';
 
 export function SignIn() {
@@ -14,6 +15,9 @@ export function SignIn() {
               Password:
               <input type="text"></input>
             </label>
+            <Link to="/userpage">
+              <button>Sign In</button>
+            </Link>
           </div>
         </div>
       </div>

@@ -12,10 +12,10 @@ export default function App() {
     <Routes>
       <Route path="/" element={<Header />}>
         <Route index element={<HomePage />} />
-        <Route path="userpage" element={<UserPage />} />
-        <Route path="signin" element={<SignIn />} />
-        <Route path="locate" element={<GoogleMap />} />
+        <Route path="/signin" element={<SignIn />} />
+        <Route path="/locate" element={<GoogleMap />} />
       </Route>
+      <Route path="/userpage" element={<UserPage />} />
     </Routes>
   );
 }

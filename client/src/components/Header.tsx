@@ -6,17 +6,16 @@ export function Header() {
     <>
       <div className="row">
         <div className="column-one">
-          <img
-            src="/public/TherapyLogo.png"
-            className="logo"
-            alt="Therapy Logo"
-          />
+          <Link to="/">
+            <img
+              src="/public/TherapyLogo.png"
+              className="logo"
+              alt="Therapy Logo"
+            />
+          </Link>
           <div className="nav-links">
-            <Link to="/userpage">
+            <Link to="/signIn">
               <button>Sign In</button>
-            </Link>
-            <Link to="/Signup">
-              <button>Sign Up</button>
             </Link>
             <Link to="/Locate">
               <button>Locate</button>

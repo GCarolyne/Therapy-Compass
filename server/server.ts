@@ -175,8 +175,30 @@ app.post('/api/progressassessment', async (req, res, next) => {
   try {
     const formData = req.body;
     if (!formData.date) {
-      formData.date = new Date().toISOString().split('T')[0]; // YYYY-MM-DD format
+      formData.date = new Date().toISOString();
     }
+    const progressResult = await openai.chat.completions.create({
+      model: 'gpt-4o-2024-05-13',
+      messages: [
+        {
+          role: 'system',
+          content: `You are a clinical psychology assistant analyzing patient assessment data.
+    Your task is to evaluate the data and provide a single overall progress score on a scale of 1-100,
+    where 100 represents optimal psychological health. You must respond with ONLY a single integer
+    between 1 and 100, with no explanation, commentary, or additional text.`,
+        },
+        {
+          role: 'user',
+          content: `Analyze the following mental health assessment data and return ONLY a single numeric progress score
+    between 1-100 that can be directly used in a chart visualization.
+    ${JSON.stringify(formData)}`,
+        },
+      ],
+      max_tokens: 200,
+    });
+
+    const aiResponse = progressResult.choices[0].message.content;
+
     const sql = `
     insert into "progressAssessment" ("anxietyLevel","depressionLevel","irritabilityLevel","panicAttacks","panicAttacksIntensity","typeStress","intensityStress","copingStrategy","copingStrategyManageStress","typeOfPhysicalActivity","durationOfActivity","intesityOfActivity","enjoymentLevel","moodBeforeActivity","moodAfterActivity","bedtime","wakeTime","totalSleep","sleepQuality","dreamActivity","morningMood","progressScore","date")
     values ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20,$21,$22,$23)
@@ -204,30 +226,12 @@ app.post('/api/progressassessment', async (req, res, next) => {
       formData.sleepQuality,
       formData.dreamActivity,
       formData.morningMood,
-      formData.progressScore,
+      aiResponse,
       formData.date,
     ];
-
     const dbResult = await db.query(sql, params);
 
-    const progressResult = await openai.chat.completions.create({
-      model: 'gpt-4o-2024-05-13',
-      messages: [
-        {
-          role: 'system',
-          content:
-            'You are a clinical psychology assistant analyzing patient assessment data. Your task is to evaluate the data and provide a single overall wellbeing score on a scale of 1-100, where 100 represents optimal psychological health. Return labels a key value pairs and a numerical score to track the progressScore.',
-        },
-        {
-          role: 'user',
-          content:
-            'Please analyze this psychological assessment data and return labels that will be key value pairs to the ultimate score returned',
-        },
-      ],
-      max_tokens: 200,
-    });
-
-    res.json(progressResult);
+    res.json(dbResult.rows[0]);
   } catch (err) {
     console.error(err);
     next(err);
@@ -244,7 +248,7 @@ app.get('/api/progressassessment', async (req, res, next) => {
     `;
     const response = await db.query(sql);
     if (!response) throw new Error('response failed');
-    res.json(response);
+    res.json(response.rows);
   } catch (err) {
     next(err);
   }

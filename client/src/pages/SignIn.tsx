@@ -1,6 +1,7 @@
-import './SignUp.css';
+import { Link } from 'react-router-dom';
+import './SignIn.css';
 
-export function SignUp() {
+export function SignIn() {
   return (
     <>
       <div className="body-row">
@@ -14,6 +15,9 @@ export function SignUp() {
               Password:
               <input type="text"></input>
             </label>
+            <Link to="/userpage">
+              <button>Sign In</button>
+            </Link>
           </div>
         </div>
       </div>

@@ -78,19 +78,19 @@ export function ProgressAssessment({ onClose, onSubmitSuccess }: Props) {
                   <option value="" disabled className="select-option">
                     Choose One
                   </option>
-                  <option value="0 no anxiety" className="select-option">
+                  <option value="0" className="select-option">
                     No anxiety
                   </option>
-                  <option value="1 Mild anxiety" className="select-option">
+                  <option value="1" className="select-option">
                     Mild anxiety
                   </option>
-                  <option value="2 Moderate anxiety" className="select-option">
+                  <option value="2" className="select-option">
                     Moderate anxiety
                   </option>
-                  <option value="3 High anxiety" className="select-option">
+                  <option value="3" className="select-option">
                     High anxiety
                   </option>
-                  <option value="4 Severe anxiety" className="select-option">
+                  <option value="4" className="select-option">
                     Severe anxiety
                   </option>
                 </select>
@@ -156,30 +156,20 @@ export function ProgressAssessment({ onClose, onSubmitSuccess }: Props) {
                   <option value="" disabled className="select-option">
                     Choose One
                   </option>
-                  <option
-                    value="0 I felt positive and enjoyed activities normally"
-                    className="select-option">
+                  <option value="0" className="select-option">
                     I felt positive and enjoyed activities normally.
                   </option>
-                  <option
-                    value="1 Occasionally felt down but still enjoyed most activities"
-                    className="select-option">
+                  <option value="1" className="select-option">
                     Occasionally felt down but still enjoyed most activities.
                   </option>
-                  <option
-                    value="2 Often felt sad and had reduced interest in activities"
-                    className="select-option">
+                  <option value="2" className="select-option">
                     Often felt sad and had reduced interest in activities.
                   </option>
-                  <option
-                    value="3 Frequently felt down and found little enjoyment in most activities"
-                    className="select-option">
+                  <option value="3" className="select-option">
                     Frequently felt down and found little enjoyment in most
                     activities.
                   </option>
-                  <option
-                    value="4 Persistent feelings of sadness and almost no enjoyment in activities"
-                    className="select-option">
+                  <option value="4" className="select-option">
                     Persistent feelings of sadness and almost no enjoyment in
                     activities.
                   </option>
@@ -192,29 +182,19 @@ export function ProgressAssessment({ onClose, onSubmitSuccess }: Props) {
                   <option value="" disabled className="select-option">
                     Choose One
                   </option>
-                  <option
-                    value="0 I felt patient and even-tempered"
-                    className="select-option">
+                  <option value="0" className="select-option">
                     I felt patient and even-tempered.
                   </option>
-                  <option
-                    value="1 Minor irritation in specific situations"
-                    className="select-option">
+                  <option value="1" className="select-option">
                     Minor irritation in specific situations.
                   </option>
-                  <option
-                    value="2 Noticeably more short-tempered than usual"
-                    className="select-option">
+                  <option value="2" className="select-option">
                     Noticeably more short-tempered than usual.
                   </option>
-                  <option
-                    value="3 Frequently felt on edge and easily angered"
-                    className="select-option">
+                  <option value="3" className="select-option">
                     Frequently felt on edge and easily angered.
                   </option>
-                  <option
-                    value="4 Constant feelings of frustration and anger"
-                    className="select-option">
+                  <option value="4" className="select-option">
                     Constant feelings of frustration and anger.
                   </option>
                 </select>
@@ -287,29 +267,19 @@ export function ProgressAssessment({ onClose, onSubmitSuccess }: Props) {
                   <option value="" disabled className="select-option">
                     Choose One
                   </option>
-                  <option
-                    value="0 Mindfulness or meditation"
-                    className="select-option">
+                  <option value="0" className="select-option">
                     Mindfulness or meditation
                   </option>
-                  <option
-                    value="1 Physical activity or exercise"
-                    className="select-option">
+                  <option value="1" className="select-option">
                     Physical activity or exercise
                   </option>
-                  <option
-                    value="2 Social support (talking with friends/family)"
-                    className="select-option">
+                  <option value="2" className="select-option">
                     Social support (talking with friends/family)
                   </option>
-                  <option
-                    value="3 Creative outlets (art, music, writing, etc.)"
-                    className="select-option">
+                  <option value="3" className="select-option">
                     Creative outlets (art, music, writing, etc.)
                   </option>
-                  <option
-                    value="4 Unhealthy(substance abuse,aggression,etc.)"
-                    className="select-option">
+                  <option value="4" className="select-option">
                     Unhealthy(substance abuse,isolation,etc.)
                   </option>
                 </select>
@@ -324,30 +294,20 @@ export function ProgressAssessment({ onClose, onSubmitSuccess }: Props) {
                   <option value="" disabled className="select-option">
                     Choose One
                   </option>
-                  <option
-                    value="0 Very effective - Successfully reduced stress to manageable levels"
-                    className="select-option">
+                  <option value="0" className="select-option">
                     Very effective - Successfully reduced stress to manageable
                     levels
                   </option>
-                  <option
-                    value="1 Somewhat effective - Provided notable relief"
-                    className="select-option">
+                  <option value="1" className="select-option">
                     Somewhat effective - Provided notable relief
                   </option>
-                  <option
-                    value="2 Neutral - Neither helped nor made things worse"
-                    className="select-option">
+                  <option value="2" className="select-option">
                     Neutral - Neither helped nor made things worse
                   </option>
-                  <option
-                    value="3 Somewhat ineffective - Provided minimal relief"
-                    className="select-option">
+                  <option value="3" className="select-option">
                     Somewhat ineffective - Provided minimal relief
                   </option>
-                  <option
-                    value="4 Not effective - Did not reduce stress or made it worse"
-                    className="select-option">
+                  <option value="4" className="select-option">
                     Not effective - Did not reduce stress or made it worse
                   </option>
                 </select>
@@ -366,29 +326,19 @@ export function ProgressAssessment({ onClose, onSubmitSuccess }: Props) {
                   <option value="" disabled className="select-option">
                     Choose One
                   </option>
-                  <option
-                    value="Cardiovascular exercise (walking, running, cycling, etc.)"
-                    className="select-option">
+                  <option value="0" className="select-option">
                     Cardiovascular exercise (walking, running, cycling, etc.)
                   </option>
-                  <option
-                    value="Strength training or resistance exercises"
-                    className="select-option">
+                  <option value="1" className="select-option">
                     Strength training or resistance exercises
                   </option>
-                  <option
-                    value="Flexibility exercises (yoga, stretching, etc.)"
-                    className="select-option">
+                  <option value="2" className="select-option">
                     Flexibility exercises (yoga, stretching, etc.)
                   </option>
-                  <option
-                    value="Sports or recreational activities"
-                    className="select-option">
+                  <option value="3" className="select-option">
                     Sports or recreational activities
                   </option>
-                  <option
-                    value="No significant physical activity"
-                    className="select-option">
+                  <option value="4" className="select-option">
                     No significant physical activity
                   </option>
                 </select>
@@ -400,23 +350,19 @@ export function ProgressAssessment({ onClose, onSubmitSuccess }: Props) {
                   <option value="" disabled className="select-option">
                     Choose One
                   </option>
-                  <option
-                    value="Less than 15 minutes"
-                    className="select-option">
+                  <option value="4" className="select-option">
                     Less than 15 minutes
                   </option>
-                  <option value="15-30 minutes" className="select-option">
+                  <option value="3" className="select-option">
                     15-30 minutes
                   </option>
-                  <option value="30-45 minutes" className="select-option">
+                  <option value="2" className="select-option">
                     30-45 minutes
                   </option>
-                  <option value="45-60 minutes" className="select-option">
+                  <option value="1" className="select-option">
                     45-60 minutes
                   </option>
-                  <option
-                    value="More than 60 minutes"
-                    className="select-option">
+                  <option value="0" className="select-option">
                     More than 60 minutes
                   </option>
                 </select>
@@ -430,30 +376,20 @@ export function ProgressAssessment({ onClose, onSubmitSuccess }: Props) {
                   <option value="" disabled className="select-option">
                     Choose One
                   </option>
-                  <option
-                    value="Very light - No noticeable change in breathing or sweating"
-                    className="select-option">
+                  <option value="4" className="select-option">
                     Very light - No noticeable change in breathing or sweating
                   </option>
-                  <option
-                    value="Light - Slight increase in breathing, minimal sweating"
-                    className="select-option">
+                  <option value="3" className="select-option">
                     Light - Slight increase in breathing, minimal sweating
                   </option>
-                  <option
-                    value="Moderate - Noticeable increase in breathing and some sweating"
-                    className="select-option">
+                  <option value="2" className="select-option">
                     Moderate - Noticeable increase in breathing and some
                     sweating
                   </option>
-                  <option
-                    value="Vigorous - Breathing hard and sweating"
-                    className="select-option">
+                  <option value="1" className="select-option">
                     Vigorous - Breathing hard and sweating
                   </option>
-                  <option
-                    value="Very intense - Maximum effort, significant sweating and elevated heart rate"
-                    className="select-option">
+                  <option value="0" className="select-option">
                     Very intense - Maximum effort, significant sweating and
                     elevated heart rate
                   </option>
@@ -466,25 +402,19 @@ export function ProgressAssessment({ onClose, onSubmitSuccess }: Props) {
                   <option value="" disabled className="select-option">
                     Choose One
                   </option>
-                  <option
-                    value="5 Did not enjoy at all"
-                    className="select-option">
+                  <option value="5" className="select-option">
                     Did not enjoy at all
                   </option>
-                  <option value="4 Enjoyed slightly" className="select-option">
+                  <option value="4" className="select-option">
                     Enjoyed slightly
                   </option>
-                  <option
-                    value="3 Moderately enjoyed"
-                    className="select-option">
+                  <option value="3" className="select-option">
                     Moderately enjoyed
                   </option>
-                  <option value="2 Greatly enjoyed" className="select-option">
+                  <option value="2" className="select-option">
                     Greatly enjoyed
                   </option>
-                  <option
-                    value="1 Extremely enjoyed and looked forward to activities"
-                    className="select-option">
+                  <option value="1" className="select-option">
                     Extremely enjoyed and looked forward to activities
                   </option>
                 </select>
@@ -499,19 +429,19 @@ export function ProgressAssessment({ onClose, onSubmitSuccess }: Props) {
                   <option value="" disabled className="select-option">
                     Choose One
                   </option>
-                  <option value="Very negative" className="select-option">
+                  <option value="0" className="select-option">
                     Very negative
                   </option>
-                  <option value="Somewhat negative" className="select-option">
+                  <option value="1" className="select-option">
                     Somewhat negative
                   </option>
-                  <option value="Neutral" className="select-option">
+                  <option value="2" className="select-option">
                     Neutral
                   </option>
-                  <option value="Somewhat positive" className="select-option">
+                  <option value="3" className="select-option">
                     Somewhat positive
                   </option>
-                  <option value="Very positive" className="select-option">
+                  <option value="4" className="select-option">
                     Very positive
                   </option>
                 </select>
@@ -523,19 +453,19 @@ export function ProgressAssessment({ onClose, onSubmitSuccess }: Props) {
                   <option value="" disabled className="select-option">
                     Choose One
                   </option>
-                  <option value="Very negative" className="select-option">
+                  <option value="0" className="select-option">
                     Very negative
                   </option>
-                  <option value="Somewhat negative" className="select-option">
+                  <option value="1" className="select-option">
                     Somewhat negative
                   </option>
-                  <option value="Neutral" className="select-option">
+                  <option value="2" className="select-option">
                     Neutral
                   </option>
-                  <option value="Somewhat positive" className="select-option">
+                  <option value="3" className="select-option">
                     Somewhat positive
                   </option>
-                  <option value="Very positive" className="select-option">
+                  <option value="4" className="select-option">
                     Very positive
                   </option>
                 </select>
@@ -653,19 +583,19 @@ export function ProgressAssessment({ onClose, onSubmitSuccess }: Props) {
                   <option value="" disabled className="select-option">
                     Choose One
                   </option>
-                  <option value="Very poor" className="select-option">
+                  <option value="0" className="select-option">
                     Very poor
                   </option>
-                  <option value="Poor" className="select-option">
+                  <option value="1" className="select-option">
                     Poor
                   </option>
-                  <option value="Average" className="select-option">
+                  <option value="2" className="select-option">
                     Average
                   </option>
-                  <option value="Good" className="select-option">
+                  <option value="3" className="select-option">
                     Good
                   </option>
-                  <option value="Excellent" className="select-option">
+                  <option value="4" className="select-option">
                     Excellent
                   </option>
                 </select>
@@ -677,19 +607,19 @@ export function ProgressAssessment({ onClose, onSubmitSuccess }: Props) {
                   <option value="" disabled className="select-option">
                     Choose One
                   </option>
-                  <option value="No dreams recalled" className="select-option">
+                  <option value="0" className="select-option">
                     No dreams recalled
                   </option>
-                  <option value="Pleasant dreams" className="select-option">
+                  <option value="1" className="select-option">
                     Pleasant dreams
                   </option>
-                  <option value="Neutral dreams" className="select-option">
+                  <option value="2" className="select-option">
                     Neutral dreams
                   </option>
-                  <option value="Vivid dreams" className="select-option">
+                  <option value="3" className="select-option">
                     Vivid dreams
                   </option>
-                  <option value="Nightmares" className="select-option">
+                  <option value="4" className="select-option">
                     Nightmares
                   </option>
                 </select>
@@ -703,20 +633,16 @@ export function ProgressAssessment({ onClose, onSubmitSuccess }: Props) {
                   <option value="" disabled className="select-option">
                     Choose One
                   </option>
-                  <option
-                    value="Refreshed and energetic"
-                    className="select-option">
+                  <option value="4" className="select-option">
                     Refreshed and energetic
                   </option>
-                  <option value="Content and calm" className="select-option">
+                  <option value="3" className="select-option">
                     Content and calm
                   </option>
-                  <option value="Neutral" className="select-option">
+                  <option value="2" className="select-option">
                     Neutral
                   </option>
-                  <option
-                    value="Irritable and fatigued"
-                    className="select-option">
+                  <option value="1" className="select-option">
                     Irritable and fatigued
                   </option>
                   <option value="numb" className="select-option">
@@ -728,7 +654,7 @@ export function ProgressAssessment({ onClose, onSubmitSuccess }: Props) {
           </div>
 
           <div className="button-container">
-            <button type="submit" className="submit-button" onClick={onClose}>
+            <button type="submit" className="submit-button">
               Submit
             </button>
           </div>

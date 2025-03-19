@@ -24,6 +24,7 @@ export type ProgressReport = {
   dreamActivity: string;
   morningMood: string;
   progressScore: string;
+  date: Date;
 };
 
 type Props = {
@@ -33,7 +34,6 @@ type Props = {
 
 export function ProgressAssessment({ onClose, onSubmitSuccess }: Props) {
   const navigate = useNavigate();
-
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
@@ -48,10 +48,11 @@ export function ProgressAssessment({ onClose, onSubmitSuccess }: Props) {
         },
         body: JSON.stringify(data),
       });
-      const responseData = await response.json();
       if (response.ok) {
-        alert('Progress Report submitted successfully!');
-        onSubmitSuccess(responseData);
+        alert(`Thank you, we added your new score to your progress chart!`);
+        const json = await response.json();
+        onSubmitSuccess(json);
+        handleThis();
       } else {
         alert('Error submitting progress report');
       }
@@ -59,11 +60,10 @@ export function ProgressAssessment({ onClose, onSubmitSuccess }: Props) {
       console.error('error', error);
     }
   }
-  function handleScoreSubmit() {
-    alert(`Thank you, we added your new score to your progress chart!`);
+  function handleThis() {
+    onClose();
     navigate('/api/userpage');
   }
-
   return (
     <>
       <div className="progress-assessment-container">
@@ -728,10 +728,7 @@ export function ProgressAssessment({ onClose, onSubmitSuccess }: Props) {
           </div>
 
           <div className="button-container">
-            <button
-              onClick={onClose}
-              onSubmit={handleScoreSubmit}
-              className="submit-button">
+            <button type="submit" className="submit-button" onClick={onClose}>
               Submit
             </button>
           </div>

@@ -38,6 +38,7 @@ export function UserPage() {
           throw new Error(`Response status: ${response.status}`);
         }
         const json = (await response.json()) as ProgressReport[];
+        console.log('data', json);
         setScoreHistory(json);
       } catch (error) {
         console.error('Error fetching progress score:', error);
@@ -60,15 +61,10 @@ export function UserPage() {
     setIsOpen(false);
   }
 
-  // const chartScore = scoreHistory.map((item) => item.progressScore);
-  // const chartDate = scoreHistory.map((item) => item.date);
-
-  const chartScore = Array.isArray(scoreHistory)
-    ? scoreHistory.map((item) => item.progressScore)
-    : [];
-  const chartDate = Array.isArray(scoreHistory)
-    ? scoreHistory.map((item) => item.date)
-    : [];
+  const chartScore = scoreHistory.map((item) => item.progressScore);
+  const chartDate = scoreHistory.map((item) => item.date);
+  console.log('chartscore', chartScore);
+  console.log('chartDate', chartDate);
   return (
     <>
       <div className="body-row">

@@ -244,7 +244,7 @@ app.get('/api/progressassessment', async (req, res, next) => {
     `;
     const response = await db.query(sql);
     if (!response) throw new Error('response failed');
-    res.json(response);
+    res.json(response.rows[0]);
   } catch (err) {
     next(err);
   }

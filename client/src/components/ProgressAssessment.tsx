@@ -52,7 +52,8 @@ export function ProgressAssessment({ onClose, onSubmitSuccess }: Props) {
         alert(`Thank you, we added your new score to your progress chart!`);
         const json = await response.json();
         onSubmitSuccess(json);
-        handleThis();
+        navigate('/userpage');
+        onClose();
       } else {
         alert('Error submitting progress report');
       }
@@ -60,10 +61,7 @@ export function ProgressAssessment({ onClose, onSubmitSuccess }: Props) {
       console.error('error', error);
     }
   }
-  function handleThis() {
-    onClose();
-    navigate('/api/userpage');
-  }
+
   return (
     <>
       <div className="progress-assessment-container">

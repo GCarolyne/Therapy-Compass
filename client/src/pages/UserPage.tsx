@@ -49,6 +49,7 @@ export function UserPage() {
 
   function handleSuccess(responseData: ProgressReport) {
     setScoreHistory([...scoreHistory, responseData]);
+    setIsOpen(false);
   }
 
   function openModal() {
@@ -62,7 +63,9 @@ export function UserPage() {
   }
 
   const chartScore = scoreHistory.map((item) => item.progressScore);
-  const chartDate = scoreHistory.map((item) => item.date);
+  const chartDate = scoreHistory.map(
+    (item) => item.date.toISOString().split('T')[0]
+  );
   console.log('chartscore', chartScore);
   console.log('chartDate', chartDate);
   return (
@@ -70,76 +73,74 @@ export function UserPage() {
       <div className="body-row">
         <div className="column-two">
           <p>Welcome, User name</p>
-          <div className="placeholder-chart">
-            <Line
-              data={{
-                labels: chartDate,
-                datasets: [
-                  {
-                    label: 'WellBeing Score',
-                    data: chartScore,
-                    borderColor: 'rgb(75, 192, 192)',
-                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                    borderWidth: 2,
-                    pointBackgroundColor: 'rgb(75, 192, 192)',
-                    pointBorderColor: '#fff',
-                    pointHoverBackgroundColor: '#fff',
-                    pointHoverBorderColor: 'rgb(75, 192, 192)',
-                    tension: 0.1,
+          <Line
+            data={{
+              labels: chartDate,
+              datasets: [
+                {
+                  label: 'WellBeing Score',
+                  data: chartScore,
+                  borderColor: 'rgb(75, 192, 192)',
+                  backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                  borderWidth: 2,
+                  pointBackgroundColor: 'rgb(75, 192, 192)',
+                  pointBorderColor: '#fff',
+                  pointHoverBackgroundColor: '#fff',
+                  pointHoverBorderColor: 'rgb(75, 192, 192)',
+                  tension: 0.1,
+                },
+              ],
+            }}
+            options={{
+              responsive: true,
+              maintainAspectRatio: false,
+              scales: {
+                y: {
+                  beginAtZero: true,
+                  grid: {
+                    color: 'rgba(0, 0, 0, 0.1)',
                   },
-                ],
-              }}
-              options={{
-                responsive: true,
-                maintainAspectRatio: false,
-                scales: {
-                  y: {
-                    beginAtZero: true,
-                    grid: {
-                      color: 'rgba(0, 0, 0, 0.1)',
-                    },
-                    ticks: {
-                      font: {
-                        size: 12,
-                      },
-                    },
-                  },
-                  x: {
-                    grid: {
-                      display: false,
-                    },
-                    ticks: {
-                      font: {
-                        size: 12,
-                      },
+                  ticks: {
+                    font: {
+                      size: 12,
                     },
                   },
                 },
-                plugins: {
-                  legend: {
-                    position: 'top',
-                    labels: {
-                      boxWidth: 10,
-                      font: {
-                        size: 14,
-                      },
+                x: {
+                  grid: {
+                    display: false,
+                  },
+                  ticks: {
+                    font: {
+                      size: 12,
                     },
                   },
-                  tooltip: {
-                    backgroundColor: 'rgba(0, 0, 0, 0.7)',
-                    padding: 10,
-                    titleFont: {
-                      size: 14,
-                    },
-                    bodyFont: {
+                },
+              },
+              plugins: {
+                legend: {
+                  position: 'top',
+                  labels: {
+                    boxWidth: 10,
+                    font: {
                       size: 14,
                     },
                   },
                 },
-              }}
-              height={300}
-            />
-          </div>
+                tooltip: {
+                  backgroundColor: 'rgba(0, 0, 0, 0.7)',
+                  padding: 10,
+                  titleFont: {
+                    size: 14,
+                  },
+                  bodyFont: {
+                    size: 14,
+                  },
+                },
+              },
+            }}
+            height={300}
+          />
           <button type="submit" onClick={openModal}>
             Assign report
           </button>
@@ -150,9 +151,10 @@ export function UserPage() {
                 if (isOpen) setIsOpen(false);
               }}>
               <ProgressAssessment
-                onClose={closeModal}
                 onSubmitSuccess={handleSuccess}
+                onClose={closeModal}
               />
+              <button onClick={closeModal}>Close</button>
             </Modal>
           )}
         </div>

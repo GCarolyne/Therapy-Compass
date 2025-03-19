@@ -175,7 +175,7 @@ app.post('/api/progressassessment', async (req, res, next) => {
   try {
     const formData = req.body;
     if (!formData.date) {
-      formData.date = new Date().toISOString().split('T')[0];
+      formData.date = new Date().toISOString();
     }
     const progressResult = await openai.chat.completions.create({
       model: 'gpt-4o-2024-05-13',

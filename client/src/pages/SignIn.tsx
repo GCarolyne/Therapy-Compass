@@ -1,6 +1,6 @@
-import './SignUp.css';
+import './SignIn.css';
 
-export function SignUp() {
+export function SignIn() {
   return (
     <>
       <div className="body-row">

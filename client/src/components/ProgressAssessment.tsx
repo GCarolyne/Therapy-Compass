@@ -1,39 +1,39 @@
 import { FormEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-// type progressScore = {
-//   anxietyLevel: string;
-//   depressionLevel: string;
-//   irritabilityLevel: string;
-//   panicAttacks: string;
-//   panicAttacksIntensity: string;
-//   typeStress: string;
-//   intensityStress: string;
-//   copingStrategy: string;
-//   copingStrategyManageStress: string;
-//   typeOfPhysicalActivity: string;
-//   durationOfActivity: string;
-//   intesityOfActivity: string;
-//   enjoymentLevel: string;
-//   moodBeforeActivity: string;
-//   moodAfterActivity: string;
-//   bedtime: string;
-//   wakeTime: string;
-//   totalSleep: string;
-//   sleepQuality: string;
-//   dreamActivity: string;
-//   morningMood: string;
-//   progressScore: string;
-// };
+export type ProgressReport = {
+  anxietyLevel: string;
+  depressionLevel: string;
+  irritabilityLevel: string;
+  panicAttacks: string;
+  panicAttacksIntensity: string;
+  typeStress: string;
+  intensityStress: string;
+  copingStrategy: string;
+  copingStrategyManageStress: string;
+  typeOfPhysicalActivity: string;
+  durationOfActivity: string;
+  intesityOfActivity: string;
+  enjoymentLevel: string;
+  moodBeforeActivity: string;
+  moodAfterActivity: string;
+  bedtime: string;
+  wakeTime: string;
+  totalSleep: string;
+  sleepQuality: string;
+  dreamActivity: string;
+  morningMood: string;
+  progressScore: string;
+  date: Date;
+};
 
 type Props = {
   onClose: () => void;
-  onSubmitSuccess: (response: Response) => void;
+  onSubmitSuccess: (response: ProgressReport) => void;
 };
 
 export function ProgressAssessment({ onClose, onSubmitSuccess }: Props) {
   const navigate = useNavigate();
-
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
@@ -49,8 +49,10 @@ export function ProgressAssessment({ onClose, onSubmitSuccess }: Props) {
         body: JSON.stringify(data),
       });
       if (response.ok) {
-        alert('Progress Report submitted successfully!');
-        onSubmitSuccess(response);
+        alert(`Thank you, we added your new score to your progress chart!`);
+        const json = await response.json();
+        onSubmitSuccess(json);
+        handleThis();
       } else {
         alert('Error submitting progress report');
       }
@@ -58,11 +60,10 @@ export function ProgressAssessment({ onClose, onSubmitSuccess }: Props) {
       console.error('error', error);
     }
   }
-  function handleScoreSubmit() {
-    alert(`Thank you, we added your new score to your progress chart!`);
+  function handleThis() {
+    onClose();
     navigate('/api/userpage');
   }
-
   return (
     <>
       <div className="progress-assessment-container">
@@ -727,10 +728,7 @@ export function ProgressAssessment({ onClose, onSubmitSuccess }: Props) {
           </div>
 
           <div className="button-container">
-            <button
-              onClick={onClose}
-              onSubmit={handleScoreSubmit}
-              className="submit-button">
+            <button type="submit" className="submit-button" onClick={onClose}>
               Submit
             </button>
           </div>

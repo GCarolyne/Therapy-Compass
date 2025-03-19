@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars -- Remove when used */
 import 'dotenv/config';
-import express from 'express';
+import express, { response } from 'express';
 import pg from 'pg';
 import { ClientError, errorMiddleware } from './lib/index.js';
 import axios from 'axios';
@@ -174,9 +174,12 @@ export const TherapyProgress = z.object({
 app.post('/api/progressassessment', async (req, res, next) => {
   try {
     const formData = req.body;
+    if (!formData.date) {
+      formData.date = new Date().toISOString().split('T')[0]; // YYYY-MM-DD format
+    }
     const sql = `
-    insert into "progressAssessment" ("anxietyLevel","depressionLevel","irritabilityLevel","panicAttacks","panicAttacksIntensity","typeStress","intensityStress","copingStrategy","copingStrategyManageStress","typeOfPhysicalActivity","durationOfActivity","intesityOfActivity","enjoymentLevel","moodBeforeActivity","moodAfterActivity","bedtime","wakeTime","totalSleep","sleepQuality","dreamActivity","morningMood")
-    values ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20,$21)
+    insert into "progressAssessment" ("anxietyLevel","depressionLevel","irritabilityLevel","panicAttacks","panicAttacksIntensity","typeStress","intensityStress","copingStrategy","copingStrategyManageStress","typeOfPhysicalActivity","durationOfActivity","intesityOfActivity","enjoymentLevel","moodBeforeActivity","moodAfterActivity","bedtime","wakeTime","totalSleep","sleepQuality","dreamActivity","morningMood","progressScore","date")
+    values ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20,$21,$22,$23)
     returning *`;
 
     const params = [
@@ -201,6 +204,8 @@ app.post('/api/progressassessment', async (req, res, next) => {
       formData.sleepQuality,
       formData.dreamActivity,
       formData.morningMood,
+      formData.progressScore,
+      formData.date,
     ];
 
     const dbResult = await db.query(sql, params);
@@ -211,16 +216,17 @@ app.post('/api/progressassessment', async (req, res, next) => {
         {
           role: 'system',
           content:
-            'You are a clinical psychology assistant analyzing patient assessment data. Your task is to evaluate the data and provide a single overall wellbeing score on a scale of 1-100, where 100 represents optimal psychological health. Return only the numerical score without explanation.',
+            'You are a clinical psychology assistant analyzing patient assessment data. Your task is to evaluate the data and provide a single overall wellbeing score on a scale of 1-100, where 100 represents optimal psychological health. Return labels a key value pairs and a numerical score to track the progressScore.',
         },
         {
           role: 'user',
           content:
-            'Please analyze this psychological assessment data and provide a single numerical score: ',
+            'Please analyze this psychological assessment data and return labels that will be key value pairs to the ultimate score returned',
         },
       ],
       max_tokens: 200,
     });
+
     res.json(progressResult);
   } catch (err) {
     console.error(err);
@@ -228,18 +234,17 @@ app.post('/api/progressassessment', async (req, res, next) => {
   }
 });
 
-//* Querying a database for results, incomplete.
+//* Querying a database for progressScore.
 
-app.get('/api/therapyType', async (req, res, next) => {
+app.get('/api/progressassessment', async (req, res, next) => {
   try {
     const sql = `
     select *
-    from "Therapy-Compass"
-    order by "therapyId"
+    from "progressAssessment"
     `;
-    const result = await db.query<TherapyA>(sql);
-    console.log(result);
-    res.json(result.rows);
+    const response = await db.query(sql);
+    if (!response) throw new Error('response failed');
+    res.json(response);
   } catch (err) {
     next(err);
   }

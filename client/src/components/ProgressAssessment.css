@@ -1,89 +1,194 @@
-/* Main container styles */
-.progress-assessment-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 20px;
-  font-family: Arial, sans-serif;
+:root {
+  --primary-color: #6a5acd;
+  --primary-light: #9088d9;
+  --primary-dark: #483d8b;
+  --accent-color: #ff7e5f;
+  --accent-light: #feb47b;
+  --background-color: rgba(248, 249, 250, 0.98);
+  --card-color: #fff;
+  --section-color: rgba(250, 250, 255, 0.7);
+  --text-color: #333;
+  --text-light: #666;
+  --border-color: #e0e0e0;
+  --success-color: #4ade80;
+  --section-shadow: 0 3px 10px rgba(0, 0, 0, 0.03);
+  --transition: all 0.3s ease;
 }
 
-/* Section styles */
-.assessment-section {
-  margin-bottom: 30px;
-  padding: 20px;
+/* Modal-specific adjustments */
+.progress-assessment-container {
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  background-color: var(--card-color);
   border-radius: 8px;
-  background-color: #f9f9f9;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: relative;
+  padding-top: 8px; /* Space for the gradient bar */
+  padding-bottom: 20px;
+  box-sizing: border-box;
+}
+
+/* Scrollbar styling for the modal */
+.progress-assessment-container::-webkit-scrollbar {
+  width: 8px;
+}
+
+.progress-assessment-container::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+.progress-assessment-container::-webkit-scrollbar-thumb {
+  background: var(--primary-light);
+  border-radius: 4px;
+}
+
+.progress-assessment-container::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-color);
+}
+
+/* Decorative header - adjusted for modal */
+.progress-assessment-container::before {
+  content: '';
+  display: block;
+  height: 8px;
+  background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+
+/* Section styling */
+.assessment-section {
+  margin: 20px;
+  padding: 20px;
+  background-color: var(--section-color);
+  border-radius: 8px;
+  border: 1px solid rgba(230, 230, 250, 0.8);
+  box-shadow: var(--section-shadow);
+  transition: var(--transition);
+}
+
+.assessment-section:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
 }
 
 .section-title {
-  color: #333;
-  font-size: 18px;
+  color: var(--primary-dark);
+  font-size: 1.3rem;
+  font-weight: 600;
   margin-top: 0;
-  margin-bottom: 15px;
-  padding-bottom: 10px;
-  border-bottom: 1px solid #ddd;
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--primary-light);
+  position: relative;
 }
 
-/* Row styles for options */
+.section-title::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 40px;
+  height: 2px;
+  background: var(--accent-color);
+}
+
 .option-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-  margin-bottom: 15px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 16px;
+  margin-bottom: 16px;
 }
 
 .form-label {
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-  min-width: 300px;
-  font-weight: 500;
-  color: #555;
-  margin-bottom: 10px;
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: var(--primary-dark);
+  font-size: 0.9rem;
 }
 
 .form-select {
-  margin-top: 8px;
-  padding: 10px;
-  border-radius: 4px;
-  border: 1px solid #ccc;
-  font-size: 14px;
-  background-color: white;
+  width: 100%;
+  padding: 12px 14px;
+  border: 2px solid var(--border-color);
+  border-radius: 8px;
+  background-color: var(--card-color);
+  font-size: 0.95rem;
+  color: var(--text-color);
+  transition: var(--transition);
+  appearance: none;
+
+  /* Custom dropdown arrow */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%236a5acd' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 14px;
+}
+
+.form-select:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(106, 90, 205, 0.15);
 }
 
 .select-option {
-  padding: 5px;
+  padding: 6px;
 }
 
-/* Submit button container and styles */
+/* Submit button styling */
 .button-container {
-  display: flex;
-  justify-content: flex-end;
-  margin-top: 20px;
+  text-align: center;
+  margin: 20px 0;
 }
 
 .submit-button {
-  padding: 12px 24px;
-  background-color: #4a90e2;
+  min-width: 150px;
+  padding: 14px 24px;
+  background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
   color: white;
   border: none;
-  border-radius: 4px;
-  font-size: 16px;
+  border-radius: 30px;
+  font-size: 1rem;
+  font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: var(--transition);
+  box-shadow: 0 4px 12px rgba(106, 90, 205, 0.25);
+  position: relative;
+  overflow: hidden;
 }
 
 .submit-button:hover {
-  background-color: #3a7bc8;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(106, 90, 205, 0.3);
 }
 
-/* Responsive adjustments */
-@media (width <= 768px) {
-  .option-row {
-    flex-direction: column;
+/* Responsive adjustments for smaller modal sizes */
+@media (width <= 600px) {
+  .assessment-section {
+    margin: 15px;
+    padding: 15px;
   }
 
-  .form-label {
-    min-width: 100%;
+  .option-row {
+    grid-template-columns: 1fr;
+  }
+
+  .section-title {
+    font-size: 1.2rem;
+  }
+
+  .form-select {
+    padding: 10px 12px;
+  }
+
+  .submit-button {
+    min-width: 120px;
+    padding: 12px 20px;
   }
 }

@@ -2,16 +2,31 @@
 import 'dotenv/config';
 import express, { response } from 'express';
 import pg from 'pg';
-import { ClientError, errorMiddleware } from './lib/index.js';
+import { ClientError, errorMiddleware, authMiddleware } from './lib/index.js';
 import axios from 'axios';
 import OpenAI from 'openai';
 import { zodResponseFormat } from 'openai/helpers/zod';
 import { z } from 'zod';
 import { getRandomValues } from 'crypto';
+import argon2, { hash } from 'argon2';
+import { nextTick } from 'process';
+import jwt, { TokenExpiredError } from 'jsonwebtoken';
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
+type User = {
+  userId: number;
+  username: string;
+  hashedPassword: string;
+};
+type Auth = {
+  username: string;
+  password: string;
+};
+
+const hashKey = process.env.TOKEN_SECRET;
+if (!hashKey) throw new Error('TOKEN_SECRET not found in .env');
 
 const googleKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
 
@@ -116,7 +131,7 @@ const TherapyRecommendation = z.object({
 
 //* My Therapy Assessment awaiting AI response
 
-app.post('/api/therapyassessment', async (req, res, next) => {
+app.post('/api/therapyassessment', authMiddleware, async (req, res, next) => {
   try {
     const formData = req.body;
 
@@ -168,7 +183,7 @@ app.post('/api/therapyassessment', async (req, res, next) => {
   }
 });
 
-app.get('/api/therapyassessment', async (req, res, next) => {
+app.get('/api/therapyassessment', authMiddleware, async (req, res, next) => {
   try {
     const sql = `
     select *
@@ -188,7 +203,7 @@ export const TherapyProgress = z.object({
   Score: z.number(),
 });
 
-app.post('/api/progressassessment', async (req, res, next) => {
+app.post('/api/progressassessment', authMiddleware, async (req, res, next) => {
   try {
     const formData = req.body;
     if (!formData.date) {
@@ -257,7 +272,7 @@ app.post('/api/progressassessment', async (req, res, next) => {
 
 //* Querying a database for progressScore.
 
-app.get('/api/progressassessment', async (req, res, next) => {
+app.get('/api/progressassessment', authMiddleware, async (req, res, next) => {
   try {
     const sql = `
     select *
@@ -266,6 +281,62 @@ app.get('/api/progressassessment', async (req, res, next) => {
     const response = await db.query(sql);
     if (!response) throw new Error('response failed');
     res.json(response.rows);
+  } catch (err) {
+    next(err);
+  }
+});
+
+app.post('/api/register', async (req, res, next) => {
+  try {
+    const { username, password } = req.body;
+    if (!username || !password) {
+      throw new ClientError(400, 'username and password are required fields');
+    }
+
+    const safePassword = await argon2.hash(password);
+    const sql = `
+      insert into "users" ("userName", "hashedPassword")
+      values($1, $2)
+      returning "userName", "userId"`;
+    const params = [username, safePassword];
+    const result = await db.query(sql, params);
+    res.status(201).json(result.rows[0]);
+  } catch (err) {
+    next(err);
+  }
+});
+
+app.post('/api/signIn', async (req, res, next) => {
+  try {
+    const { username, password } = req.body as Partial<Auth>;
+    if (!username || !password) {
+      throw new ClientError(401, 'invalid login');
+    }
+
+    const sql = `
+      select "userId", "hashedPassword", "userName"
+      from "users"
+      where "userName" = $1
+      `;
+    const params = [username];
+    const result = await db.query(sql, params);
+    const user = result.rows[0];
+    if (!user) throw new ClientError(401, 'invalid login information.');
+
+    const passwordValid = await argon2.verify(user.hashedPassword, password);
+
+    if (!passwordValid) throw new ClientError(401, 'invalid login error');
+    if (passwordValid) {
+      const payload = {
+        userId: user.userId,
+        username: user.userName,
+      };
+      const token = jwt.sign(payload, hashKey);
+      res.status(200).json({
+        user: payload,
+        token,
+      });
+    }
   } catch (err) {
     next(err);
   }

@@ -11,54 +11,36 @@ import {
 import { SetStateAction, useCallback, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-interface PlaceResult {
-  place_id: string;
-  name: string;
-  vicinity: string;
-  rating?: number;
-  user_ratings_total?: number;
-  geometry: {
-    location: {
-      lat: () => number;
-      lng: () => number;
-    };
-  };
-}
+// interface PlaceResult {
+//   place_id: string;
+//   name: string;
+//   vicinity: string;
+//   rating?: number;
+//   user_ratings_total?: number;
+//   geometry: {
+//     location: {
+//       lat: () => number;
+//       lng: () => number;
+//     };
+//   };
+// }
 
 export function GoogleMap() {
   const { therapyType } = useParams();
   const { marker, refCallback } = useAdvancedMarkerRef();
   const [isOpen, setIsOpen] = useState(false);
-  const [isMap, setIsMap] = useState();
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<unknown>();
-  const [placesService, setPlacesService] = useState<PlaceResult[]>([]);
 
-  const [selectedPlace, setSelectedPlace] = useState<PlaceResult>();
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<unknown>();
+  const [placesService, setPlacesService] = useState<
+    google.maps.places.PlaceResult[]
+  >([]);
+
+  const [selectedPlace, setSelectedPlace] =
+    useState<google.maps.places.PlaceResult>();
 
   const map = useMap();
   const placesLibrary = useMapsLibrary('places');
-  console.log(isMap);
-  useEffect(() => {
-    async function loadTherapyType(therapyType: string) {
-      try {
-        const response = await fetch(`/googleMaps/${therapyType}`);
-        if (!response.ok) {
-          throw new Error(`Response status: ${response.status}`);
-        }
-        const json = await response.json();
-        setIsMap(json);
-      } catch (error) {
-        setError(error);
-      } finally {
-        setIsLoading(false);
-      }
-    }
-    if (therapyType) {
-      setIsLoading(true);
-      loadTherapyType(therapyType);
-    }
-  }, [therapyType]);
 
   useEffect(() => {
     if (!placesLibrary || !map || !therapyType) {
@@ -80,7 +62,7 @@ export function GoogleMap() {
 
       svc.nearbySearch(request, (therapyType, status) => {
         if (status === placesLibrary.PlacesServiceStatus.OK && therapyType) {
-          setPlacesService(therapyType as unknown as PlaceResult[]);
+          setPlacesService(therapyType);
         } else {
           setError(
             `No results found for ${therapyType} therapists in this area. `
@@ -107,7 +89,7 @@ export function GoogleMap() {
   }
 
   const handleMarkerClick = (
-    place: SetStateAction<PlaceResult | undefined>
+    place: SetStateAction<google.maps.places.PlaceResult | undefined>
   ) => {
     setSelectedPlace(place);
     setIsOpen(true);

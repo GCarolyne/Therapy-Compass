@@ -66,7 +66,12 @@ export function UserPage() {
   }
 
   const chartScore = scoreHistory.map((item) => item.progressScore);
-  const chartDate = scoreHistory.map((item) => item.date);
+  const chartDate = scoreHistory.map((item) => {
+    const date = new Date(item.date);
+    return `${String(date.getMonth() + 1).padStart(2, '0')}-${String(
+      date.getDate()
+    ).padStart(2, '0')}`;
+  });
   console.log('chartscore', chartScore);
   console.log('chartDate', chartDate);
   return (

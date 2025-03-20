@@ -9,6 +9,7 @@ import {
 } from '@vis.gl/react-google-maps';
 import { useCallback, useState } from 'react';
 
+// here I implement and pass the query.
 const googleKey = 'AIzaSyARuBpdKXTThVYYvqqQrnFn1xx9q - IanPY';
 
 export function GoogleMap() {
@@ -16,8 +17,7 @@ export function GoogleMap() {
   const [isOpen, setIsOpen] = useState(false);
 
   function useAdvancedMarkerRef() {
-    const [marker, setMarker] =
-      useState<google.maps.marker.AdvancedMarkerElement | null>(null);
+    const [marker, setMarker] = useState<AdvancedMarkerRef | null>(null);
 
     const refCallback = useCallback((m: AdvancedMarkerRef | null) => {
       setMarker(m);
@@ -44,6 +44,7 @@ export function GoogleMap() {
             onClick={handleMarkerClick}
             position={{ lat: 33.795, lng: -117.82 }}
             anchorPoint={AdvancedMarkerAnchorPoint.TOP_LEFT}></AdvancedMarker>
+
           <Pin>
             {isOpen && (
               <InfoWindow anchor={marker} onCloseClick={() => setIsOpen(false)}>

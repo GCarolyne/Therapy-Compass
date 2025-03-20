@@ -6,7 +6,7 @@ import { HomePage } from './pages/HomePage.tsx';
 import { SignIn } from './pages/SignIn.tsx';
 import { Header } from './components/Header.tsx';
 import { FindTherapist } from './pages/FindTherapist.tsx';
-
+import { Map } from './pages/Map.tsx';
 export default function App() {
   return (
     <Routes>
@@ -14,6 +14,7 @@ export default function App() {
         <Route index element={<HomePage />} />
         <Route path="/signin" element={<SignIn />} />
         <Route path="/locate" element={<FindTherapist />} />
+        <Route path="/googleMaps" element={<Map />} />
       </Route>
       <Route path="/userpage" element={<UserPage />} />
     </Routes>

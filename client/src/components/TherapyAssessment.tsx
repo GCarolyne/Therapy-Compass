@@ -1,4 +1,5 @@
 import { FormEvent } from 'react';
+import { Link } from 'react-router-dom';
 
 export function TherapyAssessment() {
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
@@ -17,9 +18,9 @@ export function TherapyAssessment() {
       });
       if (response.ok) {
         alert('Assessment submitted successfully!');
-      } else {
-        alert('Error submitting assessment');
       }
+      const json = await response.json();
+      console.log('json', json);
     } catch (error) {
       console.error('error', error);
     }
@@ -239,7 +240,9 @@ export function TherapyAssessment() {
               <option value="Problem-solving">Problem-solving</option>
             </select>
           </label>
-          <button>Submit</button>
+          <Link to="/googleMaps">
+            <button>Submit</button>
+          </Link>
         </form>
       </div>
     </>

@@ -12,7 +12,6 @@ export function FindTherapist() {
           Take our assessment to match with the right therapist for your needs
         </p>
       </header>
-
       <div className="main-content">
         <div className="row">
           <div className="column-one">

@@ -119,8 +119,28 @@ const TherapyRecommendation = z.object({
 app.post('/api/therapyassessment', async (req, res, next) => {
   try {
     const formData = req.body;
+
+    const therapyAssessmentResult = await openai.chat.completions.create({
+      model: 'gpt-4o-2024-05-13',
+      messages: [
+        {
+          role: 'system',
+          content:
+            'You are a clinical psychology assistant analyzing patient assessment data. Extract users data and recommend them a type of therapy. This is not being used for professional medical help. answer with just the type of therapy.',
+        },
+        {
+          role: 'user',
+          content: `My user is waiting to see a result of that type of therapy that is all they need.${JSON.stringify(
+            formData
+          )}`,
+        },
+      ],
+    });
+
+    const aiResponse = therapyAssessmentResult.choices[0].message.content;
+
     const sql = `
-    insert into "therapyAssessment" ("currentConcerns","lengthOfSymptoms","severityOfDistress","moodRelated","anxietyRelated","traumaRelated","thinkingPatterns","behavioral","therapyGoals","therapyPreferences","primaryCopingStrategies","acceptedTherapyType")
+    insert into "therapyAssessment" ("currentConcerns","lengthOfSymptoms","severityOfDistress","moodRelated","anxietyRelated","traumaRelated","thinkingPatterns","behavioral","therapyGoals","therapyPreferences","acceptedTherapyType","primaryCopingStrategies")
     values ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12)
     returning *`;
 
@@ -135,31 +155,28 @@ app.post('/api/therapyassessment', async (req, res, next) => {
       formData.behavioral,
       formData.therapyGoals,
       formData.therapyPreferences,
-      formData.acceptedTherapyType,
+      aiResponse,
       formData.primaryCopingStrategies,
     ];
 
     const dbResult = await db.query(sql, params);
 
-    const therapyAssessmentResult = await openai.chat.completions.create({
-      model: 'gpt-4o-2024-05-13',
-      messages: [
-        {
-          role: 'system',
-          content:
-            'You are a clinical psychology assistant analyzing patient assessment data. Extract users data and recommend them a type of therapy. This is not being used for professional medical help. answer with just the type of therapy.',
-        },
-        {
-          role: 'user',
-          content:
-            'My user is waiting to see a result of that type of therapy that is all they need.',
-        },
-      ],
-    });
-
-    res.json(therapyAssessmentResult);
+    res.json(dbResult.rows[0]);
   } catch (err) {
     console.error(err);
+    next(err);
+  }
+});
+
+app.get('/api/therapyassessment', async (req, res, next) => {
+  try {
+    const sql = `
+    select *
+    from "therapyassessment`;
+    const response = await db.query(sql);
+    if (!response) throw new Error('response failed');
+    res.json(response.rows);
+  } catch (err) {
     next(err);
   }
 });

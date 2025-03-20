@@ -1,6 +1,6 @@
 import { FormEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
-
+import './ProgressAssessment.css';
 export type ProgressReport = {
   anxietyLevel: string;
   depressionLevel: string;

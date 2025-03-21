@@ -9,20 +9,14 @@ import {
   useMap,
 } from '@vis.gl/react-google-maps';
 import { SetStateAction, useCallback, useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-
+import { Link, useParams } from 'react-router-dom';
+import './GoogleMap.css';
 // interface PlaceResult {
 //   place_id: string;
 //   name: string;
 //   vicinity: string;
 //   rating?: number;
 //   user_ratings_total?: number;
-//   geometry: {
-//     location: {
-//       lat: () => number;
-//       lng: () => number;
-//     };
-//   };
 // }
 
 export function GoogleMap() {
@@ -68,6 +62,7 @@ export function GoogleMap() {
             `No results found for ${therapyType} therapists in this area. `
           );
         }
+
         setIsLoading(false);
       });
     } catch (err) {
@@ -101,6 +96,9 @@ export function GoogleMap() {
       <div className="container">
         <div className="row">
           <h1 className="locate-header">Locate Your Therapist!</h1>
+          <Link to="/userpage">
+            <button>back home</button>
+          </Link>
         </div>
         {isLoading ? (
           <div>Loading therapy locations...</div>
@@ -115,7 +113,7 @@ export function GoogleMap() {
                 defaultZoom={15}
                 gestureHandling={'greedy'}
                 disableDefaultUI={true}
-                mapId="DEMO_MAP_ID">
+                mapId="ecad6d95e15c088a">
                 {/* Map over placesService results to create markers for each therapy location */}
                 {placesService.map((place, index) => (
                   <AdvancedMarker
@@ -139,7 +137,6 @@ export function GoogleMap() {
                     <div style={{ padding: '10px', minWidth: '200px' }}>
                       <h3
                         style={{
-                          margin: '0 0 8px 0',
                           fontSize: '16px',
                           color: '#333',
                         }}>
@@ -149,7 +146,6 @@ export function GoogleMap() {
                       {selectedPlace.vicinity && (
                         <p
                           style={{
-                            margin: '0 0 8px 0',
                             fontSize: '14px',
                             color: '#666',
                           }}>
@@ -162,7 +158,6 @@ export function GoogleMap() {
                           selectedPlace.vicinity && (
                           <p
                             style={{
-                              margin: '0 0 8px 0',
                               fontSize: '14px',
                               color: '#666',
                             }}>
@@ -170,42 +165,20 @@ export function GoogleMap() {
                           </p>
                         )}
 
-                      {selectedPlace.formatted_phone_number && (
-                        <p style={{ margin: '0 0 8px 0', fontSize: '14px' }}>
-                          📞 {selectedPlace.formatted_phone_number}
-                        </p>
-                      )}
+                      <p style={{ fontSize: '14px' }}>📞</p>
 
-                      {selectedPlace.rating && (
-                        <p style={{ margin: '0 0 8px 0', fontSize: '14px' }}>
-                          ⭐ Rating: {selectedPlace.rating} (
-                          {selectedPlace.user_ratings_total} reviews)
-                        </p>
-                      )}
+                      <p style={{ fontSize: '14px' }}>
+                        ⭐ Rating: {selectedPlace.rating} (
+                        {selectedPlace.user_ratings_total} reviews)
+                      </p>
 
-                      {selectedPlace.website && (
-                        <p style={{ margin: '0 0 8px 0', fontSize: '14px' }}>
-                          <a
-                            href={selectedPlace.website}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            style={{ color: '#4285F4' }}>
-                            🌐 Visit Website
-                          </a>
-                        </p>
-                      )}
-
-                      {selectedPlace.url && (
-                        <p style={{ margin: '0 0 8px 0', fontSize: '14px' }}>
-                          <a
-                            href={selectedPlace.url}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            style={{ color: '#4285F4' }}>
-                            🗺️ View on Google Maps
-                          </a>
-                        </p>
-                      )}
+                      <p style={{ fontSize: '14px' }}>
+                        <a
+                          href={selectedPlace.website}
+                          style={{ color: '#4285F4' }}>
+                          🌐 Visit Website
+                        </a>
+                      </p>
                     </div>
                   </InfoWindow>
                 ) : null}
@@ -215,6 +188,7 @@ export function GoogleMap() {
         )}
         <div className="row">
           <div className="below-map">
+            <div className="empty"></div>
             <h3>
               Please try to take the assessment if you are not seeing desired
               results.

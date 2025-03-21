@@ -15,6 +15,7 @@ import {
   Legend,
 } from 'chart.js';
 import { Link } from 'react-router-dom';
+import { readToken } from '../lib';
 
 ChartJS.register(
   CategoryScale,
@@ -31,10 +32,17 @@ export function UserPage() {
   const [progress, setProgress] = useState<ProgressReport[]>([]);
   const [scoreHistory, setScoreHistory] = useState<ProgressReport[]>([]);
   const modal = useRef<HTMLDialogElement>(null);
+  const bear = readToken();
   useEffect(() => {
     async function getData() {
       try {
-        const response = await fetch('/api/progressassessment');
+        const response = await fetch('/api/progressassessment', {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${bear}`,
+          },
+        });
         if (!response.ok) {
           throw new Error(`Response status: ${response.status}`);
         }
@@ -46,7 +54,7 @@ export function UserPage() {
       }
     }
     getData();
-  }, []);
+  }, [bear]);
 
   function handleSuccess(responseData: ProgressReport) {
     setScoreHistory([...scoreHistory, responseData]);
@@ -64,7 +72,7 @@ export function UserPage() {
     modal.current?.close();
     setIsOpen(false);
   }
-
+  const anxiety = progress.map((item) => item.anxietyLevel);
   const chartScore = scoreHistory.map((item) => item.progressScore);
   const chartDate = scoreHistory.map((item) => {
     const date = new Date(item.date);
@@ -81,6 +89,9 @@ export function UserPage() {
           <Link to="/">
             <button>back</button>
           </Link>
+          <Link to="/locate">
+            <button>Therapy Locator</button>
+          </Link>
           <p>Welcome, User name</p>
           <div className="chart-container">
             <div className="chart-inner">
@@ -91,17 +102,26 @@ export function UserPage() {
                     labels: chartDate,
                     datasets: [
                       {
+                        fill: 'origin',
                         label: 'Full Report',
                         data: chartScore,
                         borderColor: 'rgb(75, 192, 192)',
                         backgroundColor: 'rgba(75, 192, 192, 0.2)',
                         borderWidth: 2,
-                        pointBackgroundColor: 'rgb(75, 192, 192)',
+                        pointStyle: 'circle',
+                        pointBackgroundColor: 'rgb(93, 0, 144)',
                         pointBorderColor: '#fff',
                         pointHoverBackgroundColor: '#fff',
                         pointHoverBorderColor: 'rgb(75, 192, 192)',
                         tension: 0.1,
                         order: 1,
+                        yAxisID: 'y',
+                      },
+                      {
+                        label: 'Anxiety Levels',
+                        data: anxiety,
+                        borderColor: 'rgb(93, 0, 144)',
+                        yAxisID: 'y1',
                       },
                     ],
                   }}

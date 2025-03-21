@@ -1,5 +1,5 @@
 import { FormEvent } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { readToken } from '../lib';
 
 type TherapyA = {
@@ -50,6 +50,10 @@ export function TherapyAssessment() {
   }
   return (
     <>
+      {' '}
+      <Link to="/userpage">
+        <button>back home</button>
+      </Link>
       <div className="therapy-assessment-container">
         <form id="formInput" className="therapy-form" onSubmit={handleSubmit}>
           <div className="form-group">

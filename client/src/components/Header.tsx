@@ -17,8 +17,8 @@ export function Header() {
             <Link to="/sign-in     ">
               <button>Sign In</button>
             </Link>
-            <Link to="/Locate">
-              <button>Locate</button>
+            <Link to="/sign-up">
+              <button>Sign Up</button>
             </Link>
           </div>
         </div>

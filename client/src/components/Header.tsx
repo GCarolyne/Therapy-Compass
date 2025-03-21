@@ -14,7 +14,7 @@ export function Header() {
             />
           </Link>
           <div className="nav-links">
-            <Link to="/signIn">
+            <Link to="/sign-in     ">
               <button>Sign In</button>
             </Link>
             <Link to="/Locate">

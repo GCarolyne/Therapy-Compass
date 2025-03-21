@@ -1,6 +1,7 @@
 import { FormEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './ProgressAssessment.css';
+import { readToken } from '../lib';
 export type ProgressReport = {
   anxietyLevel: string;
   depressionLevel: string;
@@ -34,6 +35,7 @@ type Props = {
 
 export function ProgressAssessment({ onClose, onSubmitSuccess }: Props) {
   const navigate = useNavigate();
+  const bear = readToken();
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
@@ -45,6 +47,7 @@ export function ProgressAssessment({ onClose, onSubmitSuccess }: Props) {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          Authorization: `Bearer ${bear}`,
         },
         body: JSON.stringify(data),
       });

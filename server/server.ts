@@ -286,7 +286,7 @@ app.get('/api/progressassessment', authMiddleware, async (req, res, next) => {
   }
 });
 
-app.post('/api/register', async (req, res, next) => {
+app.post('/api/sign-up', async (req, res, next) => {
   try {
     const { username, password } = req.body;
     if (!username || !password) {
@@ -306,7 +306,7 @@ app.post('/api/register', async (req, res, next) => {
   }
 });
 
-app.post('/api/signIn', async (req, res, next) => {
+app.post('/api/sign-in', async (req, res, next) => {
   try {
     const { username, password } = req.body as Partial<Auth>;
     if (!username || !password) {

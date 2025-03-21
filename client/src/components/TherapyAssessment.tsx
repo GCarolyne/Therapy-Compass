@@ -1,5 +1,6 @@
 import { FormEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { readToken } from '../lib';
 
 type TherapyA = {
   therapyId?: number;
@@ -25,12 +26,13 @@ export function TherapyAssessment() {
     const formData = new FormData(event.currentTarget);
 
     const data = Object.fromEntries(formData);
-
+    const bear = readToken();
     try {
       const response = await fetch('/api/therapyassessment', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          Authorization: `Bearer ${bear}`,
         },
         body: JSON.stringify(data),
       });

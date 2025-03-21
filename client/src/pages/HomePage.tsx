@@ -4,7 +4,7 @@ import './HomePage.css';
 export function HomePage() {
   const navigate = useNavigate();
   function handleRegister() {
-    navigate('/register');
+    navigate('/sign-up');
   }
   return (
     <>

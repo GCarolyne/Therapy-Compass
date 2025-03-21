@@ -51,11 +51,6 @@ export function TherapyAssessment() {
   return (
     <>
       <div className="therapy-assessment-container">
-        <h2 className="form-title">Therapy Assessment</h2>
-        <p className="form-description">
-          Please answer the following questions to help us understand your needs
-          better.
-        </p>
         <form id="formInput" className="therapy-form" onSubmit={handleSubmit}>
           <div className="form-group">
             <label className="form-label">

@@ -1,9 +1,25 @@
+.row {
+  display: flex; /* Change to flex instead of block */
+  align-items: center;
+  min-height: 400px !important; /* Your existing min-height */
+  width: 100%; /* Ensure full width */
+}
+
 .my-map {
   border: 2px solid #333;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   margin: 0 auto;
   overflow: hidden;
+  height: 100%; /* Add this to ensure map takes full height */
+}
+
+.below-map {
+  height: 100vh; /* Use min-height with fixed value instead of percentage */
+  flex-direction: column;
+  justify-content: center;
+  background-color: black;
+  display: inline;
 }
 
 .info-window {
@@ -11,4 +27,13 @@
   background-color: white;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   border-radius: 4px;
+}
+
+.map-container {
+  border: 3px solid #5bb98c !important;
+  border-radius: 16px !important;
+  box-shadow: 0 6px 16px rgba(91, 185, 140, 0.2) !important;
+  overflow: hidden !important;
+  padding: 4px !important;
+  background-color: #f8fbf9 !important;
 }

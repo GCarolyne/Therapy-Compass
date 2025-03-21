@@ -17,8 +17,8 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Header />}>
           <Route index element={<HomePage />} />
-          <Route path="/register" element={<AuthPage mode="sign-up" />} />
-          <Route path="/signin" element={<AuthPage mode="sign-in" />} />
+          <Route path="/sign-up" element={<AuthPage mode="sign-up" />} />
+          <Route path="/sign-in" element={<AuthPage mode="sign-in" />} />
           <Route path="/locate" element={<FindTherapist />} />
           <Route path="/googleMaps/:therapyType" element={<GoogleMap />} />
         </Route>

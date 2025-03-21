@@ -2,10 +2,11 @@ import { FormEvent, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { User } from './UserContext';
 import './RegistrationForm.css';
+import { readToken } from '../lib';
 export function RegistrationForm() {
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
-
+  const bear = readToken();
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     try {
@@ -15,9 +16,10 @@ export function RegistrationForm() {
       const req = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
+        Authorization: `Bearer ${bear}`,
         body: JSON.stringify(userData),
       };
-      const res = await fetch('/api/register', req);
+      const res = await fetch('/api/sign-up', req);
       if (!res.ok) {
         throw new Error(`fetch Error ${res.status}`);
       }
@@ -29,7 +31,7 @@ export function RegistrationForm() {
       alert(
         `Successfully registered ${user.userName} as userId ${user.userId}.`
       );
-      navigate('/signIn');
+      navigate('/sign-in');
     } catch (err) {
       alert(`Error registering user: ${err}`);
     } finally {

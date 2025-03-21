@@ -4,7 +4,7 @@ export function HomePage() {
   return (
     <>
       <div className="body-row">
-        <div className="column-two">
+        <div className="column-home">
           <img src="/public/People.png" className="people-image" />
           <p>
             Welcome to your personalized therapy progress tracker. This compass

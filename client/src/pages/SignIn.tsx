@@ -22,8 +22,11 @@ export function SignIn() {
       const userData = Object.fromEntries(formData);
       const req = {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        Authorization: `Bearer ${bear}`,
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${bear}`,
+        },
+
         body: JSON.stringify(userData),
       };
       const res = await fetch('/api/sign-in', req);
@@ -44,7 +47,7 @@ export function SignIn() {
   return (
     <>
       <div className="body-row">
-        <div className="column-two">
+        <div className="column-sign">
           <form onSubmit={handleSubmit}>
             <div className="form-group">
               <label className="form-label">

@@ -279,9 +279,14 @@ app.get('/api/progressassessment', authMiddleware, async (req, res, next) => {
     const sql = `
     select *
     from "progressAssessment"
+    where "userId" = $1
     `;
-    const response = await db.query(sql);
+    const params = [req.user?.userId];
+
+    const response = await db.query(sql, params);
     if (!response) throw new Error('response failed');
+    console.log('res', response.rows);
+
     res.json(response.rows);
   } catch (err) {
     next(err);

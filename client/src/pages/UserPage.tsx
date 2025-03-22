@@ -167,6 +167,18 @@ export function UserPage() {
                         position: 'top',
                       },
                       tooltip: {
+                        backgroundColor: 'rgb(122, 115, 209)',
+                        borderWidth: 1,
+                        cornerRadius: 6,
+                        boxHeight: 5,
+                        padding: 4,
+                        caretSize: 4,
+                        caretPadding: 2,
+                        titleFont: {
+                          size: 12,
+                          family: 'Helvetica Neue',
+                          weight: 'bold',
+                        },
                         callbacks: {
                           label: function (context) {
                             console.log('context', context);

@@ -1,5 +1,5 @@
-import { createContext, ReactNode, useState } from 'react';
-import { removeAuth, saveAuth } from '../lib';
+import { createContext, ReactNode, useEffect, useState } from 'react';
+import { readToken, readUser, removeAuth, saveAuth } from '../lib';
 
 export type User = {
   userId: number;
@@ -26,6 +26,11 @@ export function UserProvider({ children }: Props) {
   const [user, setUser] = useState<User>();
   const [token, setToken] = useState<string>();
 
+  useEffect(() => {
+    setUser(readUser());
+    setToken(readToken());
+  }, []);
+
   function handleSignIn(user: User, token: string) {
     setUser(user);
     setToken(token);
@@ -37,7 +42,6 @@ export function UserProvider({ children }: Props) {
     setToken(undefined);
     removeAuth();
   }
-
   const contextValue = { user, token, handleSignIn, handleSignOut };
   return (
     <UserContext.Provider value={contextValue}>{children}</UserContext.Provider>

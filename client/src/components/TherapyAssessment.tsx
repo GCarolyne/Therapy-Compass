@@ -1,5 +1,5 @@
 import { FormEvent } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { readToken } from '../lib';
 
 type TherapyA = {
@@ -50,12 +50,11 @@ export function TherapyAssessment() {
   }
   return (
     <>
+      {' '}
+      <Link to="/userpage">
+        <button>back home</button>
+      </Link>
       <div className="therapy-assessment-container">
-        <h2 className="form-title">Therapy Assessment</h2>
-        <p className="form-description">
-          Please answer the following questions to help us understand your needs
-          better.
-        </p>
         <form id="formInput" className="therapy-form" onSubmit={handleSubmit}>
           <div className="form-group">
             <label className="form-label">

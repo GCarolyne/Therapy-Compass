@@ -11,7 +11,7 @@
   padding: 24px;
   border: 1px solid #e5e7eb;
   margin: 16px auto;
-  width: 100%;
+  width: 80%;
 }
 
 .chart-inner {
@@ -27,10 +27,6 @@
   font-weight: 600;
   color: #374151;
   margin-bottom: 16px;
-}
-
-.chart-wrapper {
-  height: 300px;
 }
 
 .signIn {
@@ -69,7 +65,7 @@
 .placeholder-chart {
   width: 50%;
   height: 200px;
-  background-color: #f5f5f5;
+  background-color: #7f3aff;
   border: 1px solid #ddd;
   border-radius: 4px;
   display: flex;
@@ -86,7 +82,6 @@
   align-items: center;
 }
 
-.row,
 .body-row {
   border: none;
   width: 100%;
@@ -99,7 +94,6 @@
   display: flex;
   justify-content: center;
   padding: 20px;
-  background-color: #f5ebe0;
 }
 
 .logo {
@@ -113,7 +107,17 @@
   flex-direction: column;
   align-items: center;
   text-align: center;
-  background-color: #d5bdaf;
+  animation: stretch 1.5s, pulse 5s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    background-color: #27391c;
+  }
+
+  100% {
+    background-color: #255f38;
+  }
 }
 
 .people-image {
@@ -131,7 +135,6 @@ p {
   padding-top: 2rem;
   font-size: 1.1rem;
   line-height: 1.6;
-  color: #333;
   max-width: 800px;
 }
 

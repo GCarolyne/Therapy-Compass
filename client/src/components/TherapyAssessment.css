@@ -41,15 +41,6 @@ body {
   text-align: center; /* Center the Link */
 }
 
-/* Decorative header */
-.therapy-assessment-container::before {
-  content: '';
-  display: block;
-  height: 8px;
-  background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
-  width: 100%;
-}
-
 .form-title {
   font-size: 2rem;
   font-weight: 700;

@@ -15,8 +15,10 @@ export function RegistrationForm() {
       const userData = Object.fromEntries(formData);
       const req = {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        Authorization: `Bearer ${bear}`,
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${bear}`,
+        },
         body: JSON.stringify(userData),
       };
       const res = await fetch('/api/sign-up', req);

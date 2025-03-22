@@ -63,14 +63,24 @@ button:hover {
   background-color: #3a5a80;
 }
 
-.column-two {
+.column-sign {
   width: 100%;
   height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
-  background-color: #d5bdaf;
+  animation: stretch 1.5s, pulse 5s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    background-color: #ffb200;
+  }
+
+  100% {
+    background-color: #eb5b00;
+  }
 }
 
 .people-image {

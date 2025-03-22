@@ -9,20 +9,14 @@ import {
   useMap,
 } from '@vis.gl/react-google-maps';
 import { SetStateAction, useCallback, useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-
+import { Link, useParams } from 'react-router-dom';
+import './GoogleMap.css';
 // interface PlaceResult {
 //   place_id: string;
 //   name: string;
 //   vicinity: string;
 //   rating?: number;
 //   user_ratings_total?: number;
-//   geometry: {
-//     location: {
-//       lat: () => number;
-//       lng: () => number;
-//     };
-//   };
 // }
 
 export function GoogleMap() {
@@ -55,8 +49,8 @@ export function GoogleMap() {
 
       const request: google.maps.places.PlaceSearchRequest = {
         location: map.getCenter(),
-        radius: 5000,
-        type: 'health',
+        radius: 10000,
+        type: 'psychotherapy',
         keyword: `${therapyType}`,
       };
 
@@ -68,6 +62,7 @@ export function GoogleMap() {
             `No results found for ${therapyType} therapists in this area. `
           );
         }
+
         setIsLoading(false);
       });
     } catch (err) {
@@ -98,50 +93,109 @@ export function GoogleMap() {
 
   return (
     <>
-      {isLoading ? (
-        <div>Loading therapy locations...</div>
-      ) : error ? (
-        <div className="error-message">{String(error)}</div>
-      ) : (
-        <Map
-          style={{ width: '80vw', height: '80vh' }}
-          defaultCenter={{ lat: 33.795, lng: -117.82 }}
-          defaultZoom={10}
-          gestureHandling={'greedy'}
-          disableDefaultUI={true}
-          mapId="DEMO_MAP_ID">
-          {/* Map over placesService results to create markers for each therapy location */}
-          {placesService.map((place, index) => (
-            <AdvancedMarker
-              key={place.place_id || index}
-              ref={index === 0 ? refCallback : undefined} // Only assign ref to first marker
-              onClick={() => handleMarkerClick(place)}
-              position={{
-                lat: place.geometry?.location?.lat() || 33.795,
-                lng: place.geometry?.location?.lng() || -117.82,
-              }}
-              anchorPoint={AdvancedMarkerAnchorPoint.BOTTOM}>
-              <Pin />
-            </AdvancedMarker>
-          ))}
+      <div className="container">
+        <div className="row">
+          <h1 className="locate-header">Locate Your Therapist!</h1>
+          <Link to="/userpage">
+            <button>back home</button>
+          </Link>
+        </div>
+        {isLoading ? (
+          <div>Loading therapy locations...</div>
+        ) : error ? (
+          <div className="error-message">{String(error)}</div>
+        ) : (
+          <div className="row">
+            <div className="map-container">
+              <Map
+                style={{ width: '50vw', height: '50vh' }}
+                defaultCenter={{ lat: 34.0549, lng: -118.2426 }}
+                defaultZoom={15}
+                gestureHandling={'greedy'}
+                disableDefaultUI={true}
+                mapId="ecad6d95e15c088a">
+                {/* Map over placesService results to create markers for each therapy location */}
+                {placesService.map((place, index) => (
+                  <AdvancedMarker
+                    key={place.place_id || index}
+                    ref={index === 0 ? refCallback : undefined} // Only assign ref to first marker
+                    onClick={() => handleMarkerClick(place)}
+                    position={{
+                      lat: place.geometry?.location?.lat() || 34.0549,
+                      lng: place.geometry?.location?.lng() || -118.2426,
+                    }}
+                    anchorPoint={AdvancedMarkerAnchorPoint.BOTTOM}>
+                    <Pin />
+                  </AdvancedMarker>
+                ))}
 
-          {/* Show InfoWindow when a marker is clicked */}
-          {isOpen && marker && selectedPlace ? (
-            <InfoWindow anchor={marker} onCloseClick={() => setIsOpen(false)}>
-              <div>
-                <h3>{selectedPlace.name}</h3>
-                <p>{selectedPlace.vicinity}</p>
-                {selectedPlace.rating && (
-                  <p>
-                    Rating: {selectedPlace.rating} ⭐ (
-                    {selectedPlace.user_ratings_total} reviews)
-                  </p>
-                )}
-              </div>
-            </InfoWindow>
-          ) : null}
-        </Map>
-      )}
+                {/* Show InfoWindow when a marker is clicked */}
+                {isOpen && marker && selectedPlace ? (
+                  <InfoWindow
+                    anchor={marker}
+                    onCloseClick={() => setIsOpen(false)}>
+                    <div style={{ padding: '10px', minWidth: '200px' }}>
+                      <h3
+                        style={{
+                          fontSize: '16px',
+                          color: '#333',
+                        }}>
+                        {selectedPlace.name}
+                      </h3>
+
+                      {selectedPlace.vicinity && (
+                        <p
+                          style={{
+                            fontSize: '14px',
+                            color: '#666',
+                          }}>
+                          📍 {selectedPlace.vicinity}
+                        </p>
+                      )}
+
+                      {selectedPlace.formatted_address &&
+                        selectedPlace.formatted_address !==
+                          selectedPlace.vicinity && (
+                          <p
+                            style={{
+                              fontSize: '14px',
+                              color: '#666',
+                            }}>
+                            🏢 {selectedPlace.formatted_address}
+                          </p>
+                        )}
+
+                      <p style={{ fontSize: '14px' }}>📞</p>
+
+                      <p style={{ fontSize: '14px' }}>
+                        ⭐ Rating: {selectedPlace.rating} (
+                        {selectedPlace.user_ratings_total} reviews)
+                      </p>
+
+                      <p style={{ fontSize: '14px' }}>
+                        <a
+                          href={selectedPlace.website}
+                          style={{ color: '#4285F4' }}>
+                          🌐 Visit Website
+                        </a>
+                      </p>
+                    </div>
+                  </InfoWindow>
+                ) : null}
+              </Map>
+            </div>
+          </div>
+        )}
+        <div className="row">
+          <div className="below-map">
+            <div className="empty"></div>
+            <h3>
+              Please try to take the assessment if you are not seeing desired
+              results.
+            </h3>
+          </div>
+        </div>
+      </div>
     </>
   );
 }

@@ -166,7 +166,6 @@ export function UserPage() {
                       legend: {
                         position: 'top',
                       },
-
                       tooltip: {
                         callbacks: {
                           label: function (context) {
@@ -174,13 +173,28 @@ export function UserPage() {
                             const dataIndex = context.dataIndex;
                             const details = scoreHistory[dataIndex];
                             if (details) {
-                              return [
-                                `Anxiety: ${details.anxietyLevel}`,
-                                `Depression:${details.depressionLevel}`,
-                                `Irritability: ${details.irritabilityLevel}`,
-                                `Panic: ${details.panicAttacksIntensity}`,
-                                `Sleep: ${details.sleepQuality}`,
-                              ];
+                              switch (context.datasetIndex) {
+                                case 0:
+                                  return [
+                                    `Dream: ${details.dreamActivity},
+                                    Depression: ${details.depressionLevel},
+                                    Sleep: ${details.sleepQuality},
+                                    Activity: ${details.durationOfActivity},
+                                    Bedtime:${details.bedtime},
+                                    Coping Strategy:${details.copingStrategy},
+                                    Stress Management:${details.copingStrategyManageStress},
+                                    `,
+                                  ];
+                                case 1:
+                                  return [
+                                    `Anxiety: ${details.panicAttacks},
+                                    ${details.anxietyLevel}`,
+                                  ];
+                                case 2:
+                                  return [
+                                    `Sleep: ${details.sleepQuality},${details.bedtime},${details.dreamActivity}`,
+                                  ];
+                              }
                             }
                           },
                         },

@@ -11,6 +11,7 @@ import { GoogleMap } from './components/GoogleMap.tsx';
 
 import { AuthPage } from './components/AuthPage.tsx';
 import { UserProvider } from './components/UserContext.tsx';
+
 export default function App() {
   return (
     <UserProvider>

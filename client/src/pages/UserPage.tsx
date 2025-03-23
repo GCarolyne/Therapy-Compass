@@ -233,6 +233,9 @@ export function UserPage() {
               <button onClick={closeModal}>Close</button>
             </Modal>
           )}
+          <Link to="/calendar">
+            <button>Calendar</button>
+          </Link>
         </div>
       </div>
     </>

@@ -11,10 +11,11 @@ type AuthData = {
 export function SignIn() {
   const { handleSignIn } = useUser();
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState();
   const navigate = useNavigate();
-  const bear = readToken();
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    const bear = readToken();
     event.preventDefault();
     try {
       setIsLoading(true);
@@ -33,13 +34,16 @@ export function SignIn() {
       if (!res.ok) {
         throw new Error(`fetch Error ${res.status}`);
       }
+
       const { user, token } = (await res.json()) as AuthData;
+
       handleSignIn(user, token);
       console.log('Signed In', user);
       console.log('Received token:', isLoading);
       navigate('/userpage');
     } catch (err) {
       alert(`Error signing in: ${err}`);
+      setError(error);
     } finally {
       setIsLoading(false);
     }

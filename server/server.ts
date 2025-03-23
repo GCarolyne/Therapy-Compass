@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars -- Remove when used */
 import 'dotenv/config';
 import express, { response } from 'express';
-import pg from 'pg';
+import pg, { Client } from 'pg';
 import { ClientError, errorMiddleware, authMiddleware } from './lib/index.js';
 import axios from 'axios';
 import OpenAI from 'openai';
@@ -134,7 +134,9 @@ const TherapyRecommendation = z.object({
 app.post('/api/therapyassessment', authMiddleware, async (req, res, next) => {
   try {
     const formData = req.body;
-
+    if (formData === undefined) {
+      throw new ClientError(400, 'must fill out form.');
+    }
     const therapyAssessmentResult = await openai.chat.completions.create({
       model: 'gpt-4o-2024-05-13',
       messages: [
@@ -209,6 +211,9 @@ app.post('/api/progressassessment', authMiddleware, async (req, res, next) => {
     const formData = req.body;
     if (!formData.date) {
       formData.date = new Date().toISOString();
+    }
+    if (formData === undefined) {
+      throw new ClientError(400, 'must contain form data.');
     }
     const progressResult = await openai.chat.completions.create({
       model: 'gpt-4o-2024-05-13',

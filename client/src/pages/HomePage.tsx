@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import './HomePage.css';
 
 export function HomePage() {
@@ -5,6 +6,9 @@ export function HomePage() {
     <>
       <div className="body-row">
         <div className="column-home">
+          <Link to="/sign-up">
+            <button>Sign Up</button>
+          </Link>
           <img src="/public/People.png" className="people-image" />
           <p>
             Welcome to your personalized therapy progress tracker. This compass

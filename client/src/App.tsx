@@ -22,8 +22,8 @@ export default function App() {
           <Route path="/sign-in" element={<AuthPage mode="sign-in" />} />
           <Route path="/locate" element={<FindTherapist />} />
           <Route path="/googleMaps/:therapyType" element={<GoogleMap />} />
+          <Route path="/userpage" element={<UserPage />} />
         </Route>
-        <Route path="/userpage" element={<UserPage />} />
       </Routes>
     </UserProvider>
   );

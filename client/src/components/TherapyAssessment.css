@@ -14,14 +14,6 @@
   --transition: all 0.25s ease;
 }
 
-.row-with-map {
-  border: none;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  background-image: url('/public/map.png') >;
-}
-
 body {
   font-family: -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
   background-color: var(--bg);
@@ -42,6 +34,12 @@ body {
   font-weight: 700;
   margin: 1.25rem 0 0.25rem;
   color: var(--primary-dark);
+}
+
+.my-butt {
+  background-color: black;
+  color: white;
+  padding: 1rem;
 }
 
 .form-description {

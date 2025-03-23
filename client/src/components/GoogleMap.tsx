@@ -11,7 +11,7 @@ import {
 import { SetStateAction, useCallback, useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import './GoogleMap.css';
-
+import { SpinningCircles } from 'react-loading-icons';
 // interface PlaceResult {
 //   place_id: string;
 //   name: string;
@@ -100,23 +100,21 @@ export function GoogleMap() {
               Thank you for taking the assessment!
             </h1>
             <Link to="/userpage">
-              <button className="button-home">
-                <i className="fas fa-home"></i> Home
-              </button>
+              <button>home page</button>
             </Link>
           </div>
         </div>
         {isLoading ? (
-          <div>Loading therapy locations...</div>
+          <SpinningCircles />
         ) : error ? (
           <div className="error-message">{String(error)}</div>
         ) : (
           <div className="row">
             <div className="map-container">
               <Map
-                style={{ width: '50vw', height: '50vh' }}
+                style={{ width: '100vw', height: '100vh' }}
                 defaultCenter={{ lat: 34.0549, lng: -118.2426 }}
-                defaultZoom={15}
+                defaultZoom={12}
                 gestureHandling={'greedy'}
                 disableDefaultUI={true}
                 mapId="ecad6d95e15c088a">

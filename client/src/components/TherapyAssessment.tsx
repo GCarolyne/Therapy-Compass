@@ -296,10 +296,8 @@ export function TherapyAssessment() {
             </select>
           </label>
         </div>
-        <div className="row-with-map">
-          <div className="form-container">
-            <button className="submit-button">Begin Your Journey</button>
-          </div>
+        <div className="column-one">
+          <button className="my-butt">Search</button>
         </div>
       </form>
     </>

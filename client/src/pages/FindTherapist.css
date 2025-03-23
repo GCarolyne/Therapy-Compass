@@ -21,6 +21,10 @@
   font-family: Arial, sans-serif;
 }
 
+.row-therapy {
+  background-image: url('/437DFD28-EA81-481F-839C-947310FA4A3D_1_102_o.jpeg');
+}
+
 .page-header {
   text-align: center;
   margin-bottom: 3rem;
@@ -47,7 +51,7 @@
   background-color: #fff;
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  padding: 2rem;
+  padding-top: 1rem;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 

@@ -5,7 +5,7 @@
   overflow: hidden !important;
   padding: 4px !important;
   background-color: #f8fbf9 !important;
-  width: 50%;
+  width: 80%;
 }
 
 .row {
@@ -83,6 +83,10 @@
   font-weight: 600;
   position: relative;
   z-index: 1;
+}
+
+.fa-spinner {
+  width: 50%;
 }
 
 .location-info p {

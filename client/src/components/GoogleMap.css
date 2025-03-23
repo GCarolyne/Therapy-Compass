@@ -11,6 +11,7 @@
 .row {
   display: flex;
   align-items: center;
+  background-image: url('/public/background image for therapy progress.avif');
 }
 
 .info-window {
@@ -18,4 +19,86 @@
   background-color: white;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   border-radius: 4px;
+}
+
+.button-home {
+  background-color: green;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.button-home:hover {
+  background-color: darkgreen;
+}
+
+/* For the icon positioning */
+.button-home svg,
+.button-home i {
+  margin-right: 5px;
+}
+
+.text-below-map {
+  color: white;
+  font-family: cursive;
+}
+
+.location-info {
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 15px 20px;
+  border-radius: 6px;
+  margin-top: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  font-family: Arial, sans-serif;
+  position: relative;
+  overflow: hidden;
+}
+
+.location-info::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(30, 30, 30, 0.7) 0%,
+    rgba(0, 0, 0, 0) 100%
+  );
+  pointer-events: none;
+}
+
+.location-info h3 {
+  margin-top: 0;
+  font-size: 18px;
+  font-weight: 600;
+  position: relative;
+  z-index: 1;
+}
+
+.location-info p {
+  margin-bottom: 8px;
+  line-height: 1.5;
+  position: relative;
+  z-index: 1;
+}
+
+.location-info a {
+  color: #4fc3f7;
+  text-decoration: none;
+  position: relative;
+  z-index: 1;
+}
+
+.location-info a:hover {
+  text-decoration: underline;
 }

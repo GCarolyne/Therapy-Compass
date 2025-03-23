@@ -4,7 +4,7 @@ import './Header.css';
 export function Header() {
   return (
     <>
-      <div className="row">
+      <div className="body-row">
         <div className="column-one">
           <Link to="/">
             <img
@@ -16,6 +16,9 @@ export function Header() {
           <div className="nav-links">
             <Link to="/sign-in     ">
               <button>Sign In</button>
+            </Link>
+            <Link to="/userpage">
+              <button>back home</button>
             </Link>
           </div>
         </div>

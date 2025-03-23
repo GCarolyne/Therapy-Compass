@@ -11,6 +11,7 @@ import {
 import { SetStateAction, useCallback, useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import './GoogleMap.css';
+
 // interface PlaceResult {
 //   place_id: string;
 //   name: string;
@@ -88,17 +89,22 @@ export function GoogleMap() {
   ) => {
     setSelectedPlace(place);
     setIsOpen(true);
-    console.log('yay');
   };
 
   return (
     <>
       <div className="container">
         <div className="row">
-          <h1 className="locate-header">Locate Your Therapist!</h1>
-          <Link to="/userpage">
-            <button>back home</button>
-          </Link>
+          <div className="location-info">
+            <h1 className="text-below-map">
+              Thank you for taking the assessment!
+            </h1>
+            <Link to="/userpage">
+              <button className="button-home">
+                <i className="fas fa-home"></i> Home
+              </button>
+            </Link>
+          </div>
         </div>
         {isLoading ? (
           <div>Loading therapy locations...</div>
@@ -188,11 +194,12 @@ export function GoogleMap() {
         )}
         <div className="row">
           <div className="below-map">
-            <div className="empty"></div>
-            <h3>
-              Please try to take the assessment if you are not seeing desired
-              results.
-            </h3>
+            <div className="location-info">
+              <p className="text-below-map">
+                Please try to take the assessment again if you are not seeing
+                desired results.
+              </p>
+            </div>
           </div>
         </div>
       </div>

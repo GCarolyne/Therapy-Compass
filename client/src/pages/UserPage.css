@@ -74,7 +74,13 @@
   border: none;
   width: 100%;
   display: flex;
-  background-color: black;
+  background-color: rgba(58, 130, 48, 0.629);
+  align-items: center;
+  justify-content: center;
+}
+
+.title {
+  font-family: Arial, Helvetica, sans-serif;
   color: white;
 }
 

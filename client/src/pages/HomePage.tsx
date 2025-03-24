@@ -9,7 +9,10 @@ export function HomePage() {
           <Link to="/sign-up">
             <button className="my-butt">Sign Up</button>
           </Link>
-          <img src="/public/People.png" className="people-image" />
+          <img
+            src="/public/premium_vector-1722926950860-10f2cc4d94e1.avif"
+            className="people-image"
+          />
           <p>
             Welcome to your personalized therapy progress tracker. This compass
             is designed to provide meaningful insights into your therapeutic

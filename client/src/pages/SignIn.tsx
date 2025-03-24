@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import './SignIn.css';
-import { FormEvent, useState } from 'react';
+import { FormEvent } from 'react';
 import { User, useUser } from '../components/useUser';
 import { readToken } from '../lib';
 
@@ -10,15 +10,12 @@ type AuthData = {
 };
 export function SignIn() {
   const { handleSignIn } = useUser();
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState();
   const navigate = useNavigate();
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     const bear = readToken();
     event.preventDefault();
     try {
-      setIsLoading(true);
       const formData = new FormData(event.currentTarget);
       const userData = Object.fromEntries(formData);
       const req = {
@@ -39,13 +36,10 @@ export function SignIn() {
 
       handleSignIn(user, token);
       console.log('Signed In', user);
-      console.log('Received token:', isLoading);
+      console.log('Received token:', token);
       navigate('/userpage');
     } catch (err) {
       alert(`Error signing in: ${err}`);
-      setError(error);
-    } finally {
-      setIsLoading(false);
     }
   }
   return (

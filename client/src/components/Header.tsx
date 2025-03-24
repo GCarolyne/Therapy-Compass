@@ -4,7 +4,7 @@ import './Header.css';
 export function Header() {
   return (
     <>
-      <div className="body-row">
+      <div className="row colors">
         <Link to="/">
           <img
             src="/public/TherapyLogo.png"

@@ -21,12 +21,13 @@ type TherapyA = {
 
 export function TherapyAssessment() {
   const navigate = useNavigate();
+  const bear = readToken();
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
 
     const data = Object.fromEntries(formData);
-    const bear = readToken();
+
     try {
       const response = await fetch('/api/therapyassessment', {
         method: 'POST',
@@ -41,7 +42,6 @@ export function TherapyAssessment() {
       }
       alert('Assessment submitted successfully!');
       const json = (await response.json()) as TherapyA;
-
       navigate(`/googleMaps/${json.acceptedTherapyType}`);
     } catch (error) {
       alert('your therapy type not found.');
@@ -55,7 +55,7 @@ export function TherapyAssessment() {
           <label className="form-label">
             What are your current concerns?
             <select name="currentConcerns" className="form-select">
-              <option value="" disabled>
+              <option selected={true} value="Choose One" disabled={true}>
                 Choose One
               </option>
               <option value="Depression or Low Mood">

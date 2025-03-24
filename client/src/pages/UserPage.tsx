@@ -3,6 +3,7 @@ import './UserPage.css';
 import { ProgressReport } from '../components/ProgressAssessment';
 import { ProgressAssessment } from '../components/ProgressAssessment';
 import { Modal } from '../components/Modal';
+import { Filler } from 'chart.js';
 import { Line } from 'react-chartjs-2';
 import {
   Chart as ChartJS,
@@ -15,7 +16,7 @@ import {
   Legend,
 } from 'chart.js';
 import { Link, useNavigate } from 'react-router-dom';
-import { readToken, readUser } from '../lib';
+import { readToken } from '../lib';
 import { useUser } from '../components/useUser';
 
 ChartJS.register(
@@ -25,7 +26,8 @@ ChartJS.register(
   LineElement,
   Title,
   Tooltip,
-  Legend
+  Legend,
+  Filler
 );
 
 export type User = {
@@ -35,20 +37,12 @@ export type User = {
 
 export function UserPage() {
   const [isOpen, setIsOpen] = useState(false);
-
   const [scoreHistory, setScoreHistory] = useState<ProgressReport[]>([]);
-  //
-  //
-  //
 
   const modal = useRef<HTMLDialogElement>(null);
-  const user = readUser() as User;
   const bear = readToken();
-  const { handleSignOut } = useUser();
+  const { handleSignOut, user } = useUser();
   const navigate = useNavigate();
-  //
-  //
-  //
 
   useEffect(() => {
     async function getData() {
@@ -87,7 +81,7 @@ export function UserPage() {
     modal.current?.close();
     setIsOpen(false);
   }
-  const name = user.userName;
+  const name = user?.userName;
   const physical = scoreHistory.map((item) => item.typeOfPhysicalActivity);
   const dreamActivity = scoreHistory.map((item) => item.dreamActivity);
 
@@ -100,11 +94,13 @@ export function UserPage() {
     ).padStart(2, '0')}`;
   });
 
+  console.log('chartScore', chartScore);
+
   return (
     <>
       <>
         <div className="row-welcome">
-          <h1>Welcome,{name}</h1>
+          <h1 className="title">Welcome,{name}</h1>
         </div>
         <div className="row">
           <div className="chart-container">
@@ -118,8 +114,8 @@ export function UserPage() {
                       label: 'Full Report',
                       data: chartScore,
                       borderColor: 'rgb(0, 219, 219)',
-                      backgroundColor: 'rgba(15, 65, 216, 0.6)',
-                      fill: true,
+                      backgroundColor: 'rgba(159, 183, 255, 0.25)',
+                      fill: 'origin',
                       borderWidth: 0.8,
                       tension: 0.4,
                       yAxisID: 'y',
@@ -129,8 +125,8 @@ export function UserPage() {
                       label: 'Anxiety Levels',
                       data: anxiety,
                       borderColor: 'rgba(242, 0, 255, 0.48)',
-                      backgroundColor: 'rgba(242, 0, 255, 0.48)', // Light purple with opacity
-                      fill: true,
+                      backgroundColor: 'rgba(247, 101, 254, 0.81)', // Light purple with opacity
+                      fill: '-1',
                       borderWidth: 1.2,
                       tension: 0.4,
                       order: 2,
@@ -140,7 +136,7 @@ export function UserPage() {
                       data: physical,
                       borderColor: 'rgb(161, 1, 1)',
                       backgroundColor: 'rgba(255, 4, 4, 0.63)', // Light purple with opacity
-                      fill: origin,
+                      fill: 'origin',
                       tension: 0.4,
                       borderWidth: 1,
                       order: 3,
@@ -150,7 +146,7 @@ export function UserPage() {
                       data: dreamActivity,
                       borderColor: 'rgb(255, 213, 0)',
                       backgroundColor: 'rgba(255, 183, 0, 0.96)', // Light purple with opacity
-                      fill: true,
+                      fill: 'origin',
                       borderWidth: 1.2,
                       tension: 0.4,
                       order: 3,
@@ -159,6 +155,7 @@ export function UserPage() {
                 }}
                 options={{
                   responsive: true,
+
                   scales: {
                     x: {
                       grid: {
@@ -172,6 +169,7 @@ export function UserPage() {
                       },
                     },
                   },
+
                   plugins: {
                     filler: {
                       propagate: true,
@@ -218,27 +216,13 @@ export function UserPage() {
                           ) {
                             return [];
                           } else {
-                            switch (context.datasetIndex) {
-                              case 0:
-                                return [
-                                  `Dream: ${details.dreamActivity}`,
-                                  ` Depression: ${details.depressionLevel}`,
-                                  `Sleep: ${details.sleepQuality}`,
-                                  ` Activity: ${details.durationOfActivity}`,
-                                  ` Bedtime:${details.bedtime}`,
-                                ];
-                              case 1:
-                                return [
-                                  `Anxiety: ${details.panicAttacks}`,
-                                  `${details.anxietyLevel}`,
-                                ];
-                              case 2:
-                                return [
-                                  `Sleep: ${details.sleepQuality}`,
-                                  `${details.bedtime}`,
-                                  `${details.dreamActivity}`,
-                                ];
-                            }
+                            [
+                              `Dream: ${details.dreamActivity}`,
+                              ` Depression: ${details.depressionLevel}`,
+                              `Sleep: ${details.sleepQuality}`,
+                              ` Activity: ${details.durationOfActivity}`,
+                              ` Bedtime:${details.bedtime}`,
+                            ];
                           }
                         },
                       },

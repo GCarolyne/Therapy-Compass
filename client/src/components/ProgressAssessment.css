@@ -17,10 +17,9 @@
 
 /* Modal container */
 .progress-assessment-container {
-  width: 100%;
+  width: 600px;
   max-height: 86vh;
   overflow-y: auto;
-  background-color: var(--card-color);
   border-radius: 16px;
   position: relative;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
@@ -39,13 +38,13 @@
 }
 
 .progress-assessment-container::-webkit-scrollbar-thumb {
-  background: var(--primary-light);
+  background: black;
   border-radius: 10px;
-  border: 1px solid rgba(40, 0, 160, 0.3);
+  border: 1px solid rgb(0, 0, 0);
 }
 
 .progress-assessment-container::-webkit-scrollbar-thumb:hover {
-  background: var(--primary-color);
+  background: black;
 }
 
 /* Elegant header gradient */
@@ -53,11 +52,6 @@
   content: '';
   display: block;
   height: 6px;
-  background: linear-gradient(
-    135deg,
-    var(--primary-color),
-    var(--accent-color)
-  );
   opacity: 0.9;
   width: 100%;
   position: absolute;
@@ -71,7 +65,7 @@
 .assessment-section {
   margin: 24px 28px;
   padding: 26px 30px;
-  background-color: rgba(60, 121, 244, 0.507);
+  background-color: rgba(44, 154, 30, 0.685);
   border-radius: 12px;
   border: 1px solid rgba(175, 178, 204, 0.7);
   box-shadow: var(--section-shadow);
@@ -86,7 +80,7 @@
 }
 
 .section-title {
-  color: var(--primary-dark);
+  color: black;
   font-size: 1.35rem;
   font-weight: 500;
   margin-top: 0;
@@ -104,7 +98,6 @@
   left: 0;
   width: 32px;
   height: 3px;
-  background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
   border-radius: 5px;
 }
 
@@ -166,15 +159,14 @@
 .submit-button {
   min-width: 160px;
   padding: 15px 28px;
-  color: white;
+  color: rgb(0, 0, 0);
   border: none;
   border-radius: 12px;
   font-size: 1rem;
   font-weight: 500;
   cursor: pointer;
   transition: var(--transition);
-  background-color: black;
-  box-shadow: 0 8px 20px rgba(231, 209, 7, 0.981);
+  background-color: rgb(246, 255, 0);
   position: relative;
   overflow: hidden;
   letter-spacing: 0.02em;
@@ -182,7 +174,7 @@
 
 .submit-button:hover {
   transform: translateY(-2px);
-  box-shadow: 0 10px 25px rgba(90, 106, 207, 0.25);
+  box-shadow: 0 10px 25px rgb(255, 102, 0);
 }
 
 .submit-button:active {

@@ -1,5 +1,5 @@
 import { ReactNode, useEffect, useRef } from 'react';
-
+import './Modal.css';
 type Props = {
   children: ReactNode;
   isOpen: boolean;
@@ -18,8 +18,10 @@ export function Modal({ children, isOpen, onClose }: Props) {
   }, [isOpen]);
 
   return (
-    <dialog ref={modals} onClose={onClose}>
-      {children}
-    </dialog>
+    <div className="modal-container">
+      <dialog ref={modals} onClose={onClose}>
+        {children}
+      </dialog>
+    </div>
   );
 }

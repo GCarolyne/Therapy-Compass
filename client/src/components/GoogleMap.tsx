@@ -11,7 +11,6 @@ import {
 import { SetStateAction, useCallback, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import './GoogleMap.css';
-import { SpinningCircles } from 'react-loading-icons';
 
 type PlaceResult = {
   place_id?: string;
@@ -94,19 +93,15 @@ export function GoogleMap() {
   return (
     <>
       <div className="container">
-        <div className="row">
-          <div className="location-info">
-            <h3 className="text-below-map">
-              Your therapy type recommendation is input value here!
-            </h3>
-          </div>
-        </div>
-        {isLoading ? (
-          <SpinningCircles />
-        ) : error ? (
-          <div className="error-message">{String(error)}</div>
-        ) : (
-          <div className="row">
+        <div className="row row-image">
+          <h3 className="text-below-map">
+            Your therapy type recommendation is {therapyType}!
+          </h3>
+          {isLoading ? (
+            'Loading...'
+          ) : error ? (
+            <div className="error-message">{String(error)}</div>
+          ) : (
             <div className="map-container">
               <Map
                 onClick={() => setSelectedPlace(undefined)}
@@ -145,15 +140,11 @@ export function GoogleMap() {
                 ))}
               </Map>
             </div>
-          </div>
-        )}
-        <div className="row">
+          )}
           <div className="below-map">
-            <div className="location-info">
-              <p className="text-below-map">
-                The map is set to a default location.
-              </p>
-            </div>
+            <p className="text-below-map">
+              The map is set to a default location.
+            </p>
           </div>
         </div>
       </div>

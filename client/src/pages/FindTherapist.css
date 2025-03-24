@@ -7,11 +7,9 @@
 }
 
 .column-one {
-  width: 100%;
-  display: flex;
   justify-content: center;
   padding: 20px;
-  background-color: #f5ebe0;
+  background-color: #89ac46;
 }
 
 .find-therapist-container {

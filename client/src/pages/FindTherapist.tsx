@@ -4,8 +4,13 @@ import './FindTherapist.css';
 
 export function FindTherapist() {
   return (
-    <div className="card row-therapy">
-      <TherapyAssessment />
-    </div>
+    <>
+      <div className="card row-therapy">
+        <TherapyAssessment />
+      </div>
+      <div className="row-with-map">
+        <div></div>
+      </div>
+    </>
   );
 }

@@ -11,6 +11,7 @@ import { GoogleMap } from './components/GoogleMap.tsx';
 
 import { AuthPage } from './components/AuthPage.tsx';
 import { UserProvider } from './components/UserContext.tsx';
+import { CalendarTrack } from './components/CalendarTrack.tsx';
 
 export default function App() {
   return (
@@ -23,6 +24,7 @@ export default function App() {
           <Route path="/locate" element={<FindTherapist />} />
           <Route path="/googleMaps/:therapyType" element={<GoogleMap />} />
           <Route path="/userpage" element={<UserPage />} />
+          <Route path="/calendar" element={<CalendarTrack />} />
         </Route>
       </Routes>
     </UserProvider>

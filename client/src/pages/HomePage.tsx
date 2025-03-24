@@ -4,10 +4,10 @@ import './HomePage.css';
 export function HomePage() {
   return (
     <>
-      <div className="body-row">
-        <div className="column-home">
+      <div className="row">
+        <div className="column-one">
           <Link to="/sign-up">
-            <button>Sign Up</button>
+            <button className="my-butt">Sign Up</button>
           </Link>
           <img src="/public/People.png" className="people-image" />
           <p>

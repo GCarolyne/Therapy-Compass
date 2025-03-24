@@ -117,26 +117,42 @@ export function UserPage() {
                     {
                       label: 'Full Report',
                       data: chartScore,
-                      borderColor: 'rgb(75, 192, 192)',
+                      borderColor: 'rgb(0, 219, 219)',
+                      backgroundColor: 'rgba(15, 65, 216, 0.6)',
+                      fill: true,
+                      borderWidth: 0.8,
+                      tension: 0.4,
                       yAxisID: 'y',
                       order: 1,
                     },
                     {
                       label: 'Anxiety Levels',
                       data: anxiety,
-                      borderColor: 'rgb(93, 0, 144)',
+                      borderColor: 'rgba(242, 0, 255, 0.48)',
+                      backgroundColor: 'rgba(242, 0, 255, 0.48)', // Light purple with opacity
+                      fill: true,
+                      borderWidth: 1.2,
+                      tension: 0.4,
                       order: 2,
                     },
                     {
                       label: 'Physical Activity',
                       data: physical,
-                      borderColor: 'rgb(0,0,0)',
+                      borderColor: 'rgb(161, 1, 1)',
+                      backgroundColor: 'rgba(255, 4, 4, 0.63)', // Light purple with opacity
+                      fill: origin,
+                      tension: 0.4,
+                      borderWidth: 1,
                       order: 3,
                     },
                     {
                       label: 'Dream Quality',
                       data: dreamActivity,
                       borderColor: 'rgb(255, 213, 0)',
+                      backgroundColor: 'rgba(255, 183, 0, 0.96)', // Light purple with opacity
+                      fill: true,
+                      borderWidth: 1.2,
+                      tension: 0.4,
                       order: 3,
                     },
                   ],
@@ -157,6 +173,9 @@ export function UserPage() {
                     },
                   },
                   plugins: {
+                    filler: {
+                      propagate: true,
+                    },
                     legend: {
                       position: 'bottom',
                     },
@@ -175,7 +194,7 @@ export function UserPage() {
                       },
                       displayColors: false,
                       yAlign: 'bottom',
-                      xAlign: 'center',
+                      xAlign: 'left',
                       bodySpacing: 2,
                       titleSpacing: 2,
                       enabled: true,
@@ -241,13 +260,13 @@ export function UserPage() {
                 onClose={() => {
                   if (isOpen) setIsOpen(false);
                 }}>
+                <button className="my-butt" onClick={closeModal}>
+                  Close
+                </button>
                 <ProgressAssessment
                   onSubmitSuccess={handleSuccess}
                   onClose={closeModal}
                 />
-                <button className="my-butt" onClick={closeModal}>
-                  Close
-                </button>
               </Modal>
             )}
             <Link to="/calendar">

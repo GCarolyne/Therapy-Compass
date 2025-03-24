@@ -1,18 +1,14 @@
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import './HomePage.css';
 
 export function HomePage() {
-  const navigate = useNavigate();
-  function handleRegister() {
-    navigate('/sign-up');
-  }
   return (
     <>
       <div className="body-row">
-        <div className="column-two">
-          <button className="register" onClick={handleRegister}>
-            Register Here!
-          </button>
+        <div className="column-home">
+          <Link to="/sign-up">
+            <button>Sign Up</button>
+          </Link>
           <img src="/public/People.png" className="people-image" />
           <p>
             Welcome to your personalized therapy progress tracker. This compass

@@ -48,29 +48,14 @@
   height: 10rem;
 }
 
-button {
-  padding: 10px 20px;
-  margin: 0 10px;
-  border: none;
-  background-color: #4a6fa5;
-  color: white;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 1rem;
-}
-
-button:hover {
-  background-color: #3a5a80;
-}
-
-.column-two {
+.column-sign {
   width: 100%;
   height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
-  background-color: #d5bdaf;
+  animation: stretch 1.5s, pulse 5s infinite;
 }
 
 .people-image {

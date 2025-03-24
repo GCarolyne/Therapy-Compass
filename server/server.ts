@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars -- Remove when used */
 import 'dotenv/config';
 import express, { response } from 'express';
-import pg from 'pg';
+import pg, { Client } from 'pg';
 import { ClientError, errorMiddleware, authMiddleware } from './lib/index.js';
 import axios from 'axios';
 import OpenAI from 'openai';
@@ -134,7 +134,9 @@ const TherapyRecommendation = z.object({
 app.post('/api/therapyassessment', authMiddleware, async (req, res, next) => {
   try {
     const formData = req.body;
-
+    if (formData === undefined) {
+      throw new ClientError(400, 'must fill out form.');
+    }
     const therapyAssessmentResult = await openai.chat.completions.create({
       model: 'gpt-4o-2024-05-13',
       messages: [
@@ -155,8 +157,8 @@ app.post('/api/therapyassessment', authMiddleware, async (req, res, next) => {
     const aiResponse = therapyAssessmentResult.choices[0].message.content;
 
     const sql = `
-    insert into "therapyAssessment" ("currentConcerns","lengthOfSymptoms","severityOfDistress","moodRelated","anxietyRelated","traumaRelated","thinkingPatterns","behavioral","therapyGoals","therapyPreferences","acceptedTherapyType","primaryCopingStrategies")
-    values ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12)
+    insert into "therapyAssessment" ("currentConcerns","lengthOfSymptoms","severityOfDistress","moodRelated","anxietyRelated","traumaRelated","thinkingPatterns","behavioral","therapyGoals","therapyPreferences","acceptedTherapyType","primaryCopingStrategies","userId")
+    values ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13)
     returning *`;
 
     const params = [
@@ -172,6 +174,7 @@ app.post('/api/therapyassessment', authMiddleware, async (req, res, next) => {
       formData.therapyPreferences,
       aiResponse,
       formData.primaryCopingStrategies,
+      req.user?.userId,
     ];
 
     const dbResult = await db.query(sql, params);
@@ -209,6 +212,9 @@ app.post('/api/progressassessment', authMiddleware, async (req, res, next) => {
     if (!formData.date) {
       formData.date = new Date().toISOString();
     }
+    if (formData === undefined) {
+      throw new ClientError(400, 'must contain form data.');
+    }
     const progressResult = await openai.chat.completions.create({
       model: 'gpt-4o-2024-05-13',
       messages: [
@@ -232,8 +238,8 @@ app.post('/api/progressassessment', authMiddleware, async (req, res, next) => {
     const aiResponse = progressResult.choices[0].message.content;
 
     const sql = `
-    insert into "progressAssessment" ("anxietyLevel","depressionLevel","irritabilityLevel","panicAttacks","panicAttacksIntensity","typeStress","intensityStress","copingStrategy","copingStrategyManageStress","typeOfPhysicalActivity","durationOfActivity","intesityOfActivity","enjoymentLevel","moodBeforeActivity","moodAfterActivity","bedtime","wakeTime","totalSleep","sleepQuality","dreamActivity","morningMood","progressScore","date")
-    values ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20,$21,$22,$23)
+    insert into "progressAssessment" ("anxietyLevel","depressionLevel","irritabilityLevel","panicAttacks","panicAttacksIntensity","typeStress","intensityStress","copingStrategy","copingStrategyManageStress","typeOfPhysicalActivity","durationOfActivity","intesityOfActivity","enjoymentLevel","moodBeforeActivity","moodAfterActivity","bedtime","wakeTime","totalSleep","sleepQuality","dreamActivity","morningMood","progressScore","date","userId")
+    values ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20,$21,$22,$23,$24)
     returning *`;
 
     const params = [
@@ -260,10 +266,11 @@ app.post('/api/progressassessment', authMiddleware, async (req, res, next) => {
       formData.morningMood,
       aiResponse,
       formData.date,
+      req.user?.userId,
     ];
     const dbResult = await db.query(sql, params);
 
-    res.json(dbResult.rows[0]);
+    res.status(201).json(dbResult.rows[0]);
   } catch (err) {
     console.error(err);
     next(err);
@@ -277,14 +284,34 @@ app.get('/api/progressassessment', authMiddleware, async (req, res, next) => {
     const sql = `
     select *
     from "progressAssessment"
+    where "userId" = $1
     `;
-    const response = await db.query(sql);
+    const params = [req.user?.userId];
+
+    const response = await db.query(sql, params);
     if (!response) throw new Error('response failed');
+    console.log('res', response.rows);
+
     res.json(response.rows);
   } catch (err) {
     next(err);
   }
 });
+
+// app.post('/api/progressassessment', authMiddleware, async (req, res, next) => {
+//   try {
+//     const { formData } = req.body;
+//     if (!formData) throw new ClientError(400, 'form data not provided.');
+//     const sql = `
+//     insert into "progressAssessment" ("userId", "formData")
+//     values ($1,$2)
+//     returning *"`;
+//     const result = await db.query(sql, [req.user?.userId, formData]);
+//     res.json(result.rows);
+//   } catch (err) {
+//     next(err);
+//   }
+// });
 
 app.post('/api/sign-up', async (req, res, next) => {
   try {

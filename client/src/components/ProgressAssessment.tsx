@@ -655,7 +655,6 @@ export function ProgressAssessment({ onClose, onSubmitSuccess }: Props) {
               </label>
             </div>
           </div>
-
           <div className="button-container">
             <button type="submit" className="submit-button">
               Submit

@@ -5,25 +5,21 @@ import {
   InfoWindow,
   Map,
   useMapsLibrary,
-  Pin,
   useMap,
+  Pin,
 } from '@vis.gl/react-google-maps';
 import { SetStateAction, useCallback, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import './GoogleMap.css';
+import { SpinningCircles } from 'react-loading-icons';
 
-// interface PlaceResult {
-//   place_id: string;
-//   name: string;
-//   vicinity: string;
-//   rating?: number;
-//   user_ratings_total?: number;
-//   geometry: {
-//     location: {
-//       lat: () => number;
-//       lng: () => number;
-//     };
-//   };
-// }
+type PlaceResult = {
+  place_id?: string;
+  name?: string;
+  address?: string;
+  vicinity?: string;
+  rating?: number;
+};
 
 export function GoogleMap() {
   const { therapyType } = useParams();
@@ -36,8 +32,7 @@ export function GoogleMap() {
     google.maps.places.PlaceResult[]
   >([]);
 
-  const [selectedPlace, setSelectedPlace] =
-    useState<google.maps.places.PlaceResult>();
+  const [selectedPlace, setSelectedPlace] = useState<PlaceResult>();
 
   const map = useMap();
   const placesLibrary = useMapsLibrary('places');
@@ -55,8 +50,8 @@ export function GoogleMap() {
 
       const request: google.maps.places.PlaceSearchRequest = {
         location: map.getCenter(),
-        radius: 5000,
-        type: 'health',
+        radius: 10000,
+        type: 'psychotherapy',
         keyword: `${therapyType}`,
       };
 
@@ -68,6 +63,7 @@ export function GoogleMap() {
             `No results found for ${therapyType} therapists in this area. `
           );
         }
+
         setIsLoading(false);
       });
     } catch (err) {
@@ -93,55 +89,74 @@ export function GoogleMap() {
   ) => {
     setSelectedPlace(place);
     setIsOpen(true);
-    console.log('yay');
   };
 
   return (
     <>
-      {isLoading ? (
-        <div>Loading therapy locations...</div>
-      ) : error ? (
-        <div className="error-message">{String(error)}</div>
-      ) : (
-        <Map
-          style={{ width: '80vw', height: '80vh' }}
-          defaultCenter={{ lat: 33.795, lng: -117.82 }}
-          defaultZoom={10}
-          gestureHandling={'greedy'}
-          disableDefaultUI={true}
-          mapId="DEMO_MAP_ID">
-          {/* Map over placesService results to create markers for each therapy location */}
-          {placesService.map((place, index) => (
-            <AdvancedMarker
-              key={place.place_id || index}
-              ref={index === 0 ? refCallback : undefined} // Only assign ref to first marker
-              onClick={() => handleMarkerClick(place)}
-              position={{
-                lat: place.geometry?.location?.lat() || 33.795,
-                lng: place.geometry?.location?.lng() || -117.82,
-              }}
-              anchorPoint={AdvancedMarkerAnchorPoint.BOTTOM}>
-              <Pin />
-            </AdvancedMarker>
-          ))}
-
-          {/* Show InfoWindow when a marker is clicked */}
-          {isOpen && marker && selectedPlace ? (
-            <InfoWindow anchor={marker} onCloseClick={() => setIsOpen(false)}>
-              <div>
-                <h3>{selectedPlace.name}</h3>
-                <p>{selectedPlace.vicinity}</p>
-                {selectedPlace.rating && (
-                  <p>
-                    Rating: {selectedPlace.rating} ⭐ (
-                    {selectedPlace.user_ratings_total} reviews)
-                  </p>
-                )}
-              </div>
-            </InfoWindow>
-          ) : null}
-        </Map>
-      )}
+      <div className="container">
+        <div className="row">
+          <div className="location-info">
+            <h3 className="text-below-map">
+              Your therapy type recommendation is input value here!
+            </h3>
+          </div>
+        </div>
+        {isLoading ? (
+          <SpinningCircles />
+        ) : error ? (
+          <div className="error-message">{String(error)}</div>
+        ) : (
+          <div className="row">
+            <div className="map-container">
+              <Map
+                onClick={() => setSelectedPlace(undefined)}
+                style={{ width: '50vw', height: '50vh' }}
+                defaultCenter={{ lat: 34.0549, lng: -118.2426 }}
+                defaultZoom={12}
+                gestureHandling={'greedy'}
+                disableDefaultUI={true}
+                mapId="ecad6d95e15c088a">
+                {/* Map over placesService results to create markers for each therapy location */}
+                {placesService.map((place, index) => (
+                  <AdvancedMarker
+                    key={place.place_id || index}
+                    ref={index === 0 ? refCallback : undefined} // Only assign ref to first marker
+                    onClick={() => handleMarkerClick(place)}
+                    position={{
+                      lat: place.geometry?.location?.lat() || 34.0549,
+                      lng: place.geometry?.location?.lng() || -118.2426,
+                    }}
+                    anchorPoint={AdvancedMarkerAnchorPoint.BOTTOM}>
+                    <Pin>
+                      {isOpen && marker && selectedPlace ? (
+                        <InfoWindow
+                          anchor={marker}
+                          onCloseClick={() => setIsOpen(false)}>
+                          <div style={{ padding: '20px', minWidth: '100px' }}>
+                            <h4>📍{selectedPlace.name}</h4>
+                            <h5>{selectedPlace.address}</h5>
+                            <h5>⭐ Rating:{selectedPlace.rating}</h5>
+                            <h5> 🏢{selectedPlace.vicinity}</h5>
+                          </div>
+                        </InfoWindow>
+                      ) : null}
+                    </Pin>
+                  </AdvancedMarker>
+                ))}
+              </Map>
+            </div>
+          </div>
+        )}
+        <div className="row">
+          <div className="below-map">
+            <div className="location-info">
+              <p className="text-below-map">
+                The map is set to a default location.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
     </>
   );
 }

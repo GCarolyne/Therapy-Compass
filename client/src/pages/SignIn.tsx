@@ -11,10 +11,11 @@ type AuthData = {
 export function SignIn() {
   const { handleSignIn } = useUser();
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState();
   const navigate = useNavigate();
-  const bear = readToken();
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    const bear = readToken();
     event.preventDefault();
     try {
       setIsLoading(true);
@@ -22,21 +23,27 @@ export function SignIn() {
       const userData = Object.fromEntries(formData);
       const req = {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        Authorization: `Bearer ${bear}`,
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${bear}`,
+        },
+
         body: JSON.stringify(userData),
       };
       const res = await fetch('/api/sign-in', req);
       if (!res.ok) {
         throw new Error(`fetch Error ${res.status}`);
       }
+
       const { user, token } = (await res.json()) as AuthData;
+
       handleSignIn(user, token);
       console.log('Signed In', user);
       console.log('Received token:', isLoading);
       navigate('/userpage');
     } catch (err) {
       alert(`Error signing in: ${err}`);
+      setError(error);
     } finally {
       setIsLoading(false);
     }
@@ -44,7 +51,7 @@ export function SignIn() {
   return (
     <>
       <div className="body-row">
-        <div className="column-two">
+        <div className="column-sign">
           <form onSubmit={handleSubmit}>
             <div className="form-group">
               <label className="form-label">

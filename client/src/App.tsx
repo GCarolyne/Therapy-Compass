@@ -11,6 +11,7 @@ import { GoogleMap } from './components/GoogleMap.tsx';
 
 import { AuthPage } from './components/AuthPage.tsx';
 import { UserProvider } from './components/UserContext.tsx';
+
 export default function App() {
   return (
     <UserProvider>
@@ -21,8 +22,8 @@ export default function App() {
           <Route path="/sign-in" element={<AuthPage mode="sign-in" />} />
           <Route path="/locate" element={<FindTherapist />} />
           <Route path="/googleMaps/:therapyType" element={<GoogleMap />} />
+          <Route path="/userpage" element={<UserPage />} />
         </Route>
-        <Route path="/userpage" element={<UserPage />} />
       </Routes>
     </UserProvider>
   );

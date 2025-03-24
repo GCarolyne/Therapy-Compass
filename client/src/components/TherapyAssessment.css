@@ -1,259 +1,97 @@
 :root {
-  --primary-color: #6a5acd;
+  --primary: #6a5acd;
   --primary-light: #9088d9;
   --primary-dark: #483d8b;
-  --accent-color: #ff7e5f;
+  --accent: #ff7e5f;
   --accent-light: #feb47b;
-  --background-color: #f8f9fa;
-  --card-color: #fff;
-  --text-color: #333;
+  --bg: #f8f9fa;
+  --card: #fff;
+  --text: #333;
   --text-light: #666;
-  --border-color: #e0e0e0;
-  --success-color: #4ade80;
-  --shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
-  --transition: all 0.3s ease;
+  --border: #e0e0e0;
+  --success: #4ade80;
+  --shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  --transition: all 0.25s ease;
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica,
-    Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
-  background-color: var(--background-color);
-  color: var(--text-color);
-  line-height: 1.6;
+  font-family: -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  background-color: var(--bg);
+  color: var(--text);
+  line-height: 1.5;
   margin: 0;
   padding: 0;
 }
 
-.therapy-assessment-container {
-  max-width: 850px;
-  margin: 40px auto;
-  background-color: var(--card-color);
-  border-radius: 12px;
-  box-shadow: var(--shadow);
-  overflow: hidden;
-  padding: 0;
-  position: relative;
-}
-
-.form-button-container {
-  grid-column: 1 / -1;
-  margin-top: 3rem;
-  text-align: center; /* Center the Link */
-}
-
-/* Decorative header */
-.therapy-assessment-container::before {
-  content: '';
-  display: block;
-  height: 8px;
-  background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
-  width: 100%;
+.form-title,
+.form-description {
+  text-align: center;
+  padding: 0 1.5rem;
 }
 
 .form-title {
-  font-size: 2rem;
+  font-size: 1.75rem;
   font-weight: 700;
-  margin: 1.5rem 0 0.5rem;
+  margin: 1.25rem 0 0.25rem;
   color: var(--primary-dark);
-  text-align: center;
-  padding: 0 2rem;
+}
+
+.my-butt {
+  background-color: black;
+  color: white;
+  padding: 1rem;
 }
 
 .form-description {
   color: var(--text-light);
-  text-align: center;
-  margin-bottom: 2rem;
-  font-size: 1rem;
-  padding: 0 2rem;
+  margin-bottom: 1.5rem;
+  font-size: 0.95rem;
 }
 
 .therapy-form {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-  gap: 24px;
-  padding: 0 2rem 2rem;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 16px;
+  padding: 0 1.5rem 1.5rem;
 }
 
 .form-group {
   position: relative;
-  margin-bottom: 0.5rem;
+  padding: 16px;
+  background-color: rgba(250, 250, 255, 0.6);
+  border-radius: 8px;
+  border: 1px solid rgba(230, 230, 250, 0.7);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
   transition: var(--transition);
-  padding: 18px;
-  background-color: rgba(250, 250, 255, 0.7);
-  border-radius: 10px;
-  border: 1px solid rgba(230, 230, 250, 0.8);
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.03);
 }
 
 .form-group:hover {
   transform: translateY(-2px);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.04);
+}
+
+.form-group:focus-within {
+  border-color: var(--primary-light);
+  box-shadow: 0 0 0 2px rgba(106, 90, 205, 0.08);
 }
 
 .form-label {
   display: block;
-  margin-bottom: 8px;
+  margin-bottom: 6px;
   font-weight: 600;
   color: var(--primary-dark);
-  font-size: 0.95rem;
+  font-size: 0.875rem;
 }
 
 .form-select {
   width: 100%;
-  padding: 14px 16px;
-  border: 2px solid var(--border-color);
-  border-radius: 10px;
-  background-color: var(--card-color);
-  font-size: 1rem;
-  color: var(--text-color);
+  padding: 10px 14px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background-color: var(--card);
+  font-size: 0.95rem;
+  color: var(--text);
   transition: var(--transition);
   appearance: none;
-
-  /* Custom dropdown arrow */
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%236a5acd' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: right 14px center;
-  background-size: 16px;
-}
-
-.form-select:focus {
-  outline: none;
-  border-color: var(--primary-color);
-  box-shadow: 0 0 0 3px rgba(106, 90, 205, 0.15);
-}
-
-/* Special styling for the rating select */
-.rating-select {
-  background: linear-gradient(
-    to right,
-    var(--primary-light) 0%,
-    var(--accent-light) 100%
-  );
-  color: white;
-  font-weight: 600;
-  text-align-last: center;
-  border-color: transparent;
-}
-
-.rating-select option {
-  background-color: var(--card-color);
-  color: var(--text-color);
-}
-
-.submit-button {
-  min-width: 180px;
-  padding: 16px 28px;
-  background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
-  color: white;
-  border: none;
-  border-radius: 50px;
-  font-size: 1.1rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: var(--transition);
-  box-shadow: 0 6px 15px rgba(106, 90, 205, 0.25);
-  position: relative;
-  overflow: hidden;
-  margin: 0 auto;
-  display: block;
-}
-
-.submit-button:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 10px 25px rgba(106, 90, 205, 0.3);
-}
-
-.submit-button::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(
-    to right,
-    rgba(255, 255, 255, 0) 0%,
-    rgba(255, 255, 255, 0.3) 50%,
-    rgba(255, 255, 255, 0) 100%
-  );
-  transform: translateX(-100%);
-}
-
-.submit-button:hover::after {
-  transition: transform 0.6s ease-in-out;
-  transform: translateX(100%);
-}
-
-.form-link {
-  display: inline-block; /* Allow it to be centered with text-align */
-  text-decoration: none;
-  margin-top: 2rem;
-  padding-top: 1rem;
-}
-
-/* Card style for each form group */
-
-/* Sequential animations */
-@keyframes slideInUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* Responsive adjustments */
-@media (width <= 768px) {
-  .therapy-form {
-    grid-template-columns: 1fr;
-    padding: 0 1.5rem 1.5rem;
-  }
-
-  .therapy-assessment-container {
-    margin: 20px;
-  }
-
-  .form-title {
-    font-size: 1.7rem;
-    padding: 0 1rem;
-  }
-
-  .form-description {
-    padding: 0 1rem;
-  }
-
-  .form-select {
-    padding: 12px 14px;
-  }
-}
-
-/* Interactive focus effect for form groups */
-.form-group:focus-within {
-  border-color: var(--primary-light);
-  box-shadow: 0 0 0 2px rgba(106, 90, 205, 0.1);
-}
-
-/* Subtle shine effect on the container */
-.therapy-assessment-container::after {
-  content: '';
-  position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: linear-gradient(
-    to bottom right,
-    rgba(255, 255, 255, 0) 0%,
-    rgba(255, 255, 255, 0) 40%,
-    rgba(255, 255, 255, 0.4) 50%,
-    rgba(255, 255, 255, 0) 60%,
-    rgba(255, 255, 255, 0) 100%
-  );
-  transform: rotate(30deg);
-  pointer-events: none;
-  z-index: 1;
-  animation: shine 8s infinite linear;
 }

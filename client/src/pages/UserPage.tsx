@@ -37,12 +37,19 @@ export function UserPage() {
   const [isOpen, setIsOpen] = useState(false);
 
   const [scoreHistory, setScoreHistory] = useState<ProgressReport[]>([]);
+  //
+  //
+  //
+
   const modal = useRef<HTMLDialogElement>(null);
   const user = readUser() as User;
-
   const bear = readToken();
   const { handleSignOut } = useUser();
   const navigate = useNavigate();
+  //
+  //
+  //
+
   useEffect(() => {
     async function getData() {
       try {
@@ -56,9 +63,8 @@ export function UserPage() {
         if (!response.ok) {
           throw new Error(`Response status: ${response.status}`);
         }
-        const json = (await response.json()) as ProgressReport[];
-        console.log('data', json);
 
+        const json = (await response.json()) as ProgressReport[];
         setScoreHistory(json);
       } catch (error) {
         console.error('Error fetching progress score:', error);
@@ -82,7 +88,9 @@ export function UserPage() {
     setIsOpen(false);
   }
   const name = user.userName;
-  const sleep = scoreHistory.map((item) => item.sleepQuality);
+  const physical = scoreHistory.map((item) => item.typeOfPhysicalActivity);
+  const dreamActivity = scoreHistory.map((item) => item.dreamActivity);
+
   const anxiety = scoreHistory.map((item) => item.panicAttacksIntensity);
   const chartScore = scoreHistory.map((item) => item.progressScore);
   const chartDate = scoreHistory.map((item) => {
@@ -95,7 +103,9 @@ export function UserPage() {
   return (
     <>
       <>
-        <h1>Welcome,{name}</h1>
+        <div className="row-welcome">
+          <h1>Welcome,{name}</h1>
+        </div>
         <div className="row">
           <div className="chart-container">
             <div className="chart-inner">
@@ -118,9 +128,15 @@ export function UserPage() {
                       order: 2,
                     },
                     {
-                      label: 'Sleep Quality',
-                      data: sleep,
+                      label: 'Physical Activity',
+                      data: physical,
                       borderColor: 'rgb(0,0,0)',
+                      order: 3,
+                    },
+                    {
+                      label: 'Dream Quality',
+                      data: dreamActivity,
+                      borderColor: 'rgb(255, 213, 0)',
                       order: 3,
                     },
                   ],
@@ -142,10 +158,10 @@ export function UserPage() {
                   },
                   plugins: {
                     legend: {
-                      position: 'top',
+                      position: 'bottom',
                     },
                     tooltip: {
-                      backgroundColor: 'rgb(122, 115, 209)',
+                      backgroundColor: 'rgb(5, 3, 29)',
                       borderWidth: 1,
                       cornerRadius: 6,
                       boxHeight: 5,
@@ -153,7 +169,7 @@ export function UserPage() {
                       caretSize: 4,
                       caretPadding: 2,
                       titleFont: {
-                        size: 12,
+                        size: 10,
                         family: 'Helvetica Neue',
                         weight: 'bold',
                       },
@@ -175,7 +191,6 @@ export function UserPage() {
                           return tooltipItems[0].label;
                         },
                         label: function (context) {
-                          console.log('context', context);
                           const dataIndex = context.dataIndex;
                           const details = scoreHistory[dataIndex];
                           if (
@@ -192,8 +207,6 @@ export function UserPage() {
                                   `Sleep: ${details.sleepQuality}`,
                                   ` Activity: ${details.durationOfActivity}`,
                                   ` Bedtime:${details.bedtime}`,
-                                  ` Coping Strategy:${details.copingStrategy}`,
-                                  ` Stress Management:${details.copingStrategyManageStress}`,
                                 ];
                               case 1:
                                 return [
@@ -219,7 +232,7 @@ export function UserPage() {
         </div>
         <div className="row">
           <div className="actions">
-            <button type="submit" onClick={openModal}>
+            <button className="my-butt" type="submit" onClick={openModal}>
               Assign report
             </button>
             {isOpen && (
@@ -232,17 +245,20 @@ export function UserPage() {
                   onSubmitSuccess={handleSuccess}
                   onClose={closeModal}
                 />
-                <button onClick={closeModal}>Close</button>
+                <button className="my-butt" onClick={closeModal}>
+                  Close
+                </button>
               </Modal>
             )}
             <Link to="/calendar">
-              <button>Calendar</button>
+              <button className="my-butt">Calendar</button>
             </Link>
             <Link to="/locate">
-              <button>Therapy Locator</button>
+              <button className="my-butt">Therapy Locator</button>
             </Link>
 
             <button
+              className="my-butt"
               onClick={() => {
                 handleSignOut();
                 navigate('/');

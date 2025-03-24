@@ -3,9 +3,8 @@
   border-radius: 16px !important;
   box-shadow: 0 6px 16px rgba(91, 185, 140, 0.2) !important;
   overflow: hidden !important;
-  padding: 4px !important;
   background-color: #f8fbf9 !important;
-  width: 80%;
+  width: 50%;
 }
 
 .row {
@@ -51,38 +50,14 @@
 }
 
 .location-info {
-  background-color: rgba(0, 0, 0, 0.8);
+  background-color: #18230f;
   color: white;
   padding: 15px 20px;
   border-radius: 6px;
-  margin-top: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   font-family: Arial, sans-serif;
   position: relative;
   overflow: hidden;
-}
-
-.location-info::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(
-    135deg,
-    rgba(30, 30, 30, 0.7) 0%,
-    rgba(0, 0, 0, 0) 100%
-  );
-  pointer-events: none;
-}
-
-.location-info h3 {
-  margin-top: 0;
-  font-size: 18px;
-  font-weight: 600;
-  position: relative;
-  z-index: 1;
 }
 
 .fa-spinner {

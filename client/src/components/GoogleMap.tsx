@@ -5,20 +5,21 @@ import {
   InfoWindow,
   Map,
   useMapsLibrary,
-  Pin,
   useMap,
+  Pin,
 } from '@vis.gl/react-google-maps';
 import { SetStateAction, useCallback, useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import './GoogleMap.css';
 import { SpinningCircles } from 'react-loading-icons';
-// interface PlaceResult {
-//   place_id: string;
-//   name: string;
-//   vicinity: string;
-//   rating?: number;
-//   user_ratings_total?: number;
-// }
+
+type PlaceResult = {
+  place_id?: string;
+  name?: string;
+  address?: string;
+  vicinity?: string;
+  rating?: number;
+};
 
 export function GoogleMap() {
   const { therapyType } = useParams();
@@ -31,8 +32,7 @@ export function GoogleMap() {
     google.maps.places.PlaceResult[]
   >([]);
 
-  const [selectedPlace, setSelectedPlace] =
-    useState<google.maps.places.PlaceResult>();
+  const [selectedPlace, setSelectedPlace] = useState<PlaceResult>();
 
   const map = useMap();
   const placesLibrary = useMapsLibrary('places');
@@ -96,12 +96,9 @@ export function GoogleMap() {
       <div className="container">
         <div className="row">
           <div className="location-info">
-            <h1 className="text-below-map">
-              Thank you for taking the assessment!
-            </h1>
-            <Link to="/userpage">
-              <button>home page</button>
-            </Link>
+            <h3 className="text-below-map">
+              Your therapy type recommendation is input value here!
+            </h3>
           </div>
         </div>
         {isLoading ? (
@@ -112,7 +109,8 @@ export function GoogleMap() {
           <div className="row">
             <div className="map-container">
               <Map
-                style={{ width: '100vw', height: '100vh' }}
+                onClick={() => setSelectedPlace(undefined)}
+                style={{ width: '50vw', height: '50vh' }}
                 defaultCenter={{ lat: 34.0549, lng: -118.2426 }}
                 defaultZoom={12}
                 gestureHandling={'greedy'}
@@ -129,63 +127,22 @@ export function GoogleMap() {
                       lng: place.geometry?.location?.lng() || -118.2426,
                     }}
                     anchorPoint={AdvancedMarkerAnchorPoint.BOTTOM}>
-                    <Pin />
+                    <Pin>
+                      {isOpen && marker && selectedPlace ? (
+                        <InfoWindow
+                          anchor={marker}
+                          onCloseClick={() => setIsOpen(false)}>
+                          <div style={{ padding: '20px', minWidth: '100px' }}>
+                            <h4>📍{selectedPlace.name}</h4>
+                            <h5>{selectedPlace.address}</h5>
+                            <h5>⭐ Rating:{selectedPlace.rating}</h5>
+                            <h5> 🏢{selectedPlace.vicinity}</h5>
+                          </div>
+                        </InfoWindow>
+                      ) : null}
+                    </Pin>
                   </AdvancedMarker>
                 ))}
-
-                {/* Show InfoWindow when a marker is clicked */}
-                {isOpen && marker && selectedPlace ? (
-                  <InfoWindow
-                    anchor={marker}
-                    onCloseClick={() => setIsOpen(false)}>
-                    <div style={{ padding: '10px', minWidth: '200px' }}>
-                      <h3
-                        style={{
-                          fontSize: '16px',
-                          color: '#333',
-                        }}>
-                        {selectedPlace.name}
-                      </h3>
-
-                      {selectedPlace.vicinity && (
-                        <p
-                          style={{
-                            fontSize: '14px',
-                            color: '#666',
-                          }}>
-                          📍 {selectedPlace.vicinity}
-                        </p>
-                      )}
-
-                      {selectedPlace.formatted_address &&
-                        selectedPlace.formatted_address !==
-                          selectedPlace.vicinity && (
-                          <p
-                            style={{
-                              fontSize: '14px',
-                              color: '#666',
-                            }}>
-                            🏢 {selectedPlace.formatted_address}
-                          </p>
-                        )}
-
-                      <p style={{ fontSize: '14px' }}>📞</p>
-
-                      <p style={{ fontSize: '14px' }}>
-                        ⭐ Rating: {selectedPlace.rating} (
-                        {selectedPlace.user_ratings_total} reviews)
-                      </p>
-
-                      <p style={{ fontSize: '14px' }}>
-                        <a
-                          href={selectedPlace.website}
-                          style={{ color: '#4285F4' }}>
-                          🌐 Visit Website
-                        </a>
-                      </p>
-                    </div>
-                  </InfoWindow>
-                ) : null}
               </Map>
             </div>
           </div>
@@ -194,8 +151,7 @@ export function GoogleMap() {
           <div className="below-map">
             <div className="location-info">
               <p className="text-below-map">
-                Please try to take the assessment again if you are not seeing
-                desired results.
+                The map is set to a default location.
               </p>
             </div>
           </div>

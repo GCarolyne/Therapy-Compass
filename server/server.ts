@@ -298,21 +298,6 @@ app.get('/api/progressassessment', authMiddleware, async (req, res, next) => {
   }
 });
 
-// app.post('/api/progressassessment', authMiddleware, async (req, res, next) => {
-//   try {
-//     const { formData } = req.body;
-//     if (!formData) throw new ClientError(400, 'form data not provided.');
-//     const sql = `
-//     insert into "progressAssessment" ("userId", "formData")
-//     values ($1,$2)
-//     returning *"`;
-//     const result = await db.query(sql, [req.user?.userId, formData]);
-//     res.json(result.rows);
-//   } catch (err) {
-//     next(err);
-//   }
-// });
-
 app.post('/api/sign-up', async (req, res, next) => {
   try {
     const { username, password } = req.body;

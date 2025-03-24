@@ -6,11 +6,7 @@ export function Header() {
     <>
       <div className="row colors">
         <Link to="/">
-          <img
-            src="/public/TherapyLogo.png"
-            className="logo"
-            alt="Therapy Logo"
-          />
+          <img src="/TherapyLogo.png" className="logo" alt="Therapy Logo" />
         </Link>
         <div className="nav-links">
           <Link to="/sign-in     ">

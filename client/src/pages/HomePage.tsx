@@ -17,7 +17,7 @@ export function HomePage() {
               symptom patterns, stress triggers, and physical activity.
             </p>
             <img
-              src="/public/premium_vector-1722926950860-10f2cc4d94e1.avif"
+              src="/premium_vector-1722926950860-10f2cc4d94e1.avif"
               className="people-image"
             />
             <p className="home-p">

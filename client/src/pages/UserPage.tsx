@@ -64,8 +64,10 @@ export function UserPage() {
         console.error('Error fetching progress score:', error);
       }
     }
-    getData();
-  }, [bear]);
+    if (user) {
+      getData();
+    }
+  }, [bear, user]);
 
   function handleSuccess(responseData: ProgressReport) {
     setScoreHistory([...scoreHistory, responseData]);

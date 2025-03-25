@@ -64,6 +64,7 @@ CREATE TABLE "calendarNotes" (
   "notesId" serial PRIMARY KEY,
   "userId" integer,
   "notes" text,
+  "title" text,
   "date" timestamptz NOT NULL DEFAULT (now())
 );
 

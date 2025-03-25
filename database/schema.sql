@@ -60,6 +60,16 @@ CREATE TABLE "therapyAssessment" (
   "date" timestamptz NOT NULL DEFAULT (now())
 );
 
+CREATE TABLE "calendarNotes" (
+  "notesId" serial PRIMARY KEY,
+  "userId" integer,
+  "notes" text,
+  "title" text,
+  "date" timestamptz NOT NULL DEFAULT (now())
+);
+
 ALTER TABLE "progressAssessment" ADD FOREIGN KEY ("userId") REFERENCES "users" ("userId");
 
 ALTER TABLE "therapyAssessment" ADD FOREIGN KEY ("userId") REFERENCES "users" ("userId");
+
+ALTER TABLE "calendarNotes" ADD FOREIGN KEY ("userId") REFERENCES "users" ("userId");

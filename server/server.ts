@@ -190,8 +190,50 @@ app.get('/api/therapyassessment', authMiddleware, async (req, res, next) => {
   try {
     const sql = `
     select *
-    from "therapyassessment`;
+    from "therapyassessment"`;
     const response = await db.query(sql);
+    if (!response) throw new Error('response failed');
+    res.json(response.rows);
+  } catch (err) {
+    next(err);
+  }
+});
+
+app.put('/api/calendar', async (req, res, next) => {
+  try {
+    const { notes, title, date, notesId } = req.body;
+    if (!req.body) {
+      throw new Error('request body not provided.');
+    }
+    const sql = `
+    update "calendarNotes"
+    set "notes" = $1,
+    "title" = $2,
+    "date" = $3
+    where "notesId" = $4
+    returning *`;
+    const params = [notes, title, date, notesId];
+    const response = await db.query(sql, params);
+    if (!response) throw new Error('response failed');
+    res.json(response.rows);
+  } catch (err) {
+    next(err);
+  }
+});
+
+app.post('/api/calendar', async (req, res, next) => {
+  try {
+    const formData = req.body;
+    if (formData === undefined) {
+      throw new ClientError(400, 'must fill out form.');
+    }
+
+    const sql = `
+    insert into "calendarNotes" ("title","notes","date","notesId")
+    values ($1,$2,$3,$4)
+    returning *`;
+    const params = [formData.notes, formData.title, formData.date];
+    const response = await db.query(sql, params);
     if (!response) throw new Error('response failed');
     res.json(response.rows);
   } catch (err) {
@@ -297,21 +339,6 @@ app.get('/api/progressassessment', authMiddleware, async (req, res, next) => {
     next(err);
   }
 });
-
-// app.post('/api/progressassessment', authMiddleware, async (req, res, next) => {
-//   try {
-//     const { formData } = req.body;
-//     if (!formData) throw new ClientError(400, 'form data not provided.');
-//     const sql = `
-//     insert into "progressAssessment" ("userId", "formData")
-//     values ($1,$2)
-//     returning *"`;
-//     const result = await db.query(sql, [req.user?.userId, formData]);
-//     res.json(result.rows);
-//   } catch (err) {
-//     next(err);
-//   }
-// });
 
 app.post('/api/sign-up', async (req, res, next) => {
   try {

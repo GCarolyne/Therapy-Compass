@@ -13,6 +13,12 @@
   z-index: 1000;
 }
 
+.label-title {
+  display: flex;
+  flex-direction: column;
+  gap: 10px; /* This creates space between the label text and input */
+}
+
 /* Form styling */
 .modal-form {
   display: flex;
@@ -60,6 +66,24 @@
   border: 1px solid #ddd;
   border-radius: 4px;
   cursor: pointer;
+}
+
+.space-input {
+  padding-right: 5rem;
+}
+
+.modal-form textarea[name='progress-notes'] {
+  width: 100%; /* Make the textarea take full width of its container */
+  min-height: 150px; /* Set a minimum height */
+  padding: 12px; /* Add some inner padding for better text appearance */
+  resize: vertical; /* Allow only vertical resizing (optional) */
+  font-size: 16px; /* Comfortable reading size */
+  line-height: 1.5; /* Improve readability with line spacing */
+  border: 1px solid #ccc;
+  border-radius: 4px; /* Slightly rounded corners */
+  box-sizing: border-box; /* Include padding and border in the element's width */
+  font-family: inherit; /* Keep consistent font with the rest of your form */
+  margin-top: 8px; /* Add space between the label text and textarea */
 }
 
 .submit-button {

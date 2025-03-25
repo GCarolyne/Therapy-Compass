@@ -222,17 +222,19 @@ app.put('/api/calendar', async (req, res, next) => {
 });
 
 app.post('/api/calendar', async (req, res, next) => {
+  console.log('postroutehit');
   try {
     const formData = req.body;
+    console.log('formdata', formData);
     if (formData === undefined) {
       throw new ClientError(400, 'must fill out form.');
     }
 
     const sql = `
-    insert into "calendarNotes" ("title","notes","date","notesId")
-    values ($1,$2,$3,$4)
+    insert into "calendarNotes" ("title","notes")
+    values ($1,$2)
     returning *`;
-    const params = [formData.notes, formData.title, formData.date];
+    const params = [formData.title, formData.notes];
     const response = await db.query(sql, params);
     if (!response) throw new Error('response failed');
     res.json(response.rows);

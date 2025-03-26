@@ -1,9 +1,4 @@
-import {
-  Calendar,
-  momentLocalizer,
-  EventPropGetter,
-  SlotInfo,
-} from 'react-big-calendar';
+import { Calendar, momentLocalizer, SlotInfo } from 'react-big-calendar';
 import moment from 'moment';
 import './CalendarTrack.css';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
@@ -40,22 +35,6 @@ export function CalendarTrack() {
   console.log('the user', user);
   const userId = user.user?.userId;
   console.log('userId', userId);
-  const eventPropGetter: EventPropGetter<Event> = useCallback(
-    (event: Event, start: Date, _end: Date, isSelected: boolean) => ({
-      ...(isSelected && {
-        style: {
-          backgroundColor: '#000',
-        },
-      }),
-      ...(moment(start).hour() < 12 && {
-        className: 'powderBlue',
-      }),
-      ...(event.title.includes('Notes') && {
-        className: 'darkGreen',
-      }),
-    }),
-    []
-  );
 
   useEffect(() => {
     async function getData() {
@@ -133,7 +112,7 @@ export function CalendarTrack() {
         <div className="row-calendar">
           <div className="calendar-container">
             <Calendar
-              defaultDate={new Date(2025, 3, 1)}
+              defaultDate={new Date()}
               startAccessor="start"
               endAccessor="end"
               localizer={localizer}
@@ -141,7 +120,6 @@ export function CalendarTrack() {
               popup={true}
               showAllEvents={true}
               views={['month', 'day']}
-              eventPropGetter={eventPropGetter}
               selectable={true}
               events={isEvent}
               onSelectSlot={onSelectSlot}

@@ -243,18 +243,38 @@ app.delete('/api/calendar', authMiddleware, async (req, res, next) => {
 
 app.post('/api/calendar', authMiddleware, async (req, res, next) => {
   try {
+    console.log('post api calendar');
     const formData = req.body;
-
+    console.log(formData);
     if (formData === undefined) {
       throw new ClientError(400, 'must fill out form.');
     }
     const sql = `
-    insert into "calendarNotes" ("title","notes")
-    values ($1,$2)
+    insert into "calendarNotes" ("title","notes","date","userId")
+    values ($1,$2,$3,$4)
     returning *`;
-    const params = [formData.title, formData.notes];
+    const params = [
+      formData.title,
+      formData.notes,
+      formData.start,
+      formData.userId,
+    ];
     const response = await db.query(sql, params);
     if (!response) throw new Error('response failed');
+    res.json(response.rows[0]);
+  } catch (err) {
+    next(err);
+  }
+});
+
+app.get('/api/calendar', authMiddleware, async (req, res, next) => {
+  try {
+    const sql = `
+    select "title","notes","date","userId"
+    from "calendarNotes"
+    where "userId" = $1`;
+    const params = [req.user?.userId];
+    const response = await db.query(sql, params);
     res.json(response.rows);
   } catch (err) {
     next(err);

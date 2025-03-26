@@ -10,15 +10,23 @@ import 'react-big-calendar/lib/css/react-big-calendar.css';
 import { EventForm } from './EventForm';
 import { useCallback, useEffect, useState } from 'react';
 import { readToken } from '../lib';
+import { useUser } from './useUser';
 
 const localizer = momentLocalizer(moment);
 
-type Event = {
+export type Event = {
   title: string;
   start: Date;
   end: Date;
   allDay?: boolean;
   notes: string;
+};
+
+export type DBEvent = {
+  title: string;
+  notes: string;
+  date: Date;
+  userId: number;
 };
 
 export function CalendarTrack() {
@@ -28,7 +36,10 @@ export function CalendarTrack() {
 
   const [selectedSlot, setSelectedSlot] = useState<SlotInfo>();
   const bear = readToken();
-
+  const user = useUser();
+  console.log('the user', user);
+  const userId = user.user?.userId;
+  console.log('userId', userId);
   const eventPropGetter: EventPropGetter<Event> = useCallback(
     (event: Event, start: Date, _end: Date, isSelected: boolean) => ({
       ...(isSelected && {
@@ -46,16 +57,12 @@ export function CalendarTrack() {
     []
   );
 
-  const start = moment().startOf('month').startOf('week').format('YYYY/MM/DD');
-  const end = moment().endOf('month').endOf('week').format('YYYY/MM/DD');
-
   useEffect(() => {
     async function getData() {
       try {
         const response = await fetch('/api/calendar', {
-          method: 'POST',
+          method: 'GET',
           headers: {
-            'Content-Type': 'application/json',
             Authorization: `Bearer ${bear}`,
           },
         });
@@ -63,17 +70,14 @@ export function CalendarTrack() {
           throw new Error(`Response status: ${response.status}`);
         }
 
-        const json = (await response.json()) as Event[];
-        const dateRange = {
-          start: moment(start, 'YYYY/MM/DD').toDate(),
-          end: moment(end, 'YYYY/MM/DD').toDate(),
-        };
-        const events: Event[] = json.map((item: Event) => {
+        const json = (await response.json()) as DBEvent[];
+        const events: Event[] = json.map((EventData: DBEvent) => {
           const event: Event = {
-            title: item.title || 'untitled event',
-            start: item.start ? dateRange.start : new Date(),
-            end: item.end ? dateRange.end : new Date(),
-            notes: item.notes || '',
+            title: EventData.title || 'untitled event',
+            start: EventData.date,
+            end: EventData.date,
+            allDay: true,
+            notes: EventData.notes || '',
           };
           console.log(event);
           return event;
@@ -85,10 +89,18 @@ export function CalendarTrack() {
       }
     }
     getData();
-  }, [start, end, bear]);
+  }, [bear]);
 
-  function handleSuccess(EventData: Event) {
-    setIsEvent([...isEvent, EventData]);
+  function handleSuccess(EventData: DBEvent) {
+    const event: Event = {
+      title: EventData.title || 'untitled event',
+      start: EventData.date,
+      end: EventData.date,
+      allDay: true,
+      notes: EventData.notes || '',
+    };
+    setIsEvent([...isEvent, event]);
+
     setIsOpen(false);
     console.log('handle success was called.');
   }

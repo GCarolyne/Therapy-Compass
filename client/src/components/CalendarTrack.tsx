@@ -5,7 +5,6 @@ import 'react-big-calendar/lib/css/react-big-calendar.css';
 import { EventForm } from './EventForm';
 import { useCallback, useEffect, useState } from 'react';
 import { readToken } from '../lib';
-import { useUser } from './useUser';
 
 const localizer = momentLocalizer(moment);
 
@@ -28,13 +27,9 @@ export function CalendarTrack() {
   const [isOpen, setIsOpen] = useState(false);
 
   const [isEvent, setIsEvent] = useState<Event[]>([]);
-
+  const [selectedEvent, setSelectedEvent] = useState<Event>();
   const [selectedSlot, setSelectedSlot] = useState<SlotInfo>();
   const bear = readToken();
-  const user = useUser();
-  console.log('the user', user);
-  const userId = user.user?.userId;
-  console.log('userId', userId);
 
   useEffect(() => {
     async function getData() {
@@ -71,19 +66,35 @@ export function CalendarTrack() {
   }, [bear]);
 
   function handleSuccess(EventData: DBEvent) {
-    const event: Event = {
-      title: EventData.title || 'untitled event',
-      start: EventData.date,
-      end: EventData.date,
-      allDay: true,
-      notes: EventData.notes || '',
-    };
-    setIsEvent([...isEvent, event]);
+    if (selectedEvent) {
+      const updatedEvents = isEvent.map((event) => {
+        if (event === selectedEvent) {
+          return {
+            ...event,
+            title: EventData.title || 'untiled event',
+            notes: EventData.notes || '',
+          };
+        }
+        return event;
+      });
+      setIsEvent(updatedEvents);
+    } else {
+      const event: Event = {
+        title: EventData.title || 'untitled event',
+        start: EventData.date,
+        end: EventData.date,
+        allDay: true,
+        notes: EventData.notes || '',
+      };
+      setIsEvent([...isEvent, event]);
 
-    setIsOpen(false);
-    console.log('handle success was called.');
+      setIsOpen(false);
+      setSelectedEvent(undefined);
+      console.log('handle success was called.');
+    }
   }
 
+  //*REMEMBER TO UPDATE THE ISEVENT ARRAY WHEN THE NOTES AND TITLE GET MODIFIED.
   function closeModal() {
     console.log('test');
     setIsOpen(false);
@@ -93,6 +104,11 @@ export function CalendarTrack() {
     console.log('openModal');
     setIsOpen(true);
   }
+
+  const handleEventSelection = useCallback((e: Event) => {
+    setSelectedEvent(e);
+    openModal();
+  }, []);
 
   const onSelectSlot = useCallback((slotInfo: SlotInfo) => {
     console.log(onSelectSlot);
@@ -123,6 +139,7 @@ export function CalendarTrack() {
               selectable={true}
               events={isEvent}
               onSelectSlot={onSelectSlot}
+              onSelectEvent={handleEventSelection}
             />
           </div>
         </div>

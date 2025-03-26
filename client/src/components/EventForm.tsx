@@ -8,9 +8,15 @@ type Props = {
   onClose: () => void;
   onSuccess: (EventData: DBEvent) => void;
   slotInfo: SlotInfo;
+  selectedEvent?: Event;
 };
 
-export function EventForm({ onClose, onSuccess, slotInfo }: Props) {
+export function EventForm({
+  onClose,
+  onSuccess,
+  slotInfo,
+  selectedEvent,
+}: Props) {
   const navigate = useNavigate();
   const bear = readToken();
 
@@ -21,8 +27,8 @@ export function EventForm({ onClose, onSuccess, slotInfo }: Props) {
     const eventData: Event = {
       title: formData.get('title') as string,
       notes: formData.get('notes') as string,
-      start: slotInfo.start,
-      end: slotInfo.end,
+      start: selectedEvent ? selectedEvent.start : slotInfo.start,
+      end: selectedEvent ? selectedEvent.end : slotInfo.end,
     };
 
     try {
@@ -56,18 +62,25 @@ export function EventForm({ onClose, onSuccess, slotInfo }: Props) {
       <form className="modal-form" onSubmit={handleSave}>
         <label className="label-title">
           Title:
-          <input type="text" name="title" className="space-input"></input>
+          <input
+            type="text"
+            name="title"
+            className="space-input"
+            defaultValue={selectedEvent?.title || ''}></input>
         </label>
         <label>
           Notes:
-          <textarea name="notes" className="progress-notes"></textarea>
+          <textarea
+            name="notes"
+            className="progress-notes"
+            defaultValue={selectedEvent?.notes || ''}></textarea>
         </label>
         <div className="form-buttons">
           <button type="button" className="cancel-button" onClick={onClose}>
             Cancel
           </button>
           <button type="submit" className="submit-button">
-            Save
+            {selectedEvent ? 'Update' : 'Save'}
           </button>
         </div>
       </form>

@@ -44,7 +44,7 @@
 }
 
 /* Enlarged textarea */
-.form-input textarea {
+.form-input .progress-notes {
   min-height: 250px; /* Increased height */
   width: 100%; /* Ensure it takes full width */
   resize: block;

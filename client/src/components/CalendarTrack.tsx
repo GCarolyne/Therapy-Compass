@@ -1,10 +1,14 @@
-import { Calendar, momentLocalizer } from 'react-big-calendar';
+import {
+  Calendar,
+  momentLocalizer,
+  EventPropGetter,
+  SlotInfo,
+} from 'react-big-calendar';
 import moment from 'moment';
 import './CalendarTrack.css';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import { EventForm } from './EventForm';
-import { useEffect, useRef, useState } from 'react';
-// import { Modal } from './Modal';
+import { useCallback, useEffect, useState } from 'react';
 
 const localizer = momentLocalizer(moment);
 
@@ -18,18 +22,30 @@ type Event = {
 
 export function CalendarTrack() {
   const [isOpen, setIsOpen] = useState(false);
-  // const [isEvent, setIsEvent] = useState<Event[]>([]);
-  const modal = useRef<HTMLDialogElement>(null);
 
-  function openModal() {
-    modal.current?.showModal();
-    setIsOpen(true);
-  }
+  const [isEvent, setIsEvent] = useState<Event[]>([]);
 
-  function closeModal() {
-    modal.current?.close();
-    setIsOpen(false);
-  }
+  const [selectedSlot, setSelectedSlot] = useState<SlotInfo>();
+
+  const eventPropGetter: EventPropGetter<Event> = useCallback(
+    (event: Event, start: Date, end: Date, isSelected: boolean) => ({
+      ...(isSelected && {
+        style: {
+          backgroundColor: '#000',
+        },
+      }),
+      ...(moment(start).hour() < 12 && {
+        className: 'powderBlue',
+      }),
+      ...(event.title.includes('Notes') && {
+        className: 'darkGreen',
+      }),
+    }),
+    []
+  );
+
+  // const start = moment().startOf('month').startOf('week').format('YYYY/MM/DD');
+  // const end = moment().endOf('month').endOf('week').format('YYYY/MM/DD');
 
   useEffect(() => {
     async function getData() {
@@ -45,7 +61,7 @@ export function CalendarTrack() {
         }
 
         const json = (await response.json()) as Event[];
-        console.log('json', json);
+        setIsEvent(json);
       } catch (error) {
         console.error('Error fetching notes', error);
       }
@@ -53,15 +69,43 @@ export function CalendarTrack() {
     getData();
   }, []);
 
-  // const events = [
-  //   {
-  //     title:
-  //     start: new Date(),
-  //     end: new Date(),
-  //     allDay: false,
-  //     notes: JSON.title,
-  //   },
-  // ];
+  function handleSuccess(EventData: Event) {
+    setIsEvent([...isEvent, EventData]);
+    setIsOpen(false);
+    console.log('handle success was called.');
+  }
+
+  function closeModal() {
+    console.log('test');
+    setIsOpen(false);
+  }
+
+  function openModal() {
+    console.log('openModal');
+    setIsOpen(true);
+  }
+
+  const onSelectSlot = useCallback((slotInfo: SlotInfo) => {
+    setSelectedSlot(slotInfo);
+    openModal();
+  }, []);
+
+  const events = [
+    {
+      title: 'Meeting with Team',
+      start: new Date(2025, 3, 10, 10, 0), // April 10, 2025, 10:00 AM
+      end: new Date(2025, 3, 10, 11, 30), // April 10, 2025, 11:30 AM
+      notes: 'Discuss project timeline',
+    },
+    {
+      title: 'Doctor Appointment',
+      start: new Date(2025, 3, 15, 14, 0), // April 15, 2025, 2:00 PM
+      end: new Date(2025, 3, 15, 15, 0), // April 15, 2025, 3:00 PM
+      notes: 'Annual checkup',
+    },
+  ];
+  // on select slot is a event handler and it will be the calendar library will call this function when  slot is clicked and pass the information
+  // it will pass the slot info object that will have all the information
 
   return (
     <>
@@ -72,21 +116,29 @@ export function CalendarTrack() {
       </div>
       <div className="parent">
         <div className="row-calendar">
-          <div className="calendar-container" onClick={openModal}>
+          <div className="calendar-container">
             <Calendar
               defaultDate={new Date(2025, 3, 1)}
               localizer={localizer}
               style={{ height: 800 }}
-              selectable={'ignoreEvents'}
               popup={true}
               showAllEvents={true}
               views={['month', 'day', 'agenda']}
+              eventPropGetter={eventPropGetter}
+              selectable={true}
+              events={events}
+              onSelectSlot={onSelectSlot}
             />
-
-            {isOpen && <EventForm onClose={closeModal} />}
           </div>
         </div>
       </div>
+      {isOpen && selectedSlot && (
+        <EventForm
+          onClose={closeModal}
+          onSuccess={handleSuccess}
+          slotInfo={selectedSlot}
+        />
+      )}
     </>
   );
 }

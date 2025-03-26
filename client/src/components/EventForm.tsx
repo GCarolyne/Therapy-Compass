@@ -1,24 +1,33 @@
 import { FormEvent } from 'react';
 import './EventForm.css';
+import { useNavigate } from 'react-router-dom';
+import { SlotInfo } from 'react-big-calendar';
 
 type Props = {
   onClose: () => void;
+  onSuccess: (EventData: Event) => void;
+  slotInfo: SlotInfo;
 };
 
-// type Event = {
-//   id: number;
-//   title: string;
-//   start: Date;
-//   end: Date;
-//   allDay?: false;
-//   notes: string;
-// };
+type Event = {
+  title: string;
+  start: Date;
+  end: Date;
+  notes: string;
+};
 
-export function EventForm({ onClose }: Props) {
+export function EventForm({ onClose, onSuccess, slotInfo }: Props) {
+  const navigate = useNavigate();
   async function handleSave(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
-    const data = Object.fromEntries(formData);
+
+    const eventData: Event = {
+      title: formData.get('title') as string,
+      notes: formData.get('notes') as string,
+      start: slotInfo.start,
+      end: slotInfo.end,
+    };
 
     try {
       const response = await fetch('/api/calendar', {
@@ -26,12 +35,17 @@ export function EventForm({ onClose }: Props) {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify(eventData),
       });
       if (response.ok) {
         alert(`Thank you for being diligent about your notes!`);
         const json = await response.json();
-        console.log('test', json);
+        console.log(json);
+        onSuccess(json);
+        setTimeout(() => {
+          navigate('/calendar');
+        }, 1000);
+        onClose();
       } else {
         alert('Error submitting progress report');
       }
@@ -52,10 +66,10 @@ export function EventForm({ onClose }: Props) {
           <textarea name="notes" className="progress-notes"></textarea>
         </label>
         <div className="form-buttons">
-          <button className="cancel-button" onClick={onClose}>
+          <button type="button" className="cancel-button" onClick={onClose}>
             Cancel
           </button>
-          <button type="submit" className="submit-button" onClick={onClose}>
+          <button type="submit" className="submit-button">
             Save
           </button>
         </div>

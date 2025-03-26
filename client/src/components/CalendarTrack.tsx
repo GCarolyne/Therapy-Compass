@@ -9,6 +9,7 @@ import './CalendarTrack.css';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import { EventForm } from './EventForm';
 import { useCallback, useEffect, useState } from 'react';
+import { readToken } from '../lib';
 
 const localizer = momentLocalizer(moment);
 
@@ -26,6 +27,7 @@ export function CalendarTrack() {
   const [isEvent, setIsEvent] = useState<Event[]>([]);
 
   const [selectedSlot, setSelectedSlot] = useState<SlotInfo>();
+  const bear = readToken();
 
   const eventPropGetter: EventPropGetter<Event> = useCallback(
     (event: Event, start: Date, _end: Date, isSelected: boolean) => ({
@@ -54,6 +56,7 @@ export function CalendarTrack() {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
+            Authorization: `Bearer ${bear}`,
           },
         });
         if (!response.ok) {
@@ -67,10 +70,10 @@ export function CalendarTrack() {
         };
         const events: Event[] = json.map((item: Event) => {
           const event: Event = {
-            title: item.title ? item.title : 'untitled event',
-            start: dateRange.start ? dateRange.start : new Date(),
-            end: dateRange.end ? dateRange.end : new Date(),
-            notes: item.notes ? item.notes : '',
+            title: item.title || 'untitled event',
+            start: item.start ? dateRange.start : new Date(),
+            end: item.end ? dateRange.end : new Date(),
+            notes: item.notes || '',
           };
           console.log(event);
           return event;
@@ -82,7 +85,7 @@ export function CalendarTrack() {
       }
     }
     getData();
-  }, [start, end]);
+  }, [start, end, bear]);
 
   function handleSuccess(EventData: Event) {
     setIsEvent([...isEvent, EventData]);
@@ -101,10 +104,12 @@ export function CalendarTrack() {
   }
 
   const onSelectSlot = useCallback((slotInfo: SlotInfo) => {
+    console.log(onSelectSlot);
     setSelectedSlot(slotInfo);
     openModal();
   }, []);
 
+  console.log('is Event', isEvent);
   return (
     <>
       <div className="row-calendar">
@@ -117,11 +122,13 @@ export function CalendarTrack() {
           <div className="calendar-container">
             <Calendar
               defaultDate={new Date(2025, 3, 1)}
+              startAccessor="start"
+              endAccessor="end"
               localizer={localizer}
               style={{ height: 800 }}
               popup={true}
               showAllEvents={true}
-              views={['month', 'day', 'agenda']}
+              views={['month', 'day']}
               eventPropGetter={eventPropGetter}
               selectable={true}
               events={isEvent}

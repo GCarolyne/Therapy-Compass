@@ -199,7 +199,7 @@ app.get('/api/therapyassessment', authMiddleware, async (req, res, next) => {
   }
 });
 
-app.put('/api/calendar', async (req, res, next) => {
+app.put('/api/calendar', authMiddleware, async (req, res, next) => {
   try {
     const { notes, title, date, notesId } = req.body;
     if (!req.body) {
@@ -221,7 +221,7 @@ app.put('/api/calendar', async (req, res, next) => {
   }
 });
 
-app.delete('/api/calendar', async (req, res, next) => {
+app.delete('/api/calendar', authMiddleware, async (req, res, next) => {
   try {
     const { notesId } = req.body;
     if (!notesId) {
@@ -241,15 +241,13 @@ app.delete('/api/calendar', async (req, res, next) => {
   }
 });
 
-app.post('/api/calendar', async (req, res, next) => {
-  console.log('postroutehit');
+app.post('/api/calendar', authMiddleware, async (req, res, next) => {
   try {
     const formData = req.body;
-    console.log('formdata', formData);
+
     if (formData === undefined) {
       throw new ClientError(400, 'must fill out form.');
     }
-
     const sql = `
     insert into "calendarNotes" ("title","notes")
     values ($1,$2)

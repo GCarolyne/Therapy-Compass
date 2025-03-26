@@ -2,6 +2,7 @@ import { FormEvent } from 'react';
 import './EventForm.css';
 import { useNavigate } from 'react-router-dom';
 import { SlotInfo } from 'react-big-calendar';
+import { readToken } from '../lib';
 
 type Props = {
   onClose: () => void;
@@ -18,6 +19,7 @@ type Event = {
 
 export function EventForm({ onClose, onSuccess, slotInfo }: Props) {
   const navigate = useNavigate();
+  const bear = readToken();
   async function handleSave(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
@@ -34,6 +36,7 @@ export function EventForm({ onClose, onSuccess, slotInfo }: Props) {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          Authorization: `Bearer ${bear}`,
         },
         body: JSON.stringify(eventData),
       });

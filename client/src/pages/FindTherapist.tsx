@@ -8,9 +8,6 @@ export function FindTherapist() {
       <div className="card row-therapy">
         <TherapyAssessment />
       </div>
-      <div className="row-with-map">
-        <div></div>
-      </div>
     </>
   );
 }

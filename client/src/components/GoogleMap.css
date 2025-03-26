@@ -7,13 +7,10 @@
   width: 50%;
 }
 
-.row {
+.row-image {
   display: flex;
   flex-direction: column;
   align-items: center;
-}
-
-.row-image {
   background-image: url('/public/background image for therapy progress.avif');
 }
 

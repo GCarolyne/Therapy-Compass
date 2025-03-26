@@ -93,7 +93,7 @@ export function GoogleMap() {
   return (
     <>
       <div className="container">
-        <div className="row row-image">
+        <div className="row-image">
           <h3 className="text-below-map">
             Your therapy type recommendation is {therapyType}!
           </h3>
@@ -106,7 +106,7 @@ export function GoogleMap() {
               <Map
                 onClick={() => setSelectedPlace(undefined)}
                 style={{ width: '50vw', height: '50vh' }}
-                defaultCenter={{ lat: 34.0549, lng: -118.2426 }}
+                defaultCenter={{ lat: 33.5765, lng: -117.6941 }}
                 defaultZoom={12}
                 gestureHandling={'greedy'}
                 disableDefaultUI={true}
@@ -127,12 +127,10 @@ export function GoogleMap() {
                         <InfoWindow
                           anchor={marker}
                           onCloseClick={() => setIsOpen(false)}>
-                          <div style={{ padding: '20px', minWidth: '100px' }}>
-                            <h4>📍{selectedPlace.name}</h4>
-                            <h5>{selectedPlace.address}</h5>
-                            <h5>⭐ Rating:{selectedPlace.rating}</h5>
-                            <h5> 🏢{selectedPlace.vicinity}</h5>
-                          </div>
+                          <h4>📍{selectedPlace.name}</h4>
+                          <h5>{selectedPlace.address}</h5>
+                          <h5>⭐ Rating:{selectedPlace.rating}</h5>
+                          <h5> 🏢{selectedPlace.vicinity}</h5>
                         </InfoWindow>
                       ) : null}
                     </Pin>
@@ -146,6 +144,9 @@ export function GoogleMap() {
               The map is set to a default location.
             </p>
           </div>
+        </div>
+        <div className="row colors">
+          <img src="/People.png" />
         </div>
       </div>
     </>

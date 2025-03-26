@@ -81,7 +81,7 @@ export function TherapyAssessment() {
           <label className="form-label">
             What is the length of the symptoms you are experiencing?
             <select name="lengthOfSymptoms" className="form-select">
-              <option value="" disabled>
+              <option value="" disabled selected={true}>
                 Choose One
               </option>
               <option value="Less than 1 month">Less than 1 month</option>
@@ -97,7 +97,7 @@ export function TherapyAssessment() {
           <label className="form-label">
             Are any of these symptoms mood related?
             <select name="moodRelated" className="form-select">
-              <option value="" disabled>
+              <option value="" selected={true} disabled>
                 Choose One
               </option>
               <option value="Persistent sadness or emptiness">
@@ -123,7 +123,7 @@ export function TherapyAssessment() {
             <select
               name="severityOfDistress"
               className="form-select rating-select">
-              <option value="" disabled>
+              <option value="" disabled selected={true}>
                 Choose One
               </option>
               <option value={1}>1</option>
@@ -139,7 +139,7 @@ export function TherapyAssessment() {
           <label className="form-label">
             Are any of these symptoms anxiety related?
             <select name="anxietyRelated" className="form-select">
-              <option value="" disabled>
+              <option value="" disabled selected={true}>
                 Choose One
               </option>
               <option value="Excessive worry or fear">
@@ -159,7 +159,7 @@ export function TherapyAssessment() {
           <label className="form-label">
             Are any of these symptoms trauma related?
             <select name="traumaRelated" className="form-select">
-              <option value="" disabled>
+              <option value="" selected={true} disabled>
                 Choose One
               </option>
               <option value="Intrusive memories or flashbacks">
@@ -183,7 +183,7 @@ export function TherapyAssessment() {
           <label className="form-label">
             What is one of the main daily thinking habits you noticed?
             <select name="thinkingPatterns" className="form-select">
-              <option value="" disabled>
+              <option value="" selected={true} disabled>
                 Choose One
               </option>
               <option value="All-or-nothing thinking">
@@ -205,7 +205,7 @@ export function TherapyAssessment() {
           <label className="form-label">
             Which one do you mostly identify with?
             <select name="behavioral" className="form-select">
-              <option value="" disabled>
+              <option value="" selected={true} disabled>
                 Choose One
               </option>
               <option value="Withdrawal from social activities">
@@ -231,7 +231,7 @@ export function TherapyAssessment() {
           <label className="form-label">
             What is your main goal in therapy?
             <select name="therapyGoals" className="form-select">
-              <option value="" disabled>
+              <option value="" selected={true} disabled>
                 Choose One
               </option>
               <option value="Reduce symptom severity">
@@ -257,7 +257,7 @@ export function TherapyAssessment() {
           <label className="form-label">
             What are your therapy preferences?
             <select name="therapyPreferences" className="form-select">
-              <option value="" disabled>
+              <option value="" selected={true} disabled>
                 Choose One
               </option>
               <option value="Structured approach with homework">
@@ -283,7 +283,7 @@ export function TherapyAssessment() {
           <label className="form-label">
             What coping strategy do you use the most?
             <select name="primaryCopingStrategies" className="form-select">
-              <option value="" disabled>
+              <option value="" selected={true} disabled>
                 Choose One
               </option>
               <option value="Social support">Social support</option>

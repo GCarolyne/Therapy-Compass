@@ -221,6 +221,26 @@ app.put('/api/calendar', async (req, res, next) => {
   }
 });
 
+app.delete('/api/calendar', async (req, res, next) => {
+  try {
+    const { notesId } = req.body;
+    if (!notesId) {
+      throw new Error('notesId not provided for delete.');
+    }
+    const sql = `
+    delete
+    from "calendarNotes"
+    where "notesId" = $1
+    returning *`;
+    const params = [notesId];
+    const response = await db.query(sql, params);
+    if (!response) throw new Error('response failed');
+    res.json(response.rows);
+  } catch (err) {
+    next(err);
+  }
+});
+
 app.post('/api/calendar', async (req, res, next) => {
   console.log('postroutehit');
   try {

@@ -27,7 +27,7 @@ export function CalendarTrack() {
   const [isOpen, setIsOpen] = useState(false);
 
   const [isEvent, setIsEvent] = useState<Event[]>([]);
-  const [selectedEvent, setSelectedEvent] = useState<Event>();
+
   const [selectedSlot, setSelectedSlot] = useState<SlotInfo>();
   const bear = readToken();
 
@@ -53,7 +53,7 @@ export function CalendarTrack() {
             allDay: true,
             notes: EventData.notes || '',
           };
-          console.log(event);
+
           return event;
         });
 
@@ -66,35 +66,22 @@ export function CalendarTrack() {
   }, [bear]);
 
   function handleSuccess(EventData: DBEvent) {
-    if (selectedEvent) {
-      const updatedEvents = isEvent.map((event) => {
-        if (event === selectedEvent) {
-          return {
-            ...event,
-            title: EventData.title || 'untiled event',
-            notes: EventData.notes || '',
-          };
-        }
-        return event;
-      });
-      setIsEvent(updatedEvents);
-    } else {
-      const event: Event = {
-        title: EventData.title || 'untitled event',
-        start: EventData.date,
-        end: EventData.date,
-        allDay: true,
-        notes: EventData.notes || '',
-      };
-      setIsEvent([...isEvent, event]);
+    const event: Event = {
+      title: EventData.title || 'untitled event',
+      start: EventData.date,
+      end: EventData.date,
+      allDay: true,
+      notes: EventData.notes || '',
+    };
+    setIsEvent([...isEvent, event]);
 
-      setIsOpen(false);
-      setSelectedEvent(undefined);
-      console.log('handle success was called.');
-    }
+    setIsOpen(false);
   }
 
-  //*REMEMBER TO UPDATE THE ISEVENT ARRAY WHEN THE NOTES AND TITLE GET MODIFIED.
+  // function handleSelectEvent(event: Event) {
+  //   setIsOpen(true);
+
+  // }
   function closeModal() {
     console.log('test');
     setIsOpen(false);
@@ -104,11 +91,6 @@ export function CalendarTrack() {
     console.log('openModal');
     setIsOpen(true);
   }
-
-  const handleEventSelection = useCallback((e: Event) => {
-    setSelectedEvent(e);
-    openModal();
-  }, []);
 
   const onSelectSlot = useCallback((slotInfo: SlotInfo) => {
     console.log(onSelectSlot);
@@ -141,7 +123,7 @@ export function CalendarTrack() {
               selectable={true}
               events={isEvent}
               onSelectSlot={onSelectSlot}
-              onSelectEvent={handleEventSelection}
+              // onSelectEvent={handleSelectEvent}
             />
           </div>
         </div>
@@ -151,6 +133,7 @@ export function CalendarTrack() {
           onClose={closeModal}
           onSuccess={handleSuccess}
           slotInfo={selectedSlot}
+          // editEvent={}
         />
       )}
     </>

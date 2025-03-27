@@ -4,19 +4,14 @@ import { useNavigate } from 'react-router-dom';
 import { SlotInfo } from 'react-big-calendar';
 import { readToken } from '../lib';
 import { DBEvent, Event } from './CalendarTrack';
+
 type Props = {
   onClose: () => void;
   onSuccess: (EventData: DBEvent) => void;
   slotInfo: SlotInfo;
-  selectedEvent?: Event;
 };
 
-export function EventForm({
-  onClose,
-  onSuccess,
-  slotInfo,
-  selectedEvent,
-}: Props) {
+export function EventForm({ onClose, onSuccess, slotInfo }: Props) {
   const navigate = useNavigate();
   const bear = readToken();
 
@@ -27,8 +22,8 @@ export function EventForm({
     const eventData: Event = {
       title: formData.get('title') as string,
       notes: formData.get('notes') as string,
-      start: selectedEvent ? selectedEvent.start : slotInfo.start,
-      end: selectedEvent ? selectedEvent.end : slotInfo.end,
+      start: slotInfo.start,
+      end: slotInfo.end,
     };
 
     try {
@@ -66,22 +61,17 @@ export function EventForm({
             type="text"
             name="title"
             className="space-input"
-            defaultValue={selectedEvent?.title || ''}></input>
+            defaultValue=""></input>
         </label>
         <label>
           Notes:
-          <textarea
-            name="notes"
-            className="progress-notes"
-            defaultValue={selectedEvent?.notes || ''}></textarea>
+          <textarea name="notes" className="progress-notes"></textarea>
         </label>
         <div className="form-buttons">
           <button type="button" className="cancel-button" onClick={onClose}>
             Cancel
           </button>
-          <button type="submit" className="submit-button">
-            {selectedEvent ? 'Update' : 'Save'}
-          </button>
+          <button type="submit" className="submit-button"></button>
         </div>
       </form>
     </div>

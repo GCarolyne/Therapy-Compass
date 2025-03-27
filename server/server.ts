@@ -243,9 +243,8 @@ app.delete('/api/calendar', authMiddleware, async (req, res, next) => {
 
 app.post('/api/calendar', authMiddleware, async (req, res, next) => {
   try {
-    console.log('post api calendar');
     const formData = req.body;
-    console.log(formData);
+
     if (formData === undefined) {
       throw new ClientError(400, 'must fill out form.');
     }
@@ -257,7 +256,7 @@ app.post('/api/calendar', authMiddleware, async (req, res, next) => {
       formData.title,
       formData.notes,
       formData.start,
-      formData.userId,
+      req.user?.userId,
     ];
     const response = await db.query(sql, params);
     if (!response) throw new Error('response failed');

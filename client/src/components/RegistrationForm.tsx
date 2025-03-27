@@ -48,7 +48,7 @@ export function RegistrationForm() {
         <div className="form-row">
           <div className="form-column">
             <label className="form-label">
-              Username
+              Username:
               <input
                 required
                 name="username"
@@ -57,7 +57,7 @@ export function RegistrationForm() {
               />
             </label>
             <label className="form-label">
-              Password
+              Password:
               <input
                 required
                 name="password"

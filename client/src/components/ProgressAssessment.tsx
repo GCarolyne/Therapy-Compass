@@ -78,7 +78,7 @@ export function ProgressAssessment({ onClose, onSubmitSuccess }: Props) {
               <label className="form-label">
                 How would you rate your anxiety level over the past week?
                 <select name="anxietyLevel" className="form-select">
-                  <option value="" disabled className="select-option">
+                  <option value="" disabled selected={true}>
                     Choose One
                   </option>
                   <option value="0" className="select-option">
@@ -102,7 +102,7 @@ export function ProgressAssessment({ onClose, onSubmitSuccess }: Props) {
               <label className="form-label">
                 Have you experienced any panic attacks in the past week?
                 <select name="panicAttacks" className="form-select">
-                  <option value="" disabled className="select-option">
+                  <option value="" disabled selected={true}>
                     Choose One
                   </option>
                   <option value="1" className="select-option">
@@ -126,7 +126,7 @@ export function ProgressAssessment({ onClose, onSubmitSuccess }: Props) {
               <label className="form-label">
                 If you experienced panic attacks, how intense were they?
                 <select name="panicAttacksIntensity" className="form-select">
-                  <option value="" disabled className="select-option">
+                  <option value="" disabled selected={true}>
                     Choose One
                   </option>
                   <option value="1" className="select-option">
@@ -156,7 +156,7 @@ export function ProgressAssessment({ onClose, onSubmitSuccess }: Props) {
               <label className="form-label">
                 How would you rate your mood level over the past week?
                 <select name="depressionLevel" className="form-select">
-                  <option value="" disabled className="select-option">
+                  <option value="" disabled selected={true}>
                     Choose One
                   </option>
                   <option value="0" className="select-option">
@@ -182,7 +182,7 @@ export function ProgressAssessment({ onClose, onSubmitSuccess }: Props) {
               <label className="form-label">
                 How irritable or easily frustrated have you felt this week?
                 <select name="irritabilityLevel" className="form-select">
-                  <option value="" disabled className="select-option">
+                  <option value="" disabled selected={true}>
                     Choose One
                   </option>
                   <option value="0" className="select-option">
@@ -212,7 +212,7 @@ export function ProgressAssessment({ onClose, onSubmitSuccess }: Props) {
               <label className="form-label">
                 What was your primary source of stress this week?
                 <select name="typeStress" className="form-select">
-                  <option value="" disabled className="select-option">
+                  <option value="" disabled selected={true}>
                     Choose One
                   </option>
                   <option value="1" className="select-option">
@@ -237,7 +237,7 @@ export function ProgressAssessment({ onClose, onSubmitSuccess }: Props) {
                 How would you rate the overall intensity of stress you
                 experienced?
                 <select name="intensityStress" className="form-select">
-                  <option value="" disabled className="select-option">
+                  <option value="" disabled selected={true}>
                     Choose One
                   </option>
                   <option value="1" className="select-option">
@@ -267,7 +267,7 @@ export function ProgressAssessment({ onClose, onSubmitSuccess }: Props) {
               <label className="form-label">
                 Which coping strategy did you use most frequently this week?
                 <select name="copingStrategy" className="form-select">
-                  <option value="" disabled className="select-option">
+                  <option value="" disabled selected={true}>
                     Choose One
                   </option>
                   <option value="0" className="select-option">
@@ -294,7 +294,7 @@ export function ProgressAssessment({ onClose, onSubmitSuccess }: Props) {
                 <select
                   name="copingStrategyManageStress"
                   className="form-select">
-                  <option value="" disabled className="select-option">
+                  <option value="" disabled selected={true}>
                     Choose One
                   </option>
                   <option value="0" className="select-option">
@@ -326,7 +326,7 @@ export function ProgressAssessment({ onClose, onSubmitSuccess }: Props) {
                 What type of physical activity did you engage in most
                 frequently?
                 <select name="typeOfPhysicalActivity" className="form-select">
-                  <option value="" disabled className="select-option">
+                  <option value="" disabled selected={true}>
                     Choose One
                   </option>
                   <option value="0" className="select-option">
@@ -350,7 +350,7 @@ export function ProgressAssessment({ onClose, onSubmitSuccess }: Props) {
               <label className="form-label">
                 On average, how long were your physical activity sessions?
                 <select name="durationOfActivity" className="form-select">
-                  <option value="" disabled className="select-option">
+                  <option value="" disabled selected={true}>
                     Choose One
                   </option>
                   <option value="4" className="select-option">
@@ -376,7 +376,7 @@ export function ProgressAssessment({ onClose, onSubmitSuccess }: Props) {
               <label className="form-label">
                 How would you rate the intensity of your physical activity?
                 <select name="intesityOfActivity" className="form-select">
-                  <option value="" disabled className="select-option">
+                  <option value="" disabled selected={true}>
                     Choose One
                   </option>
                   <option value="4" className="select-option">
@@ -402,7 +402,7 @@ export function ProgressAssessment({ onClose, onSubmitSuccess }: Props) {
               <label className="form-label">
                 How much did you enjoy your physical activities this week?
                 <select name="enjoymentLevel" className="form-select">
-                  <option value="" disabled className="select-option">
+                  <option value="" disabled selected={true}>
                     Choose One
                   </option>
                   <option value="5" className="select-option">
@@ -429,7 +429,7 @@ export function ProgressAssessment({ onClose, onSubmitSuccess }: Props) {
                 How would you typically your mood before engaging in physical
                 activity?
                 <select name="moodBeforeActivity" className="form-select">
-                  <option value="" disabled className="select-option">
+                  <option value="" disabled selected={true}>
                     Choose One
                   </option>
                   <option value="0" className="select-option">
@@ -453,7 +453,7 @@ export function ProgressAssessment({ onClose, onSubmitSuccess }: Props) {
               <label className="form-label">
                 How would you rate your mood after completing physical activity?
                 <select name="moodAfterActivity" className="form-select">
-                  <option value="" disabled className="select-option">
+                  <option value="" disabled selected={true}>
                     Choose One
                   </option>
                   <option value="0" className="select-option">
@@ -483,7 +483,7 @@ export function ProgressAssessment({ onClose, onSubmitSuccess }: Props) {
               <label className="form-label">
                 What time did you typically go to bed this week?
                 <select name="bedtime" className="form-select">
-                  <option value="" disabled className="select-option">
+                  <option value="" disabled selected={true}>
                     Choose One
                   </option>
                   <option value="1" className="select-option">
@@ -507,7 +507,7 @@ export function ProgressAssessment({ onClose, onSubmitSuccess }: Props) {
               <label className="form-label">
                 What time did you typically wake up this week?
                 <select name="wakeTime" className="form-select">
-                  <option value="" disabled className="select-option">
+                  <option value="" disabled selected={true}>
                     Choose One
                   </option>
                   <option value="1" className="select-option">
@@ -533,7 +533,7 @@ export function ProgressAssessment({ onClose, onSubmitSuccess }: Props) {
               <label className="form-label">
                 On average, how many hours of sleep did you get each night?
                 <select name="totalSleep" className="form-select">
-                  <option value="" disabled className="select-option">
+                  <option value="" disabled selected={true}>
                     Choose One
                   </option>
                   <option value="1" className="select-option">
@@ -557,7 +557,7 @@ export function ProgressAssessment({ onClose, onSubmitSuccess }: Props) {
               <label className="form-label">
                 How many hours did you sleep last night?
                 <select name="lastNightSleep" className="form-select">
-                  <option value="" disabled className="select-option">
+                  <option value="" disabled selected={true}>
                     Choose One
                   </option>
                   <option value="1" className="select-option">
@@ -583,7 +583,7 @@ export function ProgressAssessment({ onClose, onSubmitSuccess }: Props) {
               <label className="form-label">
                 What was the quality of your sleep last night?
                 <select name="sleepQuality" className="form-select">
-                  <option value="" disabled className="select-option">
+                  <option value="" disabled selected={true}>
                     Choose One
                   </option>
                   <option value="0" className="select-option">
@@ -607,7 +607,7 @@ export function ProgressAssessment({ onClose, onSubmitSuccess }: Props) {
               <label className="form-label">
                 How would you rate your dreams activity from last night?
                 <select name="dreamActivity" className="form-select">
-                  <option value="" disabled className="select-option">
+                  <option value="" disabled selected={true}>
                     Choose One
                   </option>
                   <option value="0" className="select-option">
@@ -633,7 +633,7 @@ export function ProgressAssessment({ onClose, onSubmitSuccess }: Props) {
               <label className="form-label">
                 How did you feel this morning?
                 <select name="morningMood" className="form-select">
-                  <option value="" disabled className="select-option">
+                  <option value="" disabled selected={true}>
                     Choose One
                   </option>
                   <option value="4" className="select-option">

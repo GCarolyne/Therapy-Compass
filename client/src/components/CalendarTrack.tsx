@@ -1,16 +1,10 @@
-import {
-  Calendar,
-  momentLocalizer,
-  EventPropGetter,
-  SlotInfo,
-} from 'react-big-calendar';
+import { Calendar, momentLocalizer, SlotInfo } from 'react-big-calendar';
 import moment from 'moment';
 import './CalendarTrack.css';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import { EventForm } from './EventForm';
 import { useCallback, useEffect, useState } from 'react';
 import { readToken } from '../lib';
-import { useUser } from './useUser';
 
 const localizer = momentLocalizer(moment);
 
@@ -33,29 +27,9 @@ export function CalendarTrack() {
   const [isOpen, setIsOpen] = useState(false);
 
   const [isEvent, setIsEvent] = useState<Event[]>([]);
-
+  const [selectedEvent, setSelectedEvent] = useState<Event>();
   const [selectedSlot, setSelectedSlot] = useState<SlotInfo>();
   const bear = readToken();
-  const user = useUser();
-  console.log('the user', user);
-  const userId = user.user?.userId;
-  console.log('userId', userId);
-  const eventPropGetter: EventPropGetter<Event> = useCallback(
-    (event: Event, start: Date, _end: Date, isSelected: boolean) => ({
-      ...(isSelected && {
-        style: {
-          backgroundColor: '#000',
-        },
-      }),
-      ...(moment(start).hour() < 12 && {
-        className: 'powderBlue',
-      }),
-      ...(event.title.includes('Notes') && {
-        className: 'darkGreen',
-      }),
-    }),
-    []
-  );
 
   useEffect(() => {
     async function getData() {
@@ -92,19 +66,35 @@ export function CalendarTrack() {
   }, [bear]);
 
   function handleSuccess(EventData: DBEvent) {
-    const event: Event = {
-      title: EventData.title || 'untitled event',
-      start: EventData.date,
-      end: EventData.date,
-      allDay: true,
-      notes: EventData.notes || '',
-    };
-    setIsEvent([...isEvent, event]);
+    if (selectedEvent) {
+      const updatedEvents = isEvent.map((event) => {
+        if (event === selectedEvent) {
+          return {
+            ...event,
+            title: EventData.title || 'untiled event',
+            notes: EventData.notes || '',
+          };
+        }
+        return event;
+      });
+      setIsEvent(updatedEvents);
+    } else {
+      const event: Event = {
+        title: EventData.title || 'untitled event',
+        start: EventData.date,
+        end: EventData.date,
+        allDay: true,
+        notes: EventData.notes || '',
+      };
+      setIsEvent([...isEvent, event]);
 
-    setIsOpen(false);
-    console.log('handle success was called.');
+      setIsOpen(false);
+      setSelectedEvent(undefined);
+      console.log('handle success was called.');
+    }
   }
 
+  //*REMEMBER TO UPDATE THE ISEVENT ARRAY WHEN THE NOTES AND TITLE GET MODIFIED.
   function closeModal() {
     console.log('test');
     setIsOpen(false);
@@ -115,6 +105,11 @@ export function CalendarTrack() {
     setIsOpen(true);
   }
 
+  const handleEventSelection = useCallback((e: Event) => {
+    setSelectedEvent(e);
+    openModal();
+  }, []);
+
   const onSelectSlot = useCallback((slotInfo: SlotInfo) => {
     console.log(onSelectSlot);
     setSelectedSlot(slotInfo);
@@ -124,16 +119,18 @@ export function CalendarTrack() {
   console.log('is Event', isEvent);
   return (
     <>
-      <div className="row-calendar">
-        <div className="row">
-          <h3>Keep track in the form of writing notes!</h3>
+      <div className="parent">
+        <div className="row-calendar">
+          <h3 className="h3-style">
+            Keep track of your progress and share notes with your Therapist!
+          </h3>
         </div>
       </div>
       <div className="parent">
         <div className="row-calendar">
           <div className="calendar-container">
             <Calendar
-              defaultDate={new Date(2025, 3, 1)}
+              defaultDate={new Date()}
               startAccessor="start"
               endAccessor="end"
               localizer={localizer}
@@ -141,10 +138,10 @@ export function CalendarTrack() {
               popup={true}
               showAllEvents={true}
               views={['month', 'day']}
-              eventPropGetter={eventPropGetter}
               selectable={true}
               events={isEvent}
               onSelectSlot={onSelectSlot}
+              onSelectEvent={handleEventSelection}
             />
           </div>
         </div>

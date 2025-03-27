@@ -199,7 +199,7 @@ app.get('/api/therapyassessment', authMiddleware, async (req, res, next) => {
   }
 });
 
-app.put('/api/calendar', authMiddleware, async (req, res, next) => {
+app.put('/api/calendar/:notesId', authMiddleware, async (req, res, next) => {
   try {
     const { notes, title, date, notesId } = req.body;
     if (!req.body) {
@@ -215,7 +215,7 @@ app.put('/api/calendar', authMiddleware, async (req, res, next) => {
     const params = [notes, title, date, notesId];
     const response = await db.query(sql, params);
     if (!response) throw new Error('response failed');
-    res.json(response.rows);
+    res.json(response.rows[0]);
   } catch (err) {
     next(err);
   }

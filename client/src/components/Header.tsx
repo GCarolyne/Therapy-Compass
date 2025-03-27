@@ -13,7 +13,7 @@ export function Header() {
             <button className="my-butt">Sign In</button>
           </Link>
           <Link to="/userpage">
-            <button className="my-butt">back home</button>
+            <button className="my-butt">Home</button>
           </Link>
         </div>
       </div>

@@ -8,8 +8,6 @@
 
 .column-one {
   justify-content: center;
-  padding: 40px;
-  background-color: #89ac46;
 }
 
 .find-therapist-container {
@@ -20,6 +18,7 @@
 }
 
 .row-therapy {
+  background-size: cover;
   background-image: url('/437DFD28-EA81-481F-839C-947310FA4A3D_1_102_o.jpeg');
 }
 

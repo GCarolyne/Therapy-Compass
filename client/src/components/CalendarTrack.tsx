@@ -119,9 +119,11 @@ export function CalendarTrack() {
   console.log('is Event', isEvent);
   return (
     <>
-      <div className="row-calendar">
-        <div className="row">
-          <h3>Keep track in the form of writing notes!</h3>
+      <div className="parent">
+        <div className="row-calendar">
+          <h3 className="h3-style">
+            Keep track of your progress and share notes with your Therapist!
+          </h3>
         </div>
       </div>
       <div className="parent">

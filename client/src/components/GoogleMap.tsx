@@ -139,11 +139,8 @@ export function GoogleMap() {
               </Map>
             </div>
           )}
-          <div className="below-map">
-            <p className="text-below-map">
-              The map is set to a default location.
-            </p>
-          </div>
+
+          <p className="below-map">The map is set to a default location.</p>
         </div>
         <div className="row colors">
           <img src="/People.png" />

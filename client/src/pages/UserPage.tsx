@@ -83,7 +83,7 @@ export function UserPage() {
     modal.current?.close();
     setIsOpen(false);
   }
-  const name = user?.userName;
+
   const physical = scoreHistory.map((item) => item.typeOfPhysicalActivity);
   const dreamActivity = scoreHistory.map((item) => item.dreamActivity);
 
@@ -102,7 +102,7 @@ export function UserPage() {
     <>
       <>
         <div className="row-welcome">
-          <h1 className="title">Welcome,{name}</h1>
+          <h1 className="title">Welcome , Client</h1>
         </div>
         <div className="row">
           <div className="chart-container">

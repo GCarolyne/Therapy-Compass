@@ -27,10 +27,10 @@ export type DBEvent = {
 
 export function CalendarTrack() {
   const [isOpen, setIsOpen] = useState(false);
-
   const [events, setEvents] = useState<Event[]>([]);
   const [eventToEdit, setEventToEdit] = useState<Event>();
   const [selectedSlot, setSelectedSlot] = useState<SlotInfo>();
+
   const bear = readToken();
 
   useEffect(() => {

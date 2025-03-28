@@ -36,10 +36,10 @@ type Props = {
 export function ProgressAssessment({ onClose, onSubmitSuccess }: Props) {
   const navigate = useNavigate();
   const bear = readToken();
+
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
-
     const data = Object.fromEntries(formData);
 
     try {

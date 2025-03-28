@@ -124,8 +124,8 @@ export function UserPage() {
                     {
                       label: 'Anxiety Levels',
                       data: anxiety,
-                      borderColor: 'rgba(242, 0, 255, 0.48)',
-                      backgroundColor: 'rgba(247, 101, 254, 0.81)',
+                      borderColor: 'rgba(6, 24, 187, 0.17)',
+                      backgroundColor: 'rgba(41, 58, 249, 0.53)',
                       fill: '-1',
                       borderWidth: 1.2,
                       tension: 0.4,

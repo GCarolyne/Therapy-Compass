@@ -49,11 +49,11 @@ export function SignIn() {
           <form onSubmit={handleSubmit}>
             <div className="form-group">
               <label className="form-label">
-                Username
+                Username:
                 <input required name="username" type="text" />
               </label>
               <label className="form-label">
-                Password
+                Password:
                 <input required name="password" type="password" />
               </label>
               <button type="submit" className="sign-butt">

@@ -8,10 +8,18 @@ import { DBEvent, Event } from './CalendarTrack';
 type Props = {
   onClose: () => void;
   onSuccess: (EventData: DBEvent) => void;
-  slotInfo: SlotInfo;
+  onEdit: (event: DBEvent) => void;
+  slotInfo: SlotInfo | undefined;
+  editEvent: Event | undefined;
 };
 
-export function EventForm({ onClose, onSuccess, slotInfo }: Props) {
+export function EventForm({
+  onClose,
+  onSuccess,
+  slotInfo,
+  editEvent,
+  onEdit,
+}: Props) {
   const navigate = useNavigate();
   const bear = readToken();
 
@@ -22,24 +30,26 @@ export function EventForm({ onClose, onSuccess, slotInfo }: Props) {
     const eventData: Event = {
       title: formData.get('title') as string,
       notes: formData.get('notes') as string,
-      start: slotInfo.start,
-      end: slotInfo.end,
+      start: slotInfo?.start ?? editEvent?.start ?? new Date(),
+      end: slotInfo?.end ?? editEvent?.end ?? new Date(),
+      notesId: editEvent?.notesId,
     };
-
     try {
-      const response = await fetch('/api/calendar', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${bear}`,
-        },
-        body: JSON.stringify(eventData),
-      });
+      const response = await fetch(
+        editEvent ? `/api/calendar/${editEvent.notesId}` : `/api/calendar`,
+        {
+          method: editEvent ? 'PUT' : 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${bear}`,
+          },
+          body: JSON.stringify(eventData),
+        }
+      );
       if (response.ok) {
         alert(`Thank you for being diligent about your notes!`);
         const json = await response.json();
-        console.log(json);
-        onSuccess(json);
+        editEvent ? onEdit(json) : onSuccess(json);
         setTimeout(() => {
           navigate('/calendar');
         }, 1000);
@@ -61,17 +71,22 @@ export function EventForm({ onClose, onSuccess, slotInfo }: Props) {
             type="text"
             name="title"
             className="space-input"
-            defaultValue=""></input>
+            defaultValue={editEvent?.title}></input>
         </label>
         <label>
           Notes:
-          <textarea name="notes" className="progress-notes"></textarea>
+          <textarea
+            name="notes"
+            className="progress-notes"
+            defaultValue={editEvent?.notes}></textarea>
         </label>
         <div className="form-buttons">
           <button type="button" className="cancel-button" onClick={onClose}>
             Cancel
           </button>
-          <button type="submit" className="submit-button"></button>
+          <button type="submit" className="submit-button">
+            Save
+          </button>
         </div>
       </form>
     </div>

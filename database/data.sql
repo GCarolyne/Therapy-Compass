@@ -1,11 +1,27 @@
--- Use SQL insert statements to add any
--- starting/dummy data to your database tables
 
--- EXAMPLE:
+INSERT INTO "users" ("username","hashedPassword")
 
---  insert into "todos"
---    ("task", "isCompleted")
---    values
---      ('Learn to code', false),
---      ('Build projects', false),
---      ('Get a job', false);
+VALUES
+('111','$argon2id$v=19$m=65536,t=3,p=4$lcjnPBe/Y7zGbcSUya1SWQ$IhGKG32QDSQRVgESeaYH1uMuPMoLLXUcAYNHV8EkiLQ') :
+
+INSERT INTO "progressAssessment"
+
+("anxietyLevel", "depressionLevel", "irritabilityLevel", "panicAttacks", "panicAttacksIntensity",
+"typeStress", "intensityStress", "copingStrategy", "copingStrategyManageStress",
+"typeOfPhysicalActivity", "durationOfActivity", "intesityOfActivity", "enjoymentLevel",
+"moodBeforeActivity", "moodAfterActivity", "bedtime", "wakeTime", "totalSleep",
+"sleepQuality", "dreamActivity", "morningMood", "progressScore", "date", "userId")
+VALUES
+
+('3','4','2',4,4,'2','3','4','3','4','3','2','2','3','3','3',2,1,2,'4','2','3',55,'03.27',1)
+('3','4','2',4,4,'2','3','4','3','4','3','2','2','3','3','3',2,1,2,'4','2','3',60,'03.28',1)
+('4','5','3',5,5,'3','4','5','4','5','4','3','3','4','4','4',3,2,3,'5','3','4',35,'03.29',1)
+('5','1','4',1,2,'4','5','1','5','1','5','4','4','5','5','5',4,3,4,'1','4','5',25,'03.30',1)
+('1','2','5',2,3,'5','1','2','1','2','1','5','5','1','1','1',5,4,5,'2','5','1',85,'03.31',1)
+('2','3','1',3,4,'1','2','3','2','3','2','1','1','2','2','2',1,5,1,'3','1','2',65,'04.01',1)
+('3','4','2',4,5,'2','3','4','3','4','3','2','2','3','3','3',2,1,2,'4','2','3',95,'04.02',1)
+('4','5','3',5,1,'3','4','5','4','5','4','3','3','4','4','4',3,2,3,'5','3','4',35,'04.03',1)
+('5','1','4',1,2,'4','5','1','5','1','5','4','4','5','5','5',4,3,4,'1','4','5',15,'04.04',1)
+('1','2','5',2,3,'5','1','2','1','2','1','5','5','1','1','1',5,4,5,'2','5','1',25,'04.05',1)
+('2','3','1',3,4,'1','2','3','2','3','2','1','1','2','2','2',1,5,1,'3','1','2',35,'04.06',1)
+('3','4','2',4,5,'2','3','4','3','4','3','2','2','3','3','3',2,1,2,'4','2','3',85,'04.07',1) :

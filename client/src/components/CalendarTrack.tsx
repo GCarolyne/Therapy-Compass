@@ -14,6 +14,7 @@ export type Event = {
   end: Date;
   allDay?: boolean;
   notes: string;
+  notesId?: number;
 };
 
 export type DBEvent = {
@@ -21,13 +22,14 @@ export type DBEvent = {
   notes: string;
   date: Date;
   userId: number;
+  notesId: number;
 };
 
 export function CalendarTrack() {
   const [isOpen, setIsOpen] = useState(false);
 
-  const [isEvent, setIsEvent] = useState<Event[]>([]);
-
+  const [events, setEvents] = useState<Event[]>([]);
+  const [eventToEdit, setEventToEdit] = useState<Event>();
   const [selectedSlot, setSelectedSlot] = useState<SlotInfo>();
   const bear = readToken();
 
@@ -45,19 +47,20 @@ export function CalendarTrack() {
         }
 
         const json = (await response.json()) as DBEvent[];
-        const events: Event[] = json.map((EventData: DBEvent) => {
+        const events: Event[] = json.map((eventData: DBEvent) => {
           const event: Event = {
-            title: EventData.title || 'untitled event',
-            start: EventData.date,
-            end: EventData.date,
+            title: eventData.title || 'untitled event',
+            start: eventData.date,
+            end: eventData.date,
             allDay: true,
-            notes: EventData.notes || '',
+            notes: eventData.notes || '',
+            notesId: eventData.notesId,
           };
 
           return event;
         });
 
-        setIsEvent(events);
+        setEvents(events);
       } catch (error) {
         console.error('Error fetching notes', error);
       }
@@ -65,40 +68,53 @@ export function CalendarTrack() {
     getData();
   }, [bear]);
 
-  function handleSuccess(EventData: DBEvent) {
+  function handleSuccess(eventData: DBEvent) {
     const event: Event = {
-      title: EventData.title || 'untitled event',
-      start: EventData.date,
-      end: EventData.date,
+      title: eventData.title || 'untitled event',
+      start: eventData.date,
+      end: eventData.date,
       allDay: true,
-      notes: EventData.notes || '',
+      notes: eventData.notes || '',
+      notesId: eventData.notesId,
     };
-    setIsEvent([...isEvent, event]);
-
+    setEvents([...events, event]);
     setIsOpen(false);
   }
 
-  // function handleSelectEvent(event: Event) {
-  //   setIsOpen(true);
+  function handleUpdateEvent(eventData: Event) {
+    setIsOpen(true);
+    setEventToEdit(eventData);
+  }
 
-  // }
+  function handleEditEvent(eventData: DBEvent) {
+    const objDataBase: Event = {
+      title: eventData.title,
+      notes: eventData.notes,
+      start: eventData.date,
+      end: eventData.date,
+      notesId: eventData.notesId,
+    };
+
+    const update = events.map((item) =>
+      item.notesId === eventData.notesId ? objDataBase : item
+    );
+    setEvents(update);
+    setIsOpen(false);
+  }
+
   function closeModal() {
-    console.log('test');
     setIsOpen(false);
   }
 
   function openModal() {
-    console.log('openModal');
     setIsOpen(true);
   }
 
   const onSelectSlot = useCallback((slotInfo: SlotInfo) => {
-    console.log(onSelectSlot);
     setSelectedSlot(slotInfo);
     openModal();
   }, []);
 
-  console.log('is Event', isEvent);
   return (
     <>
       <div className="parent">
@@ -121,19 +137,20 @@ export function CalendarTrack() {
               showAllEvents={true}
               views={['month', 'day']}
               selectable={true}
-              events={isEvent}
+              events={events}
               onSelectSlot={onSelectSlot}
-              // onSelectEvent={handleSelectEvent}
+              onSelectEvent={handleUpdateEvent}
             />
           </div>
         </div>
       </div>
-      {isOpen && selectedSlot && (
+      {isOpen && (
         <EventForm
           onClose={closeModal}
           onSuccess={handleSuccess}
+          onEdit={handleEditEvent}
           slotInfo={selectedSlot}
-          // editEvent={}
+          editEvent={eventToEdit}
         />
       )}
     </>

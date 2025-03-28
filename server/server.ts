@@ -201,10 +201,11 @@ app.get('/api/therapyassessment', authMiddleware, async (req, res, next) => {
 
 app.put('/api/calendar/:notesId', authMiddleware, async (req, res, next) => {
   try {
-    const { notes, title, date, notesId } = req.body;
+    const { notes, title, start } = req.body;
     if (!req.body) {
       throw new Error('request body not provided.');
     }
+    const { notesId } = req.params;
     const sql = `
     update "calendarNotes"
     set "notes" = $1,
@@ -212,7 +213,7 @@ app.put('/api/calendar/:notesId', authMiddleware, async (req, res, next) => {
     "date" = $3
     where "notesId" = $4
     returning *`;
-    const params = [notes, title, date, notesId];
+    const params = [notes, title, start, notesId];
     const response = await db.query(sql, params);
     if (!response) throw new Error('response failed');
     res.json(response.rows[0]);
@@ -243,9 +244,8 @@ app.delete('/api/calendar', authMiddleware, async (req, res, next) => {
 
 app.post('/api/calendar', authMiddleware, async (req, res, next) => {
   try {
-    console.log('post api calendar');
     const formData = req.body;
-    console.log(formData);
+
     if (formData === undefined) {
       throw new ClientError(400, 'must fill out form.');
     }
@@ -257,7 +257,7 @@ app.post('/api/calendar', authMiddleware, async (req, res, next) => {
       formData.title,
       formData.notes,
       formData.start,
-      formData.userId,
+      req.user?.userId,
     ];
     const response = await db.query(sql, params);
     if (!response) throw new Error('response failed');
@@ -270,7 +270,7 @@ app.post('/api/calendar', authMiddleware, async (req, res, next) => {
 app.get('/api/calendar', authMiddleware, async (req, res, next) => {
   try {
     const sql = `
-    select "title","notes","date","userId"
+    select *
     from "calendarNotes"
     where "userId" = $1`;
     const params = [req.user?.userId];

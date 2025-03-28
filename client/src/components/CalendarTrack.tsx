@@ -14,6 +14,7 @@ export type Event = {
   end: Date;
   allDay?: boolean;
   notes: string;
+  notesId?: number;
 };
 
 export type DBEvent = {
@@ -21,13 +22,14 @@ export type DBEvent = {
   notes: string;
   date: Date;
   userId: number;
+  notesId: number;
 };
 
 export function CalendarTrack() {
   const [isOpen, setIsOpen] = useState(false);
 
-  const [isEvent, setIsEvent] = useState<Event[]>([]);
-  const [selectedEvent, setSelectedEvent] = useState<Event>();
+  const [events, setEvents] = useState<Event[]>([]);
+  const [eventToEdit, setEventToEdit] = useState<Event>();
   const [selectedSlot, setSelectedSlot] = useState<SlotInfo>();
   const bear = readToken();
 
@@ -45,19 +47,20 @@ export function CalendarTrack() {
         }
 
         const json = (await response.json()) as DBEvent[];
-        const events: Event[] = json.map((EventData: DBEvent) => {
+        const events: Event[] = json.map((eventData: DBEvent) => {
           const event: Event = {
-            title: EventData.title || 'untitled event',
-            start: EventData.date,
-            end: EventData.date,
+            title: eventData.title || 'untitled event',
+            start: eventData.date,
+            end: eventData.date,
             allDay: true,
-            notes: EventData.notes || '',
+            notes: eventData.notes || '',
+            notesId: eventData.notesId,
           };
-          console.log(event);
+
           return event;
         });
 
-        setIsEvent(events);
+        setEvents(events);
       } catch (error) {
         console.error('Error fetching notes', error);
       }
@@ -65,58 +68,53 @@ export function CalendarTrack() {
     getData();
   }, [bear]);
 
-  function handleSuccess(EventData: DBEvent) {
-    if (selectedEvent) {
-      const updatedEvents = isEvent.map((event) => {
-        if (event === selectedEvent) {
-          return {
-            ...event,
-            title: EventData.title || 'untiled event',
-            notes: EventData.notes || '',
-          };
-        }
-        return event;
-      });
-      setIsEvent(updatedEvents);
-    } else {
-      const event: Event = {
-        title: EventData.title || 'untitled event',
-        start: EventData.date,
-        end: EventData.date,
-        allDay: true,
-        notes: EventData.notes || '',
-      };
-      setIsEvent([...isEvent, event]);
-
-      setIsOpen(false);
-      setSelectedEvent(undefined);
-      console.log('handle success was called.');
-    }
+  function handleSuccess(eventData: DBEvent) {
+    const event: Event = {
+      title: eventData.title || 'untitled event',
+      start: eventData.date,
+      end: eventData.date,
+      allDay: true,
+      notes: eventData.notes || '',
+      notesId: eventData.notesId,
+    };
+    setEvents([...events, event]);
+    setIsOpen(false);
   }
 
-  //*REMEMBER TO UPDATE THE ISEVENT ARRAY WHEN THE NOTES AND TITLE GET MODIFIED.
+  function handleUpdateEvent(eventData: Event) {
+    setIsOpen(true);
+    setEventToEdit(eventData);
+  }
+
+  function handleEditEvent(eventData: DBEvent) {
+    const objDataBase: Event = {
+      title: eventData.title,
+      notes: eventData.notes,
+      start: eventData.date,
+      end: eventData.date,
+      notesId: eventData.notesId,
+    };
+
+    const update = events.map((item) =>
+      item.notesId === eventData.notesId ? objDataBase : item
+    );
+    setEvents(update);
+    setIsOpen(false);
+  }
+
   function closeModal() {
-    console.log('test');
     setIsOpen(false);
   }
 
   function openModal() {
-    console.log('openModal');
     setIsOpen(true);
   }
 
-  const handleEventSelection = useCallback((e: Event) => {
-    setSelectedEvent(e);
-    openModal();
-  }, []);
-
   const onSelectSlot = useCallback((slotInfo: SlotInfo) => {
-    console.log(onSelectSlot);
     setSelectedSlot(slotInfo);
     openModal();
   }, []);
 
-  console.log('is Event', isEvent);
   return (
     <>
       <div className="parent">
@@ -139,18 +137,20 @@ export function CalendarTrack() {
               showAllEvents={true}
               views={['month', 'day']}
               selectable={true}
-              events={isEvent}
+              events={events}
               onSelectSlot={onSelectSlot}
-              onSelectEvent={handleEventSelection}
+              onSelectEvent={handleUpdateEvent}
             />
           </div>
         </div>
       </div>
-      {isOpen && selectedSlot && (
+      {isOpen && (
         <EventForm
           onClose={closeModal}
           onSuccess={handleSuccess}
+          onEdit={handleEditEvent}
           slotInfo={selectedSlot}
+          editEvent={eventToEdit}
         />
       )}
     </>

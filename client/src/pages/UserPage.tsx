@@ -96,8 +96,6 @@ export function UserPage() {
     ).padStart(2, '0')}`;
   });
 
-  console.log('chartScore', chartScore);
-
   return (
     <>
       <>

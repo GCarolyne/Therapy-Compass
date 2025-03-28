@@ -111,11 +111,10 @@ export function GoogleMap() {
                 gestureHandling={'greedy'}
                 disableDefaultUI={true}
                 mapId="ecad6d95e15c088a">
-                {/* Map over placesService results to create markers for each therapy location */}
                 {placesService.map((place, index) => (
                   <AdvancedMarker
                     key={place.place_id || index}
-                    ref={index === 0 ? refCallback : undefined} // Only assign ref to first marker
+                    ref={index === 0 ? refCallback : undefined}
                     onClick={() => handleMarkerClick(place)}
                     position={{
                       lat: place.geometry?.location?.lat() || 34.0549,

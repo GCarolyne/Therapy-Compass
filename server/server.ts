@@ -48,27 +48,6 @@ app.use(express.static(reactStaticDir));
 app.use(express.static(uploadsStaticDir));
 app.use(express.json());
 
-//* This is a interface I have prepared for one of my objects.
-
-type TherapyA = {
-  therapyId?: number;
-  userId?: number;
-  currentConcerns: string;
-  lengthOfSymptoms: string;
-  severityOfDistress: number;
-  moodRelated: string;
-  anxietyRelated: string;
-  traumaRelated: string;
-  thinkingPatterns: string;
-  behavioral: string;
-  therapyGoals: string;
-  therapyPreferences: string;
-  primaryCopingStrategies: string;
-  acceptedTherapyType?: string;
-};
-
-//* Test mock up user for therapy type assessment.
-
 const user3 = {
   currentConcerns: 'Isolation',
   lengthOfSymptoms: 'Months',

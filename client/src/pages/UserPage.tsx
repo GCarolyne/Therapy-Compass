@@ -41,6 +41,7 @@ export function UserPage() {
 
   const modal = useRef<HTMLDialogElement>(null);
   const bear = readToken();
+
   const { handleSignOut, user } = useUser();
   const navigate = useNavigate();
 
@@ -86,7 +87,6 @@ export function UserPage() {
 
   const physical = scoreHistory.map((item) => item.typeOfPhysicalActivity);
   const dreamActivity = scoreHistory.map((item) => item.dreamActivity);
-
   const anxiety = scoreHistory.map((item) => item.panicAttacksIntensity);
   const chartScore = scoreHistory.map((item) => item.progressScore);
   const chartDate = scoreHistory.map((item) => {
@@ -125,7 +125,7 @@ export function UserPage() {
                       label: 'Anxiety Levels',
                       data: anxiety,
                       borderColor: 'rgba(242, 0, 255, 0.48)',
-                      backgroundColor: 'rgba(247, 101, 254, 0.81)', // Light purple with opacity
+                      backgroundColor: 'rgba(247, 101, 254, 0.81)',
                       fill: '-1',
                       borderWidth: 1.2,
                       tension: 0.4,
@@ -135,7 +135,7 @@ export function UserPage() {
                       label: 'Physical Activity',
                       data: physical,
                       borderColor: 'rgb(161, 1, 1)',
-                      backgroundColor: 'rgba(255, 4, 4, 0.63)', // Light purple with opacity
+                      backgroundColor: 'rgba(255, 4, 4, 0.63)',
                       fill: 'origin',
                       tension: 0.4,
                       borderWidth: 1,
@@ -145,7 +145,7 @@ export function UserPage() {
                       label: 'Dream Quality',
                       data: dreamActivity,
                       borderColor: 'rgb(255, 213, 0)',
-                      backgroundColor: 'rgba(255, 183, 0, 0.96)', // Light purple with opacity
+                      backgroundColor: 'rgba(255, 183, 0, 0.96)',
                       fill: 'origin',
                       borderWidth: 1.2,
                       tension: 0.4,
@@ -197,7 +197,7 @@ export function UserPage() {
                       titleSpacing: 2,
                       enabled: true,
                       mode: 'index',
-                      axis: 'y', // Restricts tooltip to y-axis
+                      axis: 'y',
                       intersect: false,
                       position: 'nearest',
                       bodyFont: {

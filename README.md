@@ -7,10 +7,7 @@
 ![Google](https://img.shields.io/badge/Google-4285F4?style=for-the-badge&logo=google&logoColor=white)
 
 
-![Google Cloud](https://img.shields.io/badge/Google_Cloud-4285F4?style=for-the-badge&logo=google-cloud&logoColor=white)
-
-
-![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
+![React Big Calendar](https://img.shields.io/badge/React_Big_Calendar-0088CC?style=for-the-badge&logo=react&logoColor=white)
 
 https://github.com/user-attachments/assets/b51621b0-c08a-46a8-9fcb-5091816b20e9
 

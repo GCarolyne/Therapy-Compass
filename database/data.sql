@@ -2,7 +2,7 @@
 INSERT INTO "users" ("userName","hashedPassword")
 
 VALUES
-('111','$argon2id$v=19$m=65536,t=3,p=4$lcjnPBe/Y7zGbcSUya1SWQ$IhGKG32QDSQRVgESeaYH1uMuPMoLLXUcAYNHV8EkiLQ') ;
+('Guest777','$argon2id$v=19$m=65536,t=3,p=4$JNBRvDdGjtV09GRvG9oNwQ$Z821nDU5ogwZh+viUfXbnvE2BI0JE49md5uYfKjhsdE') ;
 
 INSERT INTO "progressAssessment"
 ("anxietyLevel", "depressionLevel", "irritabilityLevel", "panicAttacks", "panicAttacksIntensity",

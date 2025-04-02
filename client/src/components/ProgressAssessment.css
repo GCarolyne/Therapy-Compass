@@ -15,7 +15,6 @@
   --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Modal container */
 .progress-assessment-container {
   width: 600px;
   max-height: 86vh;
@@ -27,7 +26,6 @@
   box-sizing: border-box;
 }
 
-/* Scrollbar styling for the modal */
 .progress-assessment-container::-webkit-scrollbar {
   width: 6px;
 }
@@ -47,7 +45,6 @@
   background: black;
 }
 
-/* Elegant header gradient */
 .progress-assessment-container::before {
   content: '';
   display: block;
@@ -61,7 +58,6 @@
   border-top-right-radius: 16px;
 }
 
-/* Section styling */
 .assessment-section {
   margin: 24px 28px;
   padding: 26px 30px;
@@ -128,8 +124,6 @@
   transition: var(--transition);
   appearance: none;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.01);
-
-  /* Elegant dropdown arrow */
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%235a6acf' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right 14px center;
@@ -151,37 +145,21 @@
   font-size: 0.95rem;
 }
 
-/* Submit button styling */
 .button-container {
   text-align: center;
 }
 
 .submit-button {
-  /* Clean, soothing green gradient */
   background: linear-gradient(90deg, #4ade80 0%, #059669 100%);
-
-  /* Clear, readable text */
   color: rgb(253, 253, 253);
   font-weight: 300;
   font-size: 16px;
-
-  /* Comfortable padding */
   padding: 14px 28px;
-
-  /* Very rounded corners for therapeutic feel */
   border-radius: 24px;
-
-  /* Clean styling */
   border: none;
   box-shadow: 0 4px 10px rgba(5, 150, 105, 0.3);
-
-  /* Simple transition */
   transition: all 0.25s ease;
-
-  /* Prevent text selection */
   user-select: none;
-
-  /* Optional: slight button elevation */
   transform: translateY(0);
   margin: 20px;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
@@ -198,7 +176,6 @@
   box-shadow: 0 5px 15px rgba(90, 106, 207, 0.15);
 }
 
-/* Responsive adjustments */
 @media (width <= 600px) {
   .assessment-section {
     margin: 18px;

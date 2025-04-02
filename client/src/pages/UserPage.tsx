@@ -236,7 +236,7 @@ export function UserPage() {
         <div className="row">
           <div className="actions">
             <button className="my-butt" type="submit" onClick={openModal}>
-              Assign report
+              Progress Report
             </button>
             {isOpen && (
               <Modal
@@ -257,7 +257,7 @@ export function UserPage() {
               <button className="my-butt">Calendar</button>
             </Link>
             <Link to="/locate">
-              <button className="my-butt">Therapy Locator</button>
+              <button className="my-butt">Therapist Locator</button>
             </Link>
 
             <button

@@ -3,13 +3,9 @@ import 'dotenv/config';
 import express, { response } from 'express';
 import pg, { Client } from 'pg';
 import { ClientError, errorMiddleware, authMiddleware } from './lib/index.js';
-import axios from 'axios';
 import OpenAI from 'openai';
-import { zodResponseFormat } from 'openai/helpers/zod';
 import { z } from 'zod';
-import { getRandomValues } from 'crypto';
 import argon2, { hash } from 'argon2';
-import { nextTick } from 'process';
 import jwt, { TokenExpiredError } from 'jsonwebtoken';
 
 const openai = new OpenAI({
@@ -39,76 +35,13 @@ const db = new pg.Pool({
 
 const app = express();
 
-// Create paths for static directories
 const reactStaticDir = new URL('../client/dist', import.meta.url).pathname;
 const uploadsStaticDir = new URL('public', import.meta.url).pathname;
 
 app.use(express.static(reactStaticDir));
-// Static directory for file uploads server/public/
+
 app.use(express.static(uploadsStaticDir));
 app.use(express.json());
-
-const user3 = {
-  currentConcerns: 'Isolation',
-  lengthOfSymptoms: 'Months',
-  severityOfDistress: '7',
-  moodRelated: 'Hopelessness',
-  anxietyRelated: 'OverThinking',
-  traumaRelated: 'Avoidance',
-  thinkingPatterns: 'Catastrophizing',
-  behavioral: 'Withdrawal',
-  therapyGoals: 'Connection',
-  therapyPreferences: 'Directive',
-  primaryCopingStrategies: 'substance abuse',
-};
-
-let content = '';
-
-for (const [key, value] of Object.entries(user3)) {
-  content += `${key}: ${value},`;
-}
-
-//* Test mock up for a progress report assessment.
-
-const user5 = {
-  anxietyLevel: 'high',
-  depressionLevel: 'daily',
-  irritabilityLevel: 'lower than usual',
-  panicAttacks: '5',
-  panicAttacksIntensity: '9',
-  typeStress: 'family related',
-  intensityStress: 'hourly',
-  copingStrategy: 'exercise',
-  copingStrategyManageStress: 'smoking',
-  typeOfPhysicalActivity: 'walking',
-  durationOfActivity: '1 hour',
-  intesityOfActivity: 'hard',
-  enjoymentLevel: 'no enjoyment',
-  moodBeforeActivity: 'very low energy',
-  moodAfterActivity: 'not better at all',
-  bedtime: '1 am',
-  wakeTime: '8 am',
-  totalSleep: '7hours',
-  sleepQuality: 'average',
-  dreamActivity: 'nightmares',
-  morningMood: 'sluggish',
-  progressScore: '',
-};
-
-let progressTest = '';
-
-for (const [key, value] of Object.entries(user5)) {
-  progressTest += `${key}: ${value},`;
-}
-
-//* My Therapy Assessment object for AI response, create assessment for therapy type css front end and then back end
-
-const TherapyRecommendation = z.object({
-  Therapy: z.string(),
-  Reason: z.string(),
-});
-
-//* My Therapy Assessment awaiting AI response
 
 app.post('/api/therapyassessment', authMiddleware, async (req, res, next) => {
   try {
@@ -260,8 +193,6 @@ app.get('/api/calendar', authMiddleware, async (req, res, next) => {
   }
 });
 
-//* Client progress tracking assessment object and async function.
-
 export const TherapyProgress = z.object({
   ProgressStatement: z.string(),
   Score: z.number(),
@@ -338,8 +269,6 @@ app.post('/api/progressassessment', authMiddleware, async (req, res, next) => {
   }
 });
 
-//* Querying a database for progressScore.
-
 app.get('/api/progressassessment', authMiddleware, async (req, res, next) => {
   try {
     const sql = `
@@ -402,6 +331,42 @@ app.post('/api/sign-in', async (req, res, next) => {
     if (passwordValid) {
       const payload = {
         userId: user.userId,
+        username: user.userName,
+      };
+      const token = jwt.sign(payload, hashKey);
+      res.status(200).json({
+        user: payload,
+        token,
+      });
+    }
+  } catch (err) {
+    next(err);
+  }
+});
+
+app.post('/api/guest-in', async (req, res, next) => {
+  try {
+    const { username, password } = req.body as Partial<Auth>;
+    if (!username || !password) {
+      throw new ClientError(401, 'invalid login');
+    }
+
+    const sql = `
+      select "userId", "hashedPassword", "userName"
+      from "users"
+      where "userName" = $1
+      `;
+    const params = [username];
+    const result = await db.query(sql, params);
+    const user = result.rows[0];
+    if (!user) throw new ClientError(401, 'invalid login information.');
+
+    const passwordValid = await argon2.verify(user.hashedPassword, password);
+
+    if (!passwordValid) throw new ClientError(401, 'invalid login error');
+    if (passwordValid) {
+      const payload = {
+        userId: 1,
         username: user.userName,
       };
       const token = jwt.sign(payload, hashKey);

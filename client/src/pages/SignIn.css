@@ -11,6 +11,17 @@
   align-items: center;
 }
 
+.guest-butt {
+  padding: 10px 20px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 2rem;
+  background-color: rgba(221, 255, 0, 0.81);
+  font-family: optima, sans-serif;
+}
+
 .form-group {
   max-width: 400px;
   margin: 0 auto;

@@ -9,7 +9,7 @@ export function Header() {
           <img src="/TherapyLogo.png" className="logo" alt="Therapy Logo" />
         </Link>
         <div className="nav-links">
-          <Link to="/sign-in     ">
+          <Link to="/sign-in">
             <button className="my-butt">Sign In</button>
           </Link>
           <Link to="/userpage">

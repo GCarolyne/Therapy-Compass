@@ -8,6 +8,7 @@ type AuthData = {
   user: User;
   token: string;
 };
+
 export function SignIn() {
   const { handleSignIn } = useUser();
   const navigate = useNavigate();
@@ -24,7 +25,6 @@ export function SignIn() {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${bear}`,
         },
-
         body: JSON.stringify(userData),
       };
       const res = await fetch('/api/sign-in', req);
@@ -39,6 +39,36 @@ export function SignIn() {
       alert(`Error signing in: ${err}`);
     }
   }
+
+  async function handleGuestLogin() {
+    const bear = readToken();
+    try {
+      const guestData = {
+        username: 'Guest777',
+        password: 'Guest777',
+      };
+      const req = {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${bear}`,
+        },
+        body: JSON.stringify(guestData),
+      };
+
+      const res = await fetch('/api/sign-in', req);
+      if (!res.ok) {
+        throw new Error(`fetch Error ${res.status}`);
+      }
+
+      const { user, token } = (await res.json()) as AuthData;
+      handleSignIn(user, token);
+      navigate('/userpage');
+    } catch (err) {
+      alert(`Error signing in as guest: ${err}`);
+    }
+  }
+
   return (
     <>
       <div className="body-row">
@@ -54,10 +84,15 @@ export function SignIn() {
                 <input required name="password" type="password" />
               </label>
               <button type="submit" className="sign-butt">
-                Sign In
+                Log In
               </button>
             </div>
           </form>
+          <div className="guest-login-container">
+            <button onClick={handleGuestLogin} className="guest-butt">
+              Continue as Guest
+            </button>
+          </div>
         </div>
       </div>
     </>

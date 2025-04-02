@@ -344,6 +344,42 @@ app.post('/api/sign-in', async (req, res, next) => {
   }
 });
 
+app.post('/api/guest-in', async (req, res, next) => {
+  try {
+    const { username, password } = req.body as Partial<Auth>;
+    if (!username || !password) {
+      throw new ClientError(401, 'invalid login');
+    }
+
+    const sql = `
+      select "userId", "hashedPassword", "userName"
+      from "users"
+      where "userName" = $1
+      `;
+    const params = [username];
+    const result = await db.query(sql, params);
+    const user = result.rows[0];
+    if (!user) throw new ClientError(401, 'invalid login information.');
+
+    const passwordValid = await argon2.verify(user.hashedPassword, password);
+
+    if (!passwordValid) throw new ClientError(401, 'invalid login error');
+    if (passwordValid) {
+      const payload = {
+        userId: 1,
+        username: user.userName,
+      };
+      const token = jwt.sign(payload, hashKey);
+      res.status(200).json({
+        user: payload,
+        token,
+      });
+    }
+  } catch (err) {
+    next(err);
+  }
+});
+
 /*
  * Handles paths that aren't handled by any other route handler.
  * It responds with `index.html` to support page refreshes with React Router.

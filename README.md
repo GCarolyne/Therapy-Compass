@@ -2,7 +2,9 @@
 
 https://github.com/user-attachments/assets/b51621b0-c08a-46a8-9fcb-5091816b20e9
 
-A comprehensive web application that empowers psychotherapy clients to track their progress, find suitable therapists, and manage their mental health journey effectively. By building tools that make therapeutic support more accessible and progress more visible. This project represents my commitment to using my technical skills to make a meaningful difference in people's lives during their most vulnerable moments.
+## 💭 About
+
+> A comprehensive web application empowering psychotherapy clients to track progress, find suitable therapists, and manage their mental health journey. By making therapeutic support accessible and progress visible, this project represents my commitment to using technical skills for meaningful impact during people's most vulnerable moments.
 
 ## ✨ Features
 

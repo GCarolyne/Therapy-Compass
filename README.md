@@ -1,6 +1,6 @@
 # 🧠 Therapy Compass
 
-![Project Banner](https://github.com/user-attachments/assets/b51621b0-c08a-46a8-9fcb-5091816b20e9)
+https://github.com/user-attachments/assets/b51621b0-c08a-46a8-9fcb-5091816b20e9
 
 A comprehensive web application that empowers psychotherapy clients to track their progress, find suitable therapists, and manage their mental health journey effectively.
 

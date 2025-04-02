@@ -2,7 +2,7 @@
 
 https://github.com/user-attachments/assets/b51621b0-c08a-46a8-9fcb-5091816b20e9
 
-A comprehensive web application that empowers psychotherapy clients to track their progress, find suitable therapists, and manage their mental health journey effectively.
+A comprehensive web application that empowers psychotherapy clients to track their progress, find suitable therapists, and manage their mental health journey effectively. By building tools that make therapeutic support more accessible and progress more visible. This project represents my commitment to using my technical skills to make a meaningful difference in people's lives during their most vulnerable moments.
 
 ## ✨ Features
 
@@ -36,6 +36,10 @@ A comprehensive web application that empowers psychotherapy clients to track the
 | ![ChatGPT](https://img.shields.io/badge/ChatGPT_4.0-74aa9c?style=for-the-badge&logo=openai&logoColor=white) | Intelligent assessments & therapist matching |
 
 
+## 🔮 Future Enhancements
 
+- Therapist portal for provider registration
+- Enhanced analytics dashboard
+- Mood tracking integration
 
 

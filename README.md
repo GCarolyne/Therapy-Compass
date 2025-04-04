@@ -1,146 +1,51 @@
-# full-stack-project
+# 🧠 Therapy Compass
 
-A full stack TypeScript solo project.
 
-## Getting Started
 
----
+https://github.com/user-attachments/assets/cf68bd3c-3cd2-4b0e-b4a0-c5e5aae5a797
 
-### Use this template to create a new repo on your GitHub account
 
-1. Click the green `Use this template` button, select `Create a new repository`
-   1. Under `Owner` select your username
-   1. Give your repository a name. Name it after your application. The name `full-stack-project` is _not_ a good name.
-   1. (Optional) Add a description
-   1. Leave repository as `Public`
-   1. **DO NOT** Include all branches
-   1. Click the green `Create repository from template` button
 
----
+## 💭 About
 
-### Clone Newly created repo into `lfz-code`
+> A comprehensive web application empowering psychotherapy clients to track progress, find suitable therapists, and manage their mental health journey. By making therapeutic support accessible and progress visible, this project represents my commitment to using technical skills for meaningful impact during people's most vulnerable moments.
 
-1. From your newly created repo on GitHub, click the green `<> Code` button, then copy **SSH** URL
-1. Open `lfz-code`, click on blue `><` button in bottom left of `lfz-code`
-   1. Select `Clone Repository in Container Volume...`
-      - If this option does not appear, open the Command Palette (cmd-shift-P on Mac or ctrl-shift-P on Windows), type "Dev Containers", and select `Clone Repository in Container Volume...`. Then continue to the next step.
-   1. Paste **SSH** URL for your repo, click `Clone git repository from URL`
+## ✨ Features
 
----
+- **Progress Tracking** - Monitor your therapy journey using AI-powered assessment forms.
+- **Therapist Matching** - Find the right therapist based on an AI-driven assessment of your symptoms.
+- **Personal Calendar** - Manage appointments and record personal notes in one convenient place.
 
-### Run and test project setup
+## 🛠️ Technology Stack
 
-#### Getting Started
+### Frontend
+| Technology   | Description |
+|--------------|-------------|
+| ![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB) | UI component library |
+| ![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white) | Type-safe JavaScript |
+| ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black) | Core programming language |
+| ![CSS](https://img.shields.io/badge/CSS-1572B6?style=for-the-badge&logo=css3&logoColor=white) | Styling and layout |
+| ![Chart.js](https://img.shields.io/badge/Chart.js-FF6384?style=for-the-badge&logo=chart.js&logoColor=white) | Progress visualization |
+| ![React Big Calendar](https://img.shields.io/badge/React_Big_Calendar-0088CC?style=for-the-badge&logo=react&logoColor=white) | Calendar functionality |
 
-1. Install all dependencies with `npm install`.
+### Backend
+| Technology   | Description |
+|--------------|-------------|
+| ![Node.js](https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white) | Server runtime |
+| ![Express](https://img.shields.io/badge/Express-000000?style=for-the-badge&logo=express&logoColor=white) | Web framework |
+| ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white) | Database |
+| ![Google](https://img.shields.io/badge/Google-4285F4?style=for-the-badge&logo=google&logoColor=white) | Maps integration |
 
-#### Create the database
+### AI Integration
+| Technology   | Description |
+|--------------|-------------|
+| ![ChatGPT](https://img.shields.io/badge/ChatGPT_4.0-74aa9c?style=for-the-badge&logo=openai&logoColor=white) | Intelligent assessments & therapist matching |
 
-If your project will be using a database, create it now.
 
-1. Start PostgreSQL
-   ```sh
-   sudo service postgresql start
-   ```
-1. Create database (replace `name-of-database` with a name of your choosing, such as the name of your app)
-   ```sh
-   createdb name-of-database
-   ```
-1. In the `server/.env` file, in the `DATABASE_URL` value, replace `changeMe` with the name of your database, from the last step
-1. While you are editing `server/.env`, also change the value of `TOKEN_SECRET` to a custom value, without spaces.
-1. Make the same changes to `server/.env.example`.
+## 🔮 Future Enhancements
 
-If your project will _not_ be using a database, edit `package.json` to remove the `dev:db` script.
+- Therapist portal for provider registration
+- Enhanced analytics dashboard
+- Mood tracking integration
 
-#### Start the development servers
 
-1. Start all the development servers with the `"dev"` script:
-   ```sh
-   npm run dev
-   ```
-1. Later, when you wish to stop the development servers, type `Ctrl-C` in the terminal where the servers are running.
-
-#### Verify the client
-
-1. A React app has already been created for you.
-1. Take a minute to look over the code in `client/src/App.tsx` to get an idea of what it is doing.
-1. Go to the app in your browser. You should see the message from the server below the React logo, and in the browser console.
-   ![](md.assets/client-server.png)
-1. If you see the message from the server in your browser you are good to go, your client and server are communicating.
-
-#### Set up the database
-
-1. In your browser navigate to the site you used for your database design.
-1. Export your database as PostgreSQL, this should generate the SQL code for creating your database tables.
-   - Reach out to an instructor if you have any issues with this step
-1. Copy the generated SQL code and paste it into `database/schema.sql` below the preexisting sql code in the file. The end result should look something like: _(You will likely have more tables)_
-
-   ```SQL
-   set client_min_messages to warning;
-
-   -- DANGER: this is NOT how to do it in the real world.
-   -- `drop schema` INSTANTLY ERASES EVERYTHING.
-   drop schema "public" cascade;
-
-   create schema "public";
-
-   create table "todos" (
-       "todoId"      serial PRIMARY KEY,
-       "task"        text not null,
-       "isCompleted" boolean not null,
-       "createdAt"   timestamptz not null DEFAULT now(),
-       "updatedAt"   timestamptz not null DEFAULT now()
-   );
-   ```
-
-1. In a separate terminal, run `npm run db:import` to create your tables
-1. Use `psql` to verify your tables were created successfully (see [LFZ Database Guide](https://lms.learningfuze.com/code-guides/Learning-Fuze/curriculum/database) for tips). Your database and tables should be listed; if not, stop here and reach out to an instructor for help
-1. At this point your database is setup and you are good to start using it. However there is no data in your database, which isn't necessarily a bad thing, but if you want some starting data in your database you need to add insert statements into the `database/data.sql` file. You can add whatever starting data you need/want. Here is an example:
-   ```SQL
-   insert into "todos" ("task", "isCompleted")
-   values
-       ('Learn to code', false),
-       ('Build projects', false),
-       ('Get a job', false);
-   ```
-1. After any changes to `database/schema.sql` or `database/data.sql` re-run the `npm run db:import` command to update your database. Use `psql` to verify your changes were successfully applied.
-
-## Deployment
-
-Once your template is set up and functional, deploy it. This will get all the deployment issues ironed out early. During development, you should re-deploy frequently to make sure that your code works properly in your production environment. Deployment instructions can be found [HERE](https://lms.learningfuze.com/code-guides/Learning-Fuze/curriculum/Full-Stack-Project_Deploy-To-EC2)
-
----
-
-### Available `npm` commands explained
-
-Below is an explanation of all included `npm` commands in the root `package.json`. Several are only used for deployment purposes and should not be necessary for development.
-
-1. `start`
-   - The `start` script starts the Node server in `production` mode, without any file watchers.
-1. `build`
-   - The `build` script executes `npm run build` in the context of the `client` folder. This builds your React app for production. This is used during deployment, and not commonly needed during development.
-1. `db:import`
-   - The `db:import` script executes `database/import.sh`, which executes the `database/schema.sql` and `database/data.sql` files to build and populate your database.
-1. `dev`
-   - Starts all the development servers.
-1. `lint`
-   - Runs ESLint against all the client and server code.
-1. `psql`
-   - When used on the EC2 instance, runs `psql` attached to the project database. Helpful for debugging issues with the database.
-1. `tsc`
-   - Runs the TypeScript compiler against all the client and server code.
-1. Not directly used by developer
-   1. `install:*`
-   - These scripts install dependencies in the `client` and `server` folders, and copy `.env.example` to `.env` if it doesn't already exist.
-   1. `dev:*`
-   - These scripts start the individual development servers.
-   1. `lint:*`
-   - These scripts run lint in the client and server directories.
-   1. `tsc:*`
-   - These scripts run tsc in the client and server directories.
-   1. `postinstall`
-      - The `postinstall` script is automatically run when you run `npm install`. It is executed after the dependencies are installed. Specifically for this project the `postinstall` script is used to install the `client` and `server` dependencies.
-   1. `prepare`
-      - The `prepare` script is similar to `postinstall` — it is executed before `install`. Specifically for this project it is used to install `husky`.
-   1. `deploy`
-      - The `deploy` script is used to deploy the project by pushing the `main` branch to the `pub` branch, which triggers the GitHub Action that deploys the project.

@@ -1,0 +1,203 @@
+:root {
+  --primary-color: #5a6acf;
+  --primary-light: #8a97e8;
+  --primary-dark: #3f4c9f;
+  --accent-color: #f07167;
+  --accent-light: #f9beb6;
+  --background-color: rgba(250, 250, 252, 1);
+  --card-color: #fff;
+  --section-color: rgba(252, 252, 255, 0.9);
+  --text-color: #2d3047;
+  --text-light: #5d6082;
+  --border-color: #e9ecef;
+  --success-color: #47c1bf;
+  --section-shadow: 0 10px 25px rgba(0, 0, 0, 0.04);
+  --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.progress-assessment-container {
+  width: 600px;
+  max-height: 86vh;
+  overflow-y: auto;
+  border-radius: 16px;
+  position: relative;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
+  padding: 0 0 28px;
+  box-sizing: border-box;
+}
+
+.progress-assessment-container::-webkit-scrollbar {
+  width: 6px;
+}
+
+.progress-assessment-container::-webkit-scrollbar-track {
+  background: rgb(255, 255, 255);
+  border-radius: 10px;
+}
+
+.progress-assessment-container::-webkit-scrollbar-thumb {
+  background: black;
+  border-radius: 10px;
+  border: 1px solid rgb(0, 0, 0);
+}
+
+.progress-assessment-container::-webkit-scrollbar-thumb:hover {
+  background: black;
+}
+
+.progress-assessment-container::before {
+  content: '';
+  display: block;
+  height: 6px;
+  opacity: 0.9;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+}
+
+.assessment-section {
+  margin: 24px 28px;
+  padding: 26px 30px;
+  background-color: rgba(44, 154, 30, 0.685);
+  border-radius: 12px;
+  border: 1px solid rgba(175, 178, 204, 0.7);
+  box-shadow: var(--section-shadow);
+  transition: var(--transition);
+  backdrop-filter: blur(10px);
+}
+
+.assessment-section:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.06);
+  border: 1px solid rgba(238, 240, 255, 0.9);
+}
+
+.section-title {
+  color: black;
+  font-size: 1.35rem;
+  font-weight: 500;
+  margin-top: 0;
+  margin-bottom: 22px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+  position: relative;
+  letter-spacing: -0.02em;
+}
+
+.section-title::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 32px;
+  height: 3px;
+  border-radius: 5px;
+}
+
+.option-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.form-label {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: 500;
+  color: var(--text-light);
+  font-size: 0.95rem;
+  letter-spacing: 0.01em;
+}
+
+.form-select {
+  width: 100%;
+  padding: 14px 18px;
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  background-color: var(--card-color);
+  font-size: 1rem;
+  color: var(--text-color);
+  transition: var(--transition);
+  appearance: none;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.01);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%235a6acf' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  background-size: 16px;
+}
+
+.form-select:focus {
+  outline: none;
+  border-color: var(--primary-light);
+  box-shadow: 0 0 0 4px rgba(90, 106, 207, 0.1);
+}
+
+.form-select:hover {
+  border-color: var(--primary-light);
+}
+
+.select-option {
+  padding: 8px;
+  font-size: 0.95rem;
+}
+
+.button-container {
+  text-align: center;
+}
+
+.submit-button {
+  background: linear-gradient(90deg, #4ade80 0%, #059669 100%);
+  color: rgb(253, 253, 253);
+  font-weight: 300;
+  font-size: 16px;
+  padding: 14px 28px;
+  border-radius: 24px;
+  border: none;
+  box-shadow: 0 4px 10px rgba(5, 150, 105, 0.3);
+  transition: all 0.25s ease;
+  user-select: none;
+  transform: translateY(0);
+  margin: 20px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
+}
+
+.submit-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgb(255, 102, 0);
+}
+
+.submit-button:active {
+  transform: translateY(1px);
+  box-shadow: 0 5px 15px rgba(90, 106, 207, 0.15);
+}
+
+@media (width <= 600px) {
+  .assessment-section {
+    margin: 18px;
+    padding: 22px;
+  }
+
+  .option-row {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .section-title {
+    font-size: 1.25rem;
+    margin-bottom: 18px;
+  }
+
+  .form-select {
+    padding: 12px 16px;
+  }
+
+  .submit-button {
+    min-width: 140px;
+    padding: 13px 24px;
+  }
+}

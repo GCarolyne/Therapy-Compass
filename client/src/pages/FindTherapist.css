@@ -1,0 +1,69 @@
+.row-with-map {
+  border: none;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  background-image: url('/public/map.png') >;
+}
+
+.column-one {
+  justify-content: center;
+}
+
+.find-therapist-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+  font-family: Arial, sans-serif;
+}
+
+.row-therapy {
+  background-size: cover;
+  background-image: url('/437DFD28-EA81-481F-839C-947310FA4A3D_1_102_o.jpeg');
+}
+
+.page-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.page-header h1 {
+  color: #2c3e50;
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.subtitle {
+  color: #7f8c8d;
+  font-size: 1.2rem;
+}
+
+.main-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.card {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  padding-top: 1rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+/* Responsive adjustments */
+@media (width <= 768px) {
+  .row {
+    flex-direction: column;
+  }
+
+  .column-one {
+    width: 100%;
+  }
+}

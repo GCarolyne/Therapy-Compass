@@ -1,35 +1,32 @@
-import { useEffect, useState } from 'react';
-import reactLogo from './assets/react.svg';
-import viteLogo from '/vite.svg';
 import './App.css';
 
+import { UserPage } from './pages/UserPage';
+import { Route, Routes } from 'react-router-dom';
+import { HomePage } from './pages/HomePage.tsx';
+
+import { Header } from './components/Header.tsx';
+import { FindTherapist } from './pages/FindTherapist.tsx';
+
+import { GoogleMap } from './components/GoogleMap.tsx';
+
+import { AuthPage } from './components/AuthPage.tsx';
+import { UserProvider } from './components/UserContext.tsx';
+import { CalendarTrack } from './components/CalendarTrack.tsx';
+
 export default function App() {
-  const [serverData, setServerData] = useState('');
-
-  useEffect(() => {
-    async function readServerData() {
-      const resp = await fetch('/api/hello');
-      const data = await resp.json();
-
-      console.log('Data from server:', data);
-
-      setServerData(data.message);
-    }
-
-    readServerData();
-  }, []);
-
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank" rel="noreferrer">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank" rel="noreferrer">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>{serverData}</h1>
-    </>
+    <UserProvider>
+      <Routes>
+        <Route path="/" element={<Header />}>
+          <Route index element={<HomePage />} />
+          <Route path="/sign-up" element={<AuthPage mode="sign-up" />} />
+          <Route path="/sign-in" element={<AuthPage mode="sign-in" />} />
+          <Route path="/locate" element={<FindTherapist />} />
+          <Route path="/googleMaps/:therapyType" element={<GoogleMap />} />
+          <Route path="/userpage" element={<UserPage />} />
+          <Route path="/calendar" element={<CalendarTrack />} />
+        </Route>
+      </Routes>
+    </UserProvider>
   );
 }

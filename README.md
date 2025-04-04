@@ -12,9 +12,9 @@ https://github.com/user-attachments/assets/cf68bd3c-3cd2-4b0e-b4a0-c5e5aae5a797
 
 ## ✨ Features
 
-- **Progress Tracking** - Monitor your therapy journey using AI-powered assessment forms
-- **Therapist Matching** - Find the right therapist based on an AI-driven assessment of your symptoms
-- **Personal Calendar** - Manage appointments and record personal notes in one convenient place
+- **Progress Tracking** - Monitor your therapy journey using AI-powered assessment forms.
+- **Therapist Matching** - Find the right therapist based on an AI-driven assessment of your symptoms.
+- **Personal Calendar** - Manage appointments and record personal notes in one convenient place.
 
 ## 🛠️ Technology Stack
 

@@ -238,21 +238,21 @@ export function UserPage() {
             <button className="my-butt" type="submit" onClick={openModal}>
               Progress Report
             </button>
-            {isOpen && (
-              <Modal
-                isOpen={isOpen}
-                onClose={() => {
-                  if (isOpen) setIsOpen(false);
-                }}>
-                <button className="my-butt" onClick={closeModal}>
-                  Close
-                </button>
-                <ProgressAssessment
-                  onSubmitSuccess={handleSuccess}
-                  onClose={closeModal}
-                />
-              </Modal>
-            )}
+
+            <Modal
+              isOpen={isOpen}
+              onClose={() => {
+                if (isOpen) setIsOpen(false);
+              }}>
+              <button className="my-butt" onClick={closeModal}>
+                Close
+              </button>
+              <ProgressAssessment
+                onSubmitSuccess={handleSuccess}
+                onClose={closeModal}
+              />
+            </Modal>
+
             <Link to="/calendar">
               <button className="my-butt">Calendar</button>
             </Link>

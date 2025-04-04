@@ -107,25 +107,22 @@ export function CalendarTrack() {
     setIsOpen(false);
   }
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  function openModal() {
-    if (selectedSlot) {
-      setEventToEdit(undefined);
-    }
-    setIsOpen(true);
-  }
-
   const onSelectSlot = useCallback(
     (slotInfo: SlotInfo) => {
       setSelectedSlot(undefined);
       setEventToEdit(undefined);
-
+      function openModal() {
+        if (selectedSlot) {
+          setEventToEdit(undefined);
+        }
+        setIsOpen(true);
+      }
       setTimeout(() => {
         setSelectedSlot(slotInfo);
         openModal();
       }, 10);
     },
-    [openModal]
+    [selectedSlot]
   );
 
   return (

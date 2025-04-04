@@ -25,6 +25,7 @@ const hashKey = process.env.TOKEN_SECRET;
 if (!hashKey) throw new Error('TOKEN_SECRET not found in .env');
 
 const googleKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
+if (!googleKey) throw new Error('Google Key not found in env');
 
 const db = new pg.Pool({
   connectionString: process.env.DATABASE_URL,
